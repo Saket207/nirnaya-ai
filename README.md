@@ -1,104 +1,352 @@
 # Nirnaya.ai — AI-Driven Workforce Intelligence Platform
 
+> **From workforce data to explainable, actionable HR decisions.**
+
 **Team:** Curious Coders
-**College:** Dayananda Sagar College of Engineering (DSCE)
+**College:** Dayananda Sagar College of Engineering (DSCE), Bengaluru
 **Theme:** AI in HR & Workforce Management
 
 ---
 
-## 📌 Problem Statement
+## 📌 Overview
 
-HR teams manage hiring, onboarding, performance, and attrition using disconnected tools that never talk to each other — an ATS for hiring, a survey tool for engagement, spreadsheets for performance. Nobody connects the dots automatically, so decisions stay reactive: HR finds out someone's a flight risk only after they've resigned. This affects HR managers (manual cross-checking), team leads (blindsided by exits), and employees (issues caught too late).
+**Nirnaya.ai** is an AI-driven workforce intelligence platform designed to help HR teams identify employee attrition risks, understand the factors behind those risks, and take policy-compliant actions.
 
-## 💡 Our Solution
+Traditional HR systems often operate through disconnected tools for onboarding, performance tracking, employee skills, engagement, and company policies. Because these systems are not connected, HR teams often discover workforce risks only after they become serious problems.
 
-One connected AI system where onboarding, performance, skills, and engagement data all feed into a single reasoning engine. It doesn't just show data — it explains **why** someone's at risk and recommends a specific, policy-compliant **action**. Existing tools display information; Nirnaya.ai reasons over it and tells HR what to actually do next.
+Nirnaya.ai brings these signals together into a unified intelligence layer that can:
 
-## ⭐ Key Features
+* Analyze employee workforce data
+* Predict attrition risk
+* Explain **why** an employee may be at risk
+* Answer HR policy-related questions using internal documents
+* Recommend appropriate and policy-compliant interventions
+* Provide employee-level and team-level workforce insights
 
-1. **AI Onboarding Agent** — Conversational intake that auto-fills employee profiles from a chat instead of forms.
-2. **Risk Reasoning Panel** *(core differentiator)* — Explainable attrition risk scoring: a score plus the actual plain-English reasons behind it.
-3. **Risk Mitigation Engine** — Turns a risk score into a specific recommended action, checked against company policy.
-4. **Policy Q&A** — Answers HR policy questions with citations back to the source document.
-5. **HR Dashboard** — Employee list → detail view, plus a team-level risk rollup for managers.
+The goal is not simply to display HR data, but to turn it into **explainable and actionable intelligence**.
 
-## 🔗 How the Modules Connect
+---
+
+# 🎯 Problem Statement
+
+HR teams manage multiple aspects of the employee lifecycle through disconnected systems:
+
+* Hiring and onboarding
+* Performance
+* Skills
+* Engagement
+* Promotions
+* Work-life balance
+* Company policies
+
+These systems rarely communicate with each other effectively.
+
+As a result:
+
+> **HR teams often react to employee problems instead of identifying risks early.**
+
+For example, an employee experiencing declining engagement, excessive overtime, and a long period without promotion may represent an elevated attrition risk. Traditional dashboards may display these individual metrics, but they do not necessarily connect them into an understandable risk signal.
+
+Nirnaya.ai addresses this gap by combining workforce signals with AI-powered reasoning and explainability.
+
+---
+
+# 💡 Our Solution
+
+Nirnaya.ai provides a connected AI workflow:
 
 ```text
-Onboarding Agent → feeds clean data into →
-
-Risk Reasoning Panel → finds & explains problems →
-
-Risk Mitigation Engine → decides the action →
-
-Policy Q&A → checks it's compliant →
-
-Dashboard → shows everything, individual + team view
+Employee & HR Data
+        │
+        ▼
+┌──────────────────────────┐
+│   Workforce Intelligence │
+│          Layer           │
+└────────────┬─────────────┘
+             │
+             ├── Risk Prediction
+             ├── SHAP Explainability
+             ├── Policy RAG
+             ├── GenAI Reasoning
+             └── Mitigation Logic
+             │
+             ▼
+┌──────────────────────────┐
+│ Explainable Workforce    │
+│       Insights           │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ Policy-Compliant Actions │
+└──────────────────────────┘
 ```
 
-## 🏗️ Architecture
+Instead of only answering:
+
+> **"Who is at risk?"**
+
+Nirnaya.ai aims to answer:
+
+> **"Who is at risk, why are they at risk, and what can HR do about it within company policy?"**
+
+---
+
+# ⭐ Key Features
+
+| Feature                        | Status         | Description                                                              |
+| ------------------------------ | -------------- | ------------------------------------------------------------------------ |
+| 🤖 **AI Onboarding Agent**     | 🚧 In Progress | Conversational employee onboarding with automatic profile extraction     |
+| 📊 **Risk Reasoning Panel**    | ✅ Completed    | Explainable attrition risk scoring using XGBoost + SHAP                  |
+| 🛡️ **Risk Mitigation Engine** | ⏳ Pending      | Generates policy-checked recommendations for identified risks            |
+| 📚 **Policy Q&A**              | ✅ Completed    | Answers HR policy questions using ChromaDB + Groq with source references |
+| 📈 **HR Dashboard**            | ⏳ Pending      | Employee-level details and team-level workforce risk visualization       |
+
+---
+
+# 🧠 Core Intelligence Pipeline
+
+Nirnaya.ai follows a multi-stage intelligence pipeline.
+
+### 1. Data Collection
+
+Employee information is collected from sources such as:
+
+* Onboarding conversations
+* Employee profiles
+* Performance indicators
+* Engagement scores
+* Skills
+* Overtime
+* Promotion history
+* Work-life balance
+
+### 2. Risk Prediction
+
+The workforce data is passed through an **XGBoost classification model** to estimate employee attrition risk.
+
+### 3. Explainability
+
+**SHAP (SHapley Additive exPlanations)** is used to identify the factors contributing to an individual prediction.
+
+Example:
 
 ```text
-Input (onboarding chat, performance/skill/engagement data)
+Risk Level: High
 
-↓
+Contributing Factors:
+• High overtime hours
+• Low engagement score
+• Long time since promotion
 
-Process (risk model + explainability + policy RAG + mitigation logic)
-
-↓
-
-Output (dashboard with scored, explained, actionable insights)
+Protective Factors:
+• High job level
+• Strong skill coverage
 ```
 
-## 🛠️ Tech Stack
+### 4. Policy Intelligence
 
-| Layer                       | Technology                      |
-| --------------------------- | ------------------------------- |
-| Frontend                    | React + Tailwind CSS            |
-| Backend                     | Python + FastAPI                |
-| Database                    | PostgreSQL                      |
-| Risk Model                  | XGBoost + SHAP (explainability) |
-| GenAI (chat/Q&A/mitigation) | LangChain + LLM API             |
-| Policy Document Search      | ChromaDB                        |
+Company policy documents are converted into searchable embeddings and stored in **ChromaDB**.
 
-## 📁 Folder Structure
+When an HR user asks a policy question, the system retrieves relevant policy information and uses the Groq-hosted LLM to generate a cited response.
+
+### 5. Mitigation
+
+The planned mitigation engine will combine:
+
+```text
+Employee Risk Factors
+        +
+Company Policies
+        +
+GenAI Reasoning
+        ↓
+Policy-Compliant Recommendation
+```
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                         ┌─────────────────────┐
+                         │     HR / Manager     │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   React Dashboard   │
+                         │    + Tailwind CSS   │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │    FastAPI Backend  │
+                         └──────────┬──────────┘
+                                    │
+             ┌──────────────────────┼──────────────────────┐
+             │                      │                      │
+             ▼                      ▼                      ▼
+    ┌────────────────┐    ┌────────────────┐    ┌────────────────┐
+    │  Risk Engine   │    │  GenAI Engine  │    │  Employee Data │
+    │ XGBoost + SHAP │    │  Groq + RAG    │    │  PostgreSQL    │
+    └───────┬────────┘    └───────┬────────┘    └────────────────┘
+            │                     │
+            │              ┌──────┴─────────┐
+            │              │                │
+            │              ▼                ▼
+            │       ┌──────────────┐  ┌──────────────┐
+            │       │   ChromaDB   │  │ HR Policies  │
+            │       │ Vector Store │  │   Documents  │
+            │       └──────────────┘  └──────────────┘
+            │
+            ▼
+    ┌─────────────────────┐
+    │ Explainable Risk    │
+    │    Intelligence     │
+    └──────────┬──────────┘
+               │
+               ▼
+    ┌─────────────────────┐
+    │ Recommended Actions │
+    │   + Policy Check     │
+    └─────────────────────┘
+```
+
+---
+
+# 🛠️ Technology Stack
+
+| Layer                 | Technology                  | Status        |
+| --------------------- | --------------------------- | ------------- |
+| **Frontend**          | React + Tailwind CSS        | ⏳ Not Started |
+| **Backend**           | Python + FastAPI            | ✅ Working     |
+| **Database**          | PostgreSQL + SQLAlchemy     | ✅ Working     |
+| **Database Fallback** | SQLite                      | ✅ Available   |
+| **Risk Model**        | XGBoost                     | ✅ Working     |
+| **Explainability**    | SHAP                        | ✅ Working     |
+| **GenAI**             | Groq API                    | ✅ Integrated  |
+| **LLM**               | `openai/gpt-oss-120b`       | ✅ In Use      |
+| **Policy RAG**        | ChromaDB                    | ✅ Working     |
+| **Policy Documents**  | TXT-based internal policies | ✅ Available   |
+
+### Risk Model
+
+```text
+Employee Features
+       ↓
+XGBoost Classifier
+       ↓
+Attrition Risk Score
+       ↓
+SHAP Explainability
+       ↓
+Risk Factors + Protective Factors
+```
+
+**Current reported model accuracy:** ~84%
+
+> Model accuracy is based on the current training/evaluation setup and should not be interpreted as production-level validation.
+
+---
+
+# 📁 Project Structure
 
 ```text
 nirnaya-ai/
-
-├── frontend/              → Frontend owns this entirely
+│
+├── frontend/
+│   └── ⏳ React frontend — not started
 │
 ├── backend/
-│   ├── main.py            → routers only (shared file — edit briefly, commit fast)
-│   ├── schemas.py         → shared data models (see schema below)
+│   │
+│   ├── __init__.py
+│   ├── main.py
+│   ├── schemas.py
+│   ├── seed.py
+│   │
 │   ├── database/
+│   │   ├── db.py
+│   │   └── models.py
+│   │
 │   ├── routes/
 │   │   ├── employee_routes.py
 │   │   ├── risk_routes.py
+│   │   ├── team_routes.py
 │   │   └── genai_routes.py
+│   │
 │   ├── models/
-│   │   └── risk_model.py  → ML person's final function goes here
+│   │   ├── __init__.py
+│   │   ├── risk_model.py
+│   │   └── risk_model.pkl
+│   │
 │   └── genai/
 │       ├── onboarding.py
 │       ├── policy_qa.py
 │       └── mitigation.py
 │
-├── ml/                     → ML person owns this entirely
+├── ml/
+│   │
 │   ├── train_model.py
 │   ├── notebook.ipynb
-│   └── policy_docs/
+│   ├── hr_data.csv
+│   │
+│   ├── policy_docs/
+│   │   ├── leave_policy.txt
+│   │   ├── wfh_policy.txt
+│   │   ├── expense_policy.txt
+│   │   └── code_of_conduct.txt
+│   │
+│   ├── chroma_db/
+│   ├── policy_qa.py
+│   ├── onboarding_agent.py
+│   ├── test_llm.py
+│   ├── list_models.py
+│   └── check_chunks.py
 │
 ├── docs/
 │   └── api-contract.md
 │
+├── tests/
+│   └── test_backend.py
+│
+├── .env
 ├── .env.example
 ├── .gitignore
 └── README.md
 ```
 
-**Rule:** everyone works only inside their own folder. `main.py` and `schemas.py` are the only shared files — edit briefly, commit immediately, mention it in the group chat.
+---
 
-## 🧩 Shared Employee Data Schema
+# 👥 Team Development Rules
+
+To avoid merge conflicts and accidental changes:
+
+> **Each team member works only inside their assigned folder.**
+
+### Shared Files
+
+Only the following files are considered shared:
+
+```text
+backend/main.py
+backend/schemas.py
+```
+
+If a shared file needs to be modified:
+
+1. Make the required change.
+2. Commit immediately.
+3. Push the changes.
+4. Inform the team in the group chat.
+
+This keeps the development workflow predictable during the hackathon.
+
+---
+
+# 🧩 Employee Data Schema
+
+The current shared employee object follows this structure:
 
 ```json
 {
@@ -110,60 +358,443 @@ nirnaya-ai/
   "engagement_score": 0.0,
   "time_since_promotion_months": 0,
   "overtime_hours": 0.0,
-  "skills": ["string"],
+  "JobLevel": 0,
+  "WorkLifeBalance": 0,
+  "skills": [
+    "string"
+  ],
   "riskScore": 0.0,
-  "reasons": ["string"],
+  "riskLevel": "Low | Medium | High",
+  "summary": "string",
+  "reasons": [
+    "string"
+  ],
+  "protectiveFactors": [
+    "string"
+  ],
   "recommendedAction": "string"
 }
 ```
 
-## 🔌 API Contract
+---
 
-See `docs/api-contract.md` for full details.
+# 🔌 API Contract
 
-| Endpoint                  | Returns                                   |
-| ------------------------- | ----------------------------------------- |
-| `GET /employees`          | list of employee objects                  |
-| `GET /employees/{id}`     | single employee (full schema)             |
-| `GET /risk/{id}`          | `{riskScore, reasons: []}`                |
-| `GET /team-risk/{deptId}` | `{department, atRiskCount, commonFactor}` |
-| `POST /onboarding/chat`   | `{parsedEmployeeData}`                    |
-| `POST /policy/ask`        | `{answer, source}`                        |
-| `GET /mitigation/{id}`    | `{recommendedAction, policyReference}`    |
+| Method | Endpoint                           | Status                 | Description                                                    |
+| ------ | ---------------------------------- | ---------------------- | -------------------------------------------------------------- |
+| `GET`  | `/employees`                       | ✅ Working              | Returns all employees                                          |
+| `GET`  | `/employees/{id}`                  | ✅ Working              | Returns a single employee                                      |
+| `POST` | `/employees`                       | ✅ Working              | Creates an employee                                            |
+| `PUT`  | `/employees/{id}`                  | ✅ Working              | Updates an employee                                            |
+| `GET`  | `/risk/{id}`                       | ✅ Working              | Returns employee risk analysis                                 |
+| `GET`  | `/teams/{department}/risk-summary` | ✅ Working              | Returns team-level risk summary                                |
+| `POST` | `/onboarding/chat`                 | 🚧 In Progress         | Converts onboarding conversation into structured employee data |
+| `POST` | `/policy/ask`                      | 🚧 Integration Pending | Answers HR policy questions using RAG                          |
+| `GET`  | `/mitigation/{id}`                 | ⏳ Planned              | Returns recommended action and policy reference                |
 
-No one changes a response shape without posting it in the group chat first.
+### Risk API Response
 
-## 👥 Team & Roles
+```json
+{
+  "riskScore": 0.78,
+  "riskLevel": "High",
+  "summary": "Employee shows multiple indicators associated with elevated attrition risk.",
+  "reasons": [
+    "High overtime hours",
+    "Low engagement score",
+    "Long time since promotion"
+  ],
+  "protectiveFactors": [
+    "Strong skill coverage",
+    "High job level"
+  ]
+}
+```
 
-| Person           | Owns                                                        |
-| ---------------- | ----------------------------------------------------------- |
-| Frontend         | `frontend/`                                                 |
-| Backend          | `backend/` (main.py, routes, database)                      |
-| ML/AI            | `ml/` + `backend/models/risk_model.py`                      |
-| GenAI/Generalist | `backend/genai/` (onboarding, policy Q&A, mitigation logic) |
+---
 
-## 🌿 Git Workflow
+# 🤖 GenAI Architecture
 
-* Never push directly to `main` — always a branch, always a PR.
-* Branch naming: `feature/frontend-dashboard`, `feature/backend-routes`, `feature/ml-risk-model`, `feature/genai-onboarding`.
-* Commit small, commit often (every 1–2 hrs). Pull from `main` before starting work each day.
-* Build against fake/mock data matching the schema above — don't wait on anyone else.
-* 10-min daily sync: what you finished, what you're touching today, any shared file you'll edit.
+Nirnaya.ai uses **Groq** for its generative AI workflows.
 
-## ⚙️ Config Conventions
+### Current Model
 
-* Frontend: `localhost:3000` · Backend: `localhost:8000`
-* API keys go in `.env` (never committed) — see `.env.example` for required keys
-* Naming: `snake_case` for Python, `camelCase` for JS/React
+```text
+Groq API
+   ↓
+openai/gpt-oss-120b
+```
 
-## 🗓️ Build Timeline (1 week)
+The GenAI layer consists of three major capabilities.
 
-| Day | Focus                                                      |
-| --- | ---------------------------------------------------------- |
-| 1   | Setup, dataset, schema, policy docs                        |
-| 2   | Core risk model (backend), employee list/detail (frontend) |
-| 3   | Onboarding agent + Policy Q&A                              |
-| 4   | Mitigation engine + team rollup                            |
-| 5   | Full frontend-backend integration                          |
-| 6   | Feedback loop, polish, demo data seeding                   |
-| 7   | Deck, demo recording, rehearsal                            |
+## 1. Onboarding Agent
+
+```text
+Employee ↔ Conversational Agent
+              ↓
+       Structured Information
+              ↓
+        Employee JSON
+              ↓
+         HR Database
+```
+
+The agent extracts structured employee information from natural-language conversations.
+
+## 2. Policy Q&A
+
+```text
+HR Question
+     ↓
+Document Retrieval
+     ↓
+ChromaDB
+     ↓
+Relevant Policy Chunks
+     ↓
+Groq LLM
+     ↓
+Answer + Source
+```
+
+## 3. Mitigation Engine
+
+```text
+Employee Risk
+     +
+Risk Factors
+     +
+Company Policies
+     ↓
+GenAI Reasoning
+     ↓
+Policy Validation
+     ↓
+Recommended HR Action
+```
+
+---
+
+# 📚 Policy Intelligence
+
+The policy knowledge base currently contains:
+
+* Leave Policy
+* Work From Home Policy
+* Expense Policy
+* Code of Conduct
+
+Policy documents are chunked and converted into vector representations before being stored in ChromaDB.
+
+The system retrieves relevant policy sections before generating an answer.
+
+### Example
+
+```text
+Question:
+"Can an employee request work from home temporarily?"
+        ↓
+ChromaDB Retrieval
+        ↓
+Relevant WFH Policy Sections
+        ↓
+Groq LLM
+        ↓
+Answer + Policy Source
+```
+
+The local `chroma_db/` directory is intentionally excluded from Git and can be regenerated locally.
+
+---
+
+# 📊 Workforce Risk Intelligence
+
+The risk engine produces three primary outputs.
+
+### Risk Score
+
+A numerical estimate representing the model's predicted attrition risk.
+
+### Risk Level
+
+The score is mapped into a human-readable category:
+
+```text
+Low
+Medium
+High
+```
+
+### Explanation
+
+SHAP identifies the features that contributed to the model's prediction.
+
+This allows HR users to see the factors behind a prediction instead of only viewing a numerical risk score.
+
+---
+
+# 🔐 Security & Configuration
+
+Sensitive configuration is stored locally using environment variables.
+
+### `.env`
+
+```text
+GROQ_API_KEY=your_api_key
+DATABASE_URL=your_database_url
+```
+
+### Important
+
+> **Never commit `.env` or API keys to GitHub.**
+
+The repository contains `.env.example` as a safe template for required configuration.
+
+---
+
+# ⚙️ Local Development
+
+## 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd nirnaya-ai
+```
+
+## 2. Create a Virtual Environment
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## 4. Configure Environment Variables
+
+Create a `.env` file based on `.env.example`.
+
+```text
+GROQ_API_KEY=your_groq_api_key
+DATABASE_URL=your_database_url
+```
+
+## 5. Start the Backend
+
+```bash
+uvicorn backend.main:app --reload --port 8000
+```
+
+Backend:
+
+```text
+http://localhost:8000
+```
+
+## 6. Seed Demo Data
+
+```bash
+python -m backend.seed
+```
+
+The seed script currently creates **16 demo employees**.
+
+## 7. Regenerate Policy Vector Store
+
+```bash
+python ml/policy_qa.py
+```
+
+This regenerates the local ChromaDB vector store from the policy documents.
+
+---
+
+# 🌐 Development Configuration
+
+| Component | Local Address           |
+| --------- | ----------------------- |
+| Frontend  | `http://localhost:3000` |
+| Backend   | `http://localhost:8000` |
+
+FastAPI automatically provides interactive API documentation at:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+# 🌿 Git Workflow
+
+Each contributor should work on their own feature branch.
+
+### Example Branches
+
+```text
+feature/frontend-dashboard
+feature/backend-routes
+feature/ml-risk-model
+feature/genai-onboarding
+```
+
+### Recommended Workflow
+
+```bash
+git pull
+
+git checkout -b feature/your-feature
+
+# Make changes
+
+git add .
+
+git commit -m "feat: add employee risk analysis"
+
+git push origin feature/your-feature
+```
+
+### Development Guidelines
+
+* Pull before starting work each day.
+* Keep commits small and focused.
+* Avoid modifying another contributor's workspace.
+* Do not commit secrets.
+* Do not commit generated ChromaDB files.
+* Coordinate changes to shared files through the team.
+
+---
+
+# 🧪 Testing
+
+Backend tests are located in:
+
+```text
+tests/test_backend.py
+```
+
+The test suite is currently present and will be expanded as additional API functionality is implemented.
+
+---
+
+# 🗓️ Development Roadmap
+
+| Day       | Planned Work                                     | Current Status                                    |
+| --------- | ------------------------------------------------ | ------------------------------------------------- |
+| **Day 1** | Project setup, dataset, schema, policy documents | ✅ Completed                                       |
+| **Day 2** | Risk model + Employee CRUD                       | ✅ Completed                                       |
+| **Day 3** | Onboarding Agent + Policy Q&A                    | 🚧 Policy Q&A completed; Onboarding in progress   |
+| **Day 4** | Mitigation Engine + Team Intelligence            | ⏳ Mitigation pending; team rollup completed early |
+| **Day 5** | Frontend + Backend Integration                   | ⏳ Pending                                         |
+| **Day 6** | Feedback loop, demo data, testing & polish       | ⏳ Pending                                         |
+| **Day 7** | Final deck, demo & rehearsal                     | ⏳ Pending                                         |
+
+---
+
+# 🚀 Current Progress
+
+### Completed
+
+* ✅ FastAPI backend
+* ✅ PostgreSQL integration
+* ✅ SQLite fallback
+* ✅ Employee CRUD APIs
+* ✅ Employee database model
+* ✅ XGBoost risk model
+* ✅ SHAP explainability
+* ✅ Employee risk API
+* ✅ Team-level risk summary
+* ✅ Policy document ingestion
+* ✅ ChromaDB vector search
+* ✅ Groq API integration
+* ✅ Policy Q&A pipeline
+* ✅ Demo employee seeding
+
+### In Progress
+
+* 🚧 AI onboarding agent
+* 🚧 GenAI route integration
+* 🚧 Frontend development
+
+### Planned
+
+* ⏳ Risk mitigation engine
+* ⏳ Policy-checked recommendations
+* ⏳ HR dashboard
+* ⏳ Full frontend-backend integration
+* ⏳ Testing and refinement
+* ⏳ Final demo workflow
+
+---
+
+# 🔮 Future Scope
+
+Nirnaya.ai can be extended with:
+
+* Continuous employee engagement monitoring
+* Feedback-loop based model improvement
+* Workforce forecasting
+* Role-specific skill-gap analysis
+* Personalized learning recommendations
+* HR workflow automation
+* Additional enterprise policy sources
+* Audit logs for AI-generated recommendations
+* Role-based access control
+* Model monitoring and drift detection
+* Integration with existing HRMS platforms
+
+---
+
+# 🎯 Vision
+
+Nirnaya.ai aims to build an intelligent workforce layer that connects:
+
+```text
+People
+  +
+Workforce Data
+  +
+AI
+  +
+Company Policies
+        ↓
+Explainable Workforce Intelligence
+        ↓
+Actionable HR Decisions
+```
+
+The platform is built around one principle:
+
+> **Don't just show HR data. Help HR understand it.**
+
+---
+
+# 👨‍💻 Team
+
+## Curious Coders
+
+**Dayananda Sagar College of Engineering (DSCE), Bengaluru**
+
+### Project Theme
+
+**AI in HR & Workforce Management**
+
+---
+
+# 📄 License
+
+This project is developed as a hackathon/academic project.
+
+See the repository for the applicable license and usage terms.
