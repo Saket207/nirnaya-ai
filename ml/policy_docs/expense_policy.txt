@@ -1,0 +1,63 @@
+================================================================================
+              ACME CORP BUSINESS EXPENSES & LEARNING STIPENDS
+================================================================================
+Document ID: POL-FIN-EXP-2026-V1
+Classification: Financial & Operating Governance
+Effective Date: January 1, 2026
+Applicability: All Full-Time Corporate Staff
+
+--------------------------------------------------------------------------------
+SECTION 1: TRAVEL, LODGING, AND DAILY PER DIEM
+--------------------------------------------------------------------------------
+1.1 Domestic Flight & Rail Travel
+- Air travel is permitted for verified business trips exceeding 300 kilometers.
+- Flight Class: Economy / Coach class is mandatory for all domestic flights and short-haul international flights under 6 hours.
+- Bookings must be initiated through the corporate travel portal at least 14 days prior to departure to secure optimal corporate rates.
+
+1.2 Hotel Accommodations & Lodging Caps
+- Tier 1 Cities (Metro hubs: New York, London, Tokyo, Bengaluru, Singapore): Up to $180 per night, taxes included.
+- Tier 2/3 Cities (Regional centers): Up to $110 per night, taxes included.
+- Mini-bar, pay-per-view movies, and personal laundry services are strictly non-reimbursable.
+
+1.3 Meals and Incidentals (Per Diem)
+- When traveling on approved business, employees may claim meals up to $60 per day without prior authorization:
+  * Breakfast: Up to $15
+  * Lunch: Up to $20
+  * Dinner: Up to $25
+- Alcohol consumption cannot be reimbursed under individual per diem allocations.
+
+--------------------------------------------------------------------------------
+SECTION 2: PROFESSIONAL LEARNING & CERTIFICATION BUDGET
+--------------------------------------------------------------------------------
+2.1 Annual Professional Development Allowance
+- Every full-time employee with more than 3 months of service is entitled to an annual Learning & Development (L&D) budget of up to $1,200 per calendar year.
+- Approved Expenditures:
+  * Technical cloud/security certifications (AWS, GCP, CISA, CKAD)
+  * Industry conference passes and workshops
+  * Technical publications, books, and paid online course platforms (Coursera, Udemy, O'Reilly)
+
+2.2 Approval & Clawback Provision
+- Pre-approval from the direct engineering or department manager is mandatory prior to purchase.
+- Retention Commitment: If an employee leaves the organization voluntarily within 6 months of receiving L&D funding exceeding $800, 50% of the reimbursed sum is subject to clawback from the final settlement.
+
+--------------------------------------------------------------------------------
+SECTION 3: TEAM BONDING, RETENTION, AND MORALE EVENTS
+--------------------------------------------------------------------------------
+3.1 Team Collaboration Budget
+- Engineering and product managers are allocated a quarterly morale budget of $75 per direct report to host team-building lunches, hackathon celebratory dinners, or off-site collaborative outings.
+- Morale budgets cannot be converted into individual gift cards or rolled over across fiscal years.
+
+3.2 Milestone Recognition Awards
+- Spot awards up to $250 can be granted by Department Directors for exceptional project contributions, critical bug patches, or zero-downtime migrations.
+
+--------------------------------------------------------------------------------
+SECTION 4: SUBMISSION, APPROVALS, AND AUDIT CYCLES
+--------------------------------------------------------------------------------
+4.1 Expense Submission Deadlines
+- Expense claims must be submitted via the finance portal within 30 calendar days of the transaction date. Claims submitted after 45 days will be permanently denied.
+- Original itemized tax invoices/receipts are mandatory for all transactions exceeding $15.
+
+4.2 Approval Thresholds
+- Claims up to $500: Direct Manager approval.
+- Claims between $501 and $2,500: Department Head approval.
+- Claims exceeding $2,500: Department Head + Finance Controller dual sign-off.

@@ -1,0 +1,62 @@
+================================================================================
+        ACME CORP CODE OF CONDUCT, PERFORMANCE & RETENTION GOVERNANCE
+================================================================================
+Document ID: POL-HR-COC-2026-V4
+Classification: Core Operational Standard
+Effective Date: January 1, 2026
+Applicability: Global Enterprise-wide
+
+--------------------------------------------------------------------------------
+SECTION 1: WORKPLACE CULTURE & ETHICAL CONDUCT
+--------------------------------------------------------------------------------
+1.1 Zero-Tolerance Anti-Harassment & Non-Discrimination
+- Acme Corp maintains zero tolerance for harassment, discrimination, or bullying based on race, gender, religion, caste, national origin, sexual orientation, disability, or age.
+- Any retaliatory action taken against an employee who reports a code violation or participates in an investigation will result in immediate termination for cause.
+
+1.2 Conflict of Interest & Dual Employment (Moonlighting)
+- Full-time employees may not hold outside commercial employment, operate competitive business entities, or render consulting services for external vendors without explicit written clearance from the Legal and People Operations teams.
+- Open-source contributions, non-profit volunteer work, and personal creative writing are permitted provided they occur outside core working hours and use personal hardware.
+
+--------------------------------------------------------------------------------
+SECTION 2: CAREER PROGRESSION, STAGNATION & RETENTION INTERVENTIONS
+--------------------------------------------------------------------------------
+2.1 Promotion Criteria and Stagnation Guardrails
+- Formal promotion cycles occur twice annually (June Mid-Year and December Year-End).
+- Stagnation Warning Trigger: Any high-performing individual contributor who has completed 24 consecutive months in the same role grade without promotion or title progression must be reviewed for leveling calibration by the Department Head.
+
+2.2 Retention Bonus Protocols (Flight Risk Mitigation)
+- Target Audience: High-performing employees identified as High Flight Risk whose attrition would materially impact business continuity.
+- Monetary Ceilings & Rules:
+  * Maximum Retention Bonus: Capped at 15% of the employee's current annual base salary.
+  * Standard Offer (5% to 10%): Requires approval from the direct Manager and Department Head.
+  * Exceptional Offer (10.1% to 15%): Requires dual executive approval from the Chief Human Resources Officer (CHRO) and Chief Financial Officer (CFO).
+- Vesting & Repayment Obligations:
+  * The retention bonus is disbursed as a lump sum paired with a binding 12-month service commitment agreement.
+  * If the employee resigns voluntarily or is terminated for misconduct within 12 months of payout, 100% of the retention bonus must be repaid to the company within 30 days of the last working day.
+
+2.3 Role Transitions and Internal Mobility
+- Eligibility: Employees who have served at least 9 months in their current role with a performance rating of 3.0/5.0 or higher are eligible to apply for internal job transfers across different teams or technical tracks.
+- Lateral Role Resets: Managers cannot block an internal transfer once an offer is extended by the receiving team, though a transition buffer of up to 30 calendar days may be negotiated.
+- Exploratory 15% "Project-Swap": To alleviate role fatigue and turnover risk, a manager may authorize an employee to commit up to 15% of their working capacity (6 hours/week) to a secondary cross-functional project for up to 90 days.
+
+--------------------------------------------------------------------------------
+SECTION 3: PERFORMANCE IMPROVEMENT PLANS (PIP)
+--------------------------------------------------------------------------------
+3.1 PIP Triggers and Timelines
+- When an employee exhibits persistent performance deficits or scores below 2.5/5.0 in review cycles, a structured Performance Improvement Plan (PIP) lasting 30 or 60 days may be instituted.
+- The PIP document must outline:
+  * Specific, quantifiable weekly milestones.
+  * Dedicated mentorship (minimum of one 45-minute structured 1:1 check-in per week).
+  * Objective pass/fail criteria agreed upon by the Manager and HRBP.
+
+3.2 Consequences & Protections During PIP
+- While enrolled in an active PIP, an employee is ineligible for merit salary raises, internal transfers, retention bonuses, or company-sponsored travel.
+- Successful completion closes the inquiry; failure to meet measurable targets results in structured mutual separation with standard severance.
+
+--------------------------------------------------------------------------------
+SECTION 4: GRIEVANCE REDRESSAL & WHISTLEBLOWER ESCALATION
+--------------------------------------------------------------------------------
+4.1 Escalation Matrix
+- Level 1: Informal resolution with Direct Manager within 5 business days.
+- Level 2: Formal escalation to the assigned HRBP with mandatory written response within 7 business days.
+- Level 3: Anonymous Whistleblower Hotline for severe ethical breaches, accounting fraud, or executive misconduct, investigated directly by the Board Audit Committee.

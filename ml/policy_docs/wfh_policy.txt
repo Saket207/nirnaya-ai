@@ -1,0 +1,43 @@
+================================================================================
+               NIRNAYA ENTERPRISE - WORK FROM HOME & HYBRID POLICY
+================================================================================
+Policy Code: POL-OPS-002
+Effective Date: January 1, 2026
+Applies To: All Engineering, Product, Business, and Corporate Staff
+
+--------------------------------------------------------------------------------
+SECTION 1: HYBRID WORK MODEL & OFFICE PRESENCE
+--------------------------------------------------------------------------------
+1.1 Hybrid Baseline Schedule
+- Employees are required to work 3 days per week from their designated office and 2 days remotely.
+- Tuesday and Thursday are company-wide mandatory in-office anchor days.
+
+1.2 Core Availability Hours
+- All employees must maintain availability during core hours: 10:00 AM to 4:00 PM local time.
+
+1.3 Fully Remote Work Eligibility
+- Full-time remote work requires at least 18 months of tenure with consistently strong performance evaluations, or a verified medical/relocation exception approved by People Operations.
+
+--------------------------------------------------------------------------------
+SECTION 2: HOME OFFICE SETUP & INFRASTRUCTURE STIPEND
+--------------------------------------------------------------------------------
+2.1 Equipment Allowance
+- Employees past their 90-day probation are eligible for a one-time home office reimbursement of up to $600.
+
+2.2 Monthly Connectivity Allowance
+- Active remote and hybrid employees receive a monthly stipend of $50 for broadband and connectivity costs.
+
+--------------------------------------------------------------------------------
+SECTION 3: DATA PRIVACY AND SECURITY
+--------------------------------------------------------------------------------
+3.1 Approved Hardware
+- All work must be done on company-provisioned, MDM-managed laptops.
+
+3.2 Secure Network
+- Connecting to unsecured public Wi-Fi without the company VPN is a compliance violation.
+
+--------------------------------------------------------------------------------
+SECTION 4: WORKLOAD BALANCE
+--------------------------------------------------------------------------------
+4.1 Right to Disconnect
+- Employees are encouraged to disconnect from work communications outside their 8-hour workday.
