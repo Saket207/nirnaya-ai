@@ -368,6 +368,12 @@ export const api = {
     return res.data;
   },
 
+  // Enterprise Live Telemetry & Compensation (Timesheets, Payroll, Pulse & Live Integrations)
+  getEmployeeTelemetry: async (employeeId) => {
+    const res = await client.get(`/employees/${employeeId}/telemetry`);
+    return res.data;
+  },
+
   createEmployee: async (employeeData) => {
     const res = await client.post('/employees', employeeData);
     return res.data;

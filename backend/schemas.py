@@ -87,3 +87,60 @@ class TeamRiskSummaryResponse(BaseModel):
     summary: str
 
     model_config = ConfigDict(from_attributes=True)
+
+
+# ── Enterprise Telemetry & Compensation Schema ───────────────────────────
+
+class SSOTimesheet(BaseModel):
+    provider: str
+    last_sync: str
+    today_login: str
+    today_logout: str
+    avg_checkin: str
+    avg_checkout: str
+    days_worked_this_month: int
+    total_hours_this_month: float
+    standard_hours_benchmark: int = 160
+    overtime_hours_this_month: float
+    work_schedule_status: str = "Nominal (40h/wk)"
+    vpn_connected: bool = True
+
+class SalaryRevision(BaseModel):
+    date: str
+    title: str
+    salary: int
+    hike_percentage: float
+
+class CompensationTelemetry(BaseModel):
+    payroll_provider: str
+    current_salary: int
+    previous_salary: int
+    salary_delta_percentage: float
+    last_revision_date: str
+    months_without_salary_revision: int
+    market_median_benchmark: int
+    compa_ratio: float
+    is_below_market: bool
+    salary_history: List[SalaryRevision]
+
+class PulseSurveyTelemetry(BaseModel):
+    pulse_provider: str
+    current_score: float
+    previous_score: float
+    sentiment_status: str
+
+class SystemIntegration(BaseModel):
+    name: str
+    category: str
+    status: str
+    latency_ms: int
+
+class EmployeeTelemetryResponse(BaseModel):
+    employee_id: str
+    name: str
+    role: str
+    department: str
+    timesheet: SSOTimesheet
+    compensation: CompensationTelemetry
+    pulse: PulseSurveyTelemetry
+    integrations: List[SystemIntegration]
