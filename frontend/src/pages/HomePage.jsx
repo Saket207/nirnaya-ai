@@ -59,13 +59,6 @@ const HomePage = () => {
   const [handsProgress, setHandsProgress] = useState(0);
   const handsSectionRef = useRef(null);
 
-  // 4-Step Process Carousel Track
-  const processTrackRef = useRef(null);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [trackScrollPercent, setTrackScrollPercent] = useState(0);
-
   const handleQuickLaunch = (role, defaultUser) => {
     login(role, defaultUser);
     if (role === ROLES.EMPLOYEE) {
@@ -118,39 +111,6 @@ const HomePage = () => {
       metric: '<95ms Policy Audit'
     }
   ];
-
-  // Track scroll position updates
-  const updateTrackScrollState = () => {
-    if (!processTrackRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = processTrackRef.current;
-    const maxScroll = scrollWidth - clientWidth;
-    
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < maxScroll - 10);
-    
-    if (maxScroll > 0) {
-      const pct = Math.min(100, Math.max(0, (scrollLeft / maxScroll) * 100));
-      setTrackScrollPercent(pct);
-      const stepIdx = Math.min(4, Math.round((scrollLeft / maxScroll) * 4));
-      setActiveStepIndex(stepIdx);
-    }
-  };
-
-  const scrollTrackToStep = (index) => {
-    if (!processTrackRef.current) return;
-    const cards = processTrackRef.current.children;
-    if (cards[index]) {
-      cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      setActiveStepIndex(index);
-    }
-  };
-
-  const scrollTrackDirection = (direction) => {
-    if (!processTrackRef.current) return;
-    const cardWidth = 460;
-    const offset = direction === 'left' ? -cardWidth : cardWidth;
-    processTrackRef.current.scrollBy({ left: offset, behavior: 'smooth' });
-  };
 
   // Scroll listener for Top Progress Bar and Hands Parallax
   useEffect(() => {
@@ -502,129 +462,76 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ── 5. EXACT NOOVOTIC 4-STEP PROCESS (Clean Natural Section with Butter-Smooth Carousel) ── */}
-      {/* Zero empty voids, 100% visible, fully responsive, buttery-smooth horizontal navigation */}
+      {/* ── 5. OUR 4-STEP PROCESS (Full 4-Column Grid — 100% Contained, Zero Cut-Off) ── */}
       <section id="process" className="py-20 lg:py-24 bg-[#221D1A] text-white border-y border-[#312C29]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-8">
-          {/* Header Row: Label, Title, Step Pills, and Navigation Controls */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
+          {/* Header Row: Label, Title, and (06) indicator */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-2xl">
               <div className="flex items-center gap-2.5">
                 <span className="w-6 h-[2px] bg-[#D9684C]" />
                 <span className="text-[11px] font-bold uppercase tracking-widest text-[#D9684C]">
                   Our 4-Step Process
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
                 A process that begins with common sense.
               </h2>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed pt-1">
+                How Nirnaya converts continuous enterprise signals into high-confidence, policy-verified human capital decisions.
+              </p>
             </div>
 
-            {/* Right Controls: Step Pills + Arrow Buttons + (06) badge */}
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-1.5 bg-white/5 p-1 rounded-full border border-white/10">
-                {processSteps.map((s, idx) => (
-                  <button
-                    key={s.step}
-                    onClick={() => scrollTrackToStep(idx)}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                      activeStepIndex === idx
-                        ? 'bg-[#D9684C] text-white shadow-xs'
-                        : 'text-white/60 hover:text-white'
-                    }`}
-                  >
-                    {s.step}
-                  </button>
-                ))}
-                <button
-                  onClick={() => scrollTrackToStep(4)}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                    activeStepIndex === 4
-                      ? 'bg-[#D9684C] text-white shadow-xs'
-                      : 'text-white/60 hover:text-white'
-                  }`}
-                >
-                  Action
-                </button>
-              </div>
-
-              {/* Prev / Next Arrows */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => scrollTrackDirection('left')}
-                  disabled={!canScrollLeft}
-                  className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95"
-                  aria-label="Previous step"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => scrollTrackDirection('right')}
-                  disabled={!canScrollRight}
-                  className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95"
-                  aria-label="Next step"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="text-2xl sm:text-3xl font-heading font-light text-[#D9684C] tracking-tight pl-2">
+            <div className="flex items-center gap-4 self-start md:self-auto">
+              <div className="text-3xl sm:text-4xl font-heading font-light text-[#D9684C] tracking-tight">
                 (06)
               </div>
             </div>
           </div>
 
-          {/* Cards Track: Smooth Horizontal Scrolling Carousel with exact Noovotic dimensions */}
-          <div
-            ref={processTrackRef}
-            onScroll={updateTrackScrollState}
-            className="flex gap-5 overflow-x-auto pb-6 scroll-smooth snap-x snap-mandatory focus:outline-none"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none'
-            }}
-          >
+          {/* All 4 Process Cards in a Clean 4-Column Responsive Grid — Zero Cut-Off */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {processSteps.map((step, idx) => (
               <div
                 key={step.step}
-                className="w-[340px] sm:w-[440px] h-[358px] flex-shrink-0 snap-start bg-white rounded-3xl border border-[#DED1C9] shadow-xl text-[#312C29] grid grid-cols-[64px_1fr] overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                className="bg-white rounded-3xl border border-[#DED1C9] shadow-xl text-[#312C29] p-6 flex flex-col justify-between hover:-translate-y-1.5 transition-all duration-300 group"
               >
-                {/* Left Column: Vertical Step label and Terracotta Glyph */}
-                <div className="border-r border-[#EFE7E1] flex flex-col justify-between items-center py-6 flex-shrink-0 bg-[#FAF6F2]">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#7A736E] [writing-mode:vertical-lr] rotate-180">
-                    {step.step}
-                  </span>
+                {/* Top Row: Step Tag + Glyph Icon */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#EFE7E1]">
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#7A736E]">
+                      {step.step} • {step.number}
+                    </span>
 
-                  {/* Terracotta glyph icons matching Noovotic */}
-                  <div className="text-[#D9684C]">
-                    {step.iconType === 'quad' && (
-                      <div className="grid grid-cols-2 gap-1 w-4 h-4">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
-                      </div>
-                    )}
-                    {step.iconType === 'star' && (
-                      <div className="text-lg font-bold leading-none select-none">
-                        ✱
-                      </div>
-                    )}
-                    {step.iconType === 'hex' && (
-                      <div className="text-lg font-bold leading-none select-none">
-                        ✧
-                      </div>
-                    )}
-                    {step.iconType === 'compass' && (
-                      <div className="w-4 h-4 rounded-full border-2 border-[#D9684C] flex items-center justify-center">
-                        <span className="w-1 h-1 bg-[#D9684C] rounded-full" />
-                      </div>
-                    )}
+                    {/* Terracotta glyph icon */}
+                    <div className="text-[#D9684C]">
+                      {step.iconType === 'quad' && (
+                        <div className="grid grid-cols-2 gap-1 w-4 h-4">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />
+                        </div>
+                      )}
+                      {step.iconType === 'star' && (
+                        <div className="text-lg font-bold leading-none select-none">
+                          ✱
+                        </div>
+                      )}
+                      {step.iconType === 'hex' && (
+                        <div className="text-lg font-bold leading-none select-none">
+                          ✧
+                        </div>
+                      )}
+                      {step.iconType === 'compass' && (
+                        <div className="w-4 h-4 rounded-full border-2 border-[#D9684C] flex items-center justify-center">
+                          <span className="w-1 h-1 bg-[#D9684C] rounded-full" />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                {/* Main Card Body */}
-                <div className="p-6 flex flex-col justify-between">
+                  {/* Title & Description */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
                       <h3 className="text-xl font-heading font-bold text-[#312C29]">
@@ -634,69 +541,58 @@ const HomePage = () => {
                         {step.metric}
                       </span>
                     </div>
-                    <p className="text-xs text-[#5D5753] leading-relaxed line-clamp-3">
+                    <p className="text-xs text-[#5D5753] leading-relaxed">
                       {step.description}
                     </p>
                   </div>
+                </div>
 
-                  {/* High-Resolution Monochrome Media (Noovotic 145px height) */}
-                  <div className="h-[145px] rounded-2xl overflow-hidden border border-[#DED1C9] bg-[#FAF6F2]">
+                {/* High-Resolution Monochrome Media & Footer */}
+                <div className="pt-4 space-y-3">
+                  <div className="h-[140px] rounded-2xl overflow-hidden border border-[#DED1C9] bg-[#FAF6F2]">
                     <img
                       src={step.image}
                       alt={step.title}
-                      className="w-full h-full object-cover filter contrast-[1.05] grayscale hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover filter contrast-[1.05] grayscale group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-[#7A736E] pt-2 border-t border-[#EFE7E1]">
                     <span className="font-semibold text-[#312C29]">{step.badge}</span>
-                    <span className="text-[#D9684C] font-bold">0{idx + 1} / 04</span>
+                    <span className="text-[#D9684C] font-bold">Step 0{idx + 1}</span>
                   </div>
                 </div>
               </div>
             ))}
-
-            {/* 5th Card: Terracotta CTA Card matching Noovotic */}
-            <div className="w-[360px] sm:w-[480px] h-[358px] flex-shrink-0 snap-start bg-[#D9684C] rounded-3xl p-7 text-white flex flex-col justify-between shadow-2xl">
-              <div className="space-y-3">
-                <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-white/80 bg-white/20 px-3 py-1 rounded-full">
-                  Production Ready
-                </span>
-                <h3 className="text-2xl font-heading font-extrabold text-white leading-tight">
-                  Ready to deploy explainable workforce intelligence?
-                </h3>
-                <p className="text-xs text-white/90 leading-relaxed">
-                  Continuous telemetry, calibrated XGBoost attrition predictions, and policy-governed retention playbooks.
-                </p>
-              </div>
-              <div className="pt-4 flex items-center gap-3">
-                <button
-                  onClick={() => handleQuickLaunch(ROLES.HR_STAFF, 'aditi_hr')}
-                  className="px-6 py-3 rounded-full bg-[#312C29] hover:bg-[#1C1816] text-white text-xs font-bold shadow-md transition-all active:scale-95"
-                >
-                  Launch Platform
-                </button>
-                <button
-                  onClick={() => navigate('/login')}
-                  className="px-5 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs font-semibold transition-colors"
-                >
-                  Select Role
-                </button>
-              </div>
-            </div>
           </div>
 
-          {/* Clean bottom status bar with progress line */}
-          <div className="flex items-center justify-between text-xs text-white/50 pt-2 border-t border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#D9684C] animate-pulse" />
-              <span className="text-[11px]">Swipe or use controls to explore the 4-step workflow</span>
+          {/* Full-Width Terracotta CTA Action Card — Cleanly Included with Zero Cut-Off */}
+          <div className="bg-[#D9684C] rounded-3xl p-8 sm:p-10 text-white shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-white/80 bg-white/20 px-3 py-1 rounded-full">
+                Production Ready
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-heading font-extrabold text-white tracking-tight">
+                Ready to deploy explainable workforce intelligence?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                Empower HR leaders and team managers with continuous telemetry, calibrated XGBoost attrition predictions, and policy-governed retention playbooks.
+              </p>
             </div>
-            <div className="w-40 h-1 bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#D9684C] transition-[width] duration-150"
-                style={{ width: `${trackScrollPercent}%` }}
-              />
+
+            <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
+              <button
+                onClick={() => handleQuickLaunch(ROLES.HR_STAFF, 'aditi_hr')}
+                className="px-7 py-3.5 rounded-full bg-[#312C29] hover:bg-[#1C1816] text-white text-xs font-bold shadow-md transition-all active:scale-95 text-center"
+              >
+                Launch Platform
+              </button>
+              <button
+                onClick={() => navigate('/login')}
+                className="px-6 py-3.5 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs font-semibold transition-colors text-center"
+              >
+                Select Role
+              </button>
             </div>
           </div>
         </div>
@@ -843,29 +739,29 @@ const HomePage = () => {
 
         {/* Left Hand: Points to the right, moves inwards as user scrolls into view */}
         <div
-          className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out z-10 w-[280px] sm:w-[420px] lg:w-[540px]"
+          className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out z-10 w-[220px] sm:w-[340px] md:w-[420px] lg:w-[500px] max-w-[38vw]"
           style={{
-            transform: `translate3d(${(1 - handsProgress) * -160}px, -50%, 0)`
+            transform: `translate3d(${(1 - handsProgress) * -100}px, -50%, 0)`
           }}
         >
           <img
             src={ASSETS.handLeft}
             alt="Hand reaching from left"
-            className="w-full object-contain filter grayscale contrast-[1.05] drop-shadow-md"
+            className="w-full object-contain filter grayscale contrast-[1.05] drop-shadow-md select-none"
           />
         </div>
 
         {/* Right Hand: Points to the left, moves inwards as user scrolls into view */}
         <div
-          className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out z-10 w-[280px] sm:w-[420px] lg:w-[540px]"
+          className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out z-10 w-[220px] sm:w-[340px] md:w-[420px] lg:w-[500px] max-w-[38vw]"
           style={{
-            transform: `translate3d(${(1 - handsProgress) * 160}px, -50%, 0)`
+            transform: `translate3d(${(1 - handsProgress) * 100}px, -50%, 0)`
           }}
         >
           <img
             src={ASSETS.handRight}
             alt="Hand reaching from right"
-            className="w-full object-contain filter grayscale contrast-[1.05] drop-shadow-md"
+            className="w-full object-contain filter grayscale contrast-[1.05] drop-shadow-md select-none"
           />
         </div>
 
