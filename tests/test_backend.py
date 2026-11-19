@@ -85,11 +85,29 @@ def test_team_risk_summary():
     assert "common_risk_factors" in summary_data
 
 def test_genai_stubs():
-    onboarding_res = client.post("/onboarding/chat", json={"user_message": "Hello"})
-    assert onboarding_res.status_code == 501
+    onboarding_res = client.post("/onboarding/chat", json={"user_message": "Hello, I am Maya joining Engineering as Senior Backend Engineer"})
+    assert onboarding_res.status_code == 200
+    assert "reply" in onboarding_res.json()
 
     policy_res = client.post("/policy/ask", json={"question": "What is vacation policy?"})
     assert policy_res.status_code == 501
 
     mit_gen_res = client.post("/mitigation/generate", json={"employee_id": "test"})
     assert mit_gen_res.status_code == 501
+
+def test_employee_telemetry():
+    list_res = client.get("/employees")
+    assert list_res.status_code == 200
+    emp_id = list_res.json()[0]["id"]
+
+    res = client.get(f"/employees/{emp_id}/telemetry")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["employee_id"] == emp_id
+    assert "timesheet" in data
+    assert "compensation" in data
+    assert "pulse" in data
+    assert "integrations" in data
+    assert data["timesheet"]["total_hours_this_month"] > 0
+    assert data["compensation"]["current_salary"] > 0
+    assert len(data["integrations"]) >= 4
