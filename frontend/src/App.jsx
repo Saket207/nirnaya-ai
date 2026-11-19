@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import EmployeeDetailPage from './pages/EmployeeDetailPage';
 import TeamViewPage from './pages/TeamViewPage';
@@ -39,15 +40,8 @@ function App() {
             {/* Public Login */}
             <Route path="/login" element={<LoginPage />} />
 
-            {/* Application Protected Pages wrapped in Layout */}
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <RootRedirect />
-                </ProtectedRoute>
-              }
-            />
+            {/* Public Homepage (Noovotic Design System) */}
+            <Route path="/" element={<HomePage />} />
 
             {/* Dashboard & Employee Detail (HR Staff, HR Admin) */}
             <Route

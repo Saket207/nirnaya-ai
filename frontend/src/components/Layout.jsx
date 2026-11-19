@@ -85,8 +85,8 @@ const Layout = ({ children }) => {
       <aside className="hidden lg:flex flex-col w-72 bg-[#FAF6F2] border-r border-[#DED1C9] shadow-[1px_0_16px_rgba(49,44,41,0.03)] fixed inset-y-0 z-30">
         {/* Brand Header */}
         <div className="p-6 border-b border-[#DED1C9] flex flex-col gap-1">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#312C29] text-[#D9684C] flex items-center justify-center shadow-md shadow-[#312C29]/15">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-[#312C29] text-[#D9684C] flex items-center justify-center shadow-md shadow-[#312C29]/15 group-hover:scale-105 transition-transform">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -100,7 +100,7 @@ const Layout = ({ children }) => {
               </div>
               <p className="text-[11px] text-[#7A736E] font-medium tracking-wide">Workforce Intelligence</p>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Navigation Links */}
