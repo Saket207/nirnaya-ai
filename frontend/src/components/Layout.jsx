@@ -123,14 +123,22 @@ const Layout = ({ children }) => {
                   }`
                 }
               >
-                <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 transition-colors group-hover:text-[#D9684C]" />
-                  <span>{item.label}</span>
-                </div>
-                {item.badge && (
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#F5E9DF] text-[#5D5753] border border-[#DED1C9] group-hover:border-[#D9684C]/40 group-hover:text-[#312C29] transition-colors">
-                    {item.badge}
-                  </span>
+                {({ isActive }) => (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <Icon className={`w-4 h-4 transition-colors ${isActive ? 'text-[#D9684C]' : 'group-hover:text-[#D9684C]'}`} />
+                      <span>{item.label}</span>
+                    </div>
+                    {item.badge && (
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border transition-colors ${
+                        isActive
+                          ? 'bg-[#D9684C] text-white border-[#D9684C]'
+                          : 'bg-[#F5E9DF] text-[#5D5753] border-[#DED1C9] group-hover:border-[#D9684C]/40 group-hover:text-[#312C29]'
+                      }`}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </>
                 )}
               </NavLink>
             );
@@ -257,14 +265,22 @@ const Layout = ({ children }) => {
                     }`
                   }
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.badge && (
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#F5E9DF] text-[#5D5753] border border-[#DED1C9]">
-                      {item.badge}
-                    </span>
+                  {({ isActive }) => (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-[#D9684C]' : ''}`} />
+                        <span>{item.label}</span>
+                      </div>
+                      {item.badge && (
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                          isActive
+                            ? 'bg-[#D9684C] text-white'
+                            : 'bg-[#F5E9DF] text-[#5D5753] border border-[#DED1C9]'
+                        }`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </>
                   )}
                 </NavLink>
               );

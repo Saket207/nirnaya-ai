@@ -165,10 +165,10 @@ const TeamViewPage = () => {
     : 0;
 
   const healthStatus = atRiskRatio >= 0.5
-    ? { label: 'Critical Attention', color: 'bg-rose-50 text-rose-700 border-rose-200 ring-rose-500/20', dot: 'bg-rose-500' }
+    ? { label: 'Critical Attention', color: 'bg-[#FFEBEE] text-[#C62828] border-[#FFCDD2] ring-[#C62828]/20', dot: 'bg-[#C62828]' }
     : atRiskRatio >= 0.25
-    ? { label: 'Elevated Watch', color: 'bg-amber-50 text-amber-700 border-amber-200 ring-amber-500/20', dot: 'bg-amber-500' }
-    : { label: 'Healthy Operations', color: 'bg-emerald-50 text-emerald-700 border-emerald-200 ring-emerald-500/20', dot: 'bg-emerald-500' };
+    ? { label: 'Elevated Watch', color: 'bg-[#FDEAE5] text-[#B2553E] border-[#D9684C]/40 ring-[#D9684C]/20', dot: 'bg-[#D9684C]' }
+    : { label: 'Healthy Operations', color: 'bg-[#E8F5E9] text-[#2E7D32] border-[#A5D6A7] ring-[#2E7D32]/20', dot: 'bg-[#2E7D32]' };
 
   // Prepare chart data for Recharts
   const chartData = summaryData

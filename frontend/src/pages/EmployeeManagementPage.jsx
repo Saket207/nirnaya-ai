@@ -319,10 +319,10 @@ const EmployeeManagementPage = () => {
           <div className="bg-white rounded-3xl border border-[#DED1C9] shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-4 border-b border-[#DED1C9] mb-6">
               <div>
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-heading font-bold text-[#312C29]">
                   {editingEmployee ? `Edit Employee: ${editingEmployee.name}` : 'Create New Employee Profile'}
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-[#7A736E]">
                   {editingEmployee
                     ? 'Update employee record and trigger model recalculation'
                     : 'New records are persisted to PostgreSQL and evaluated by XGBoost'}
@@ -330,7 +330,7 @@ const EmployeeManagementPage = () => {
               </div>
               <button
                 onClick={closeModal}
-                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100"
+                className="p-1.5 text-[#7A736E] hover:text-[#312C29] rounded-lg hover:bg-[#FAF6F2] transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -339,7 +339,7 @@ const EmployeeManagementPage = () => {
             <form onSubmit={handleFormSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#312C29] block mb-1">
                     Employee Name *
                   </label>
                   <input
@@ -348,12 +348,12 @@ const EmployeeManagementPage = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Maya Krishnan"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9] text-[#312C29] bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#312C29] block mb-1">
                     Job Role / Title *
                   </label>
                   <input
@@ -362,20 +362,20 @@ const EmployeeManagementPage = () => {
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                     placeholder="e.g. Lead Frontend Developer"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9] text-[#312C29] bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#312C29] block mb-1">
                     Department *
                   </label>
                   <select
                     value={formData.department}
                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9] text-[#312C29] bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C]"
                   >
                     {DEPARTMENTS.map((dept) => (
                       <option key={dept} value={dept}>
@@ -386,7 +386,7 @@ const EmployeeManagementPage = () => {
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#312C29] block mb-1">
                     Tenure (Months)
                   </label>
                   <input
@@ -394,20 +394,20 @@ const EmployeeManagementPage = () => {
                     min="0"
                     value={formData.tenure_months}
                     onChange={(e) => setFormData({ ...formData, tenure_months: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9] text-[#312C29] bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C]"
                   />
                 </div>
               </div>
 
               {/* ML Features Section */}
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-700 block">
+              <div className="p-4 bg-[#FAF6F2] rounded-2xl border border-[#DED1C9] space-y-3">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#B2553E] block">
                   ML Predictor Inputs (XGBoost Features)
                 </span>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div>
-                    <label className="text-[11px] text-slate-600 block mb-1">
+                    <label className="text-[11px] text-[#5D5753] block mb-1">
                       Engagement (1-4)
                     </label>
                     <input
@@ -417,12 +417,12 @@ const EmployeeManagementPage = () => {
                       max="4.0"
                       value={formData.engagement_score}
                       onChange={(e) => setFormData({ ...formData, engagement_score: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#DED1C9] bg-white text-[#312C29]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] text-slate-600 block mb-1">
+                    <label className="text-[11px] text-[#5D5753] block mb-1">
                       No Promo (Mos)
                     </label>
                     <input
@@ -430,12 +430,12 @@ const EmployeeManagementPage = () => {
                       min="0"
                       value={formData.time_since_promotion_months}
                       onChange={(e) => setFormData({ ...formData, time_since_promotion_months: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#DED1C9] bg-white text-[#312C29]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] text-slate-600 block mb-1">
+                    <label className="text-[11px] text-[#5D5753] block mb-1">
                       Overtime (Hrs/Wk)
                     </label>
                     <input
@@ -444,12 +444,12 @@ const EmployeeManagementPage = () => {
                       min="0"
                       value={formData.overtime_hours}
                       onChange={(e) => setFormData({ ...formData, overtime_hours: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#DED1C9] bg-white text-[#312C29]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] text-slate-600 block mb-1">
+                    <label className="text-[11px] text-[#5D5753] block mb-1">
                       Work-Life (1-4)
                     </label>
                     <input
@@ -458,14 +458,14 @@ const EmployeeManagementPage = () => {
                       max="4"
                       value={formData.WorkLifeBalance}
                       onChange={(e) => setFormData({ ...formData, WorkLifeBalance: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#DED1C9] bg-white text-[#312C29]"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">
+                <label className="text-xs font-semibold text-[#312C29] block mb-1">
                   Skills (comma-separated)
                 </label>
                 <input
@@ -473,12 +473,12 @@ const EmployeeManagementPage = () => {
                   value={formData.skills}
                   onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
                   placeholder="e.g. Python, Machine Learning, FastAPI, PostgreSQL"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9] text-[#312C29] bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C]"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">
+                <label className="text-xs font-semibold text-[#312C29] block mb-1">
                   Custom Recommended Action (Optional Override)
                 </label>
                 <textarea
@@ -486,22 +486,22 @@ const EmployeeManagementPage = () => {
                   value={formData.recommendedAction}
                   onChange={(e) => setFormData({ ...formData, recommendedAction: e.target.value })}
                   placeholder="e.g. Offer retention bonus under POL-HR-COC-2026-V4 and cap overtime..."
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9] text-[#312C29] bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C]"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#DED1C9]">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+                  className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:text-[#312C29] hover:bg-[#FAF6F2] rounded-xl transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-semibold text-xs transition-all shadow-sm active:scale-95 flex items-center gap-2"
+                  className="px-5 py-2 rounded-xl bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white font-semibold text-xs transition-all shadow-xs active:scale-95 flex items-center gap-2"
                 >
                   <Check className="w-4 h-4" />
                   <span>{submitting ? 'Saving...' : editingEmployee ? 'Update Record' : 'Save Employee'}</span>

@@ -133,7 +133,7 @@ const EmployeeDetailPage = () => {
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="h-6 w-32 bg-slate-200 rounded animate-pulse" />
+        <div className="h-6 w-32 bg-[#DED1C9]/50 rounded-xl animate-pulse" />
         <DetailSkeleton />
       </div>
     );
@@ -144,7 +144,7 @@ const EmployeeDetailPage = () => {
       <div className="space-y-4">
         <button
           onClick={() => navigate('/dashboard')}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5D5753] hover:text-[#312C29] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Dashboard</span>

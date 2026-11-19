@@ -38,24 +38,24 @@ export const ToastProvider = ({ children }) => {
             key={t.id}
             className={`pointer-events-auto flex items-start gap-3 p-4 rounded-xl shadow-lg border backdrop-blur-sm transition-all duration-300 animate-in slide-in-from-bottom-2 ${
               t.type === 'success'
-                ? 'bg-emerald-50/95 border-emerald-200 text-emerald-900'
+                ? 'bg-[#E8F5E9]/95 border-[#A5D6A7] text-[#2E7D32]'
                 : t.type === 'error'
-                ? 'bg-rose-50/95 border-rose-200 text-rose-900'
+                ? 'bg-[#FFEBEE]/95 border-[#FFCDD2] text-[#C62828]'
                 : t.type === 'warning'
-                ? 'bg-amber-50/95 border-amber-200 text-amber-900'
-                : 'bg-indigo-50/95 border-indigo-200 text-indigo-900'
+                ? 'bg-[#FDEAE5]/95 border-[#D9684C]/40 text-[#B2553E]'
+                : 'bg-white/95 border-[#DED1C9] text-[#312C29]'
             }`}
           >
             <div className="flex-shrink-0 mt-0.5">
-              {t.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-600" />}
-              {t.type === 'error' && <AlertCircle className="w-5 h-5 text-rose-600" />}
-              {t.type === 'warning' && <AlertTriangle className="w-5 h-5 text-amber-600" />}
-              {t.type === 'info' && <Info className="w-5 h-5 text-indigo-600" />}
+              {t.type === 'success' && <CheckCircle2 className="w-5 h-5 text-[#2E7D32]" />}
+              {t.type === 'error' && <AlertCircle className="w-5 h-5 text-[#C62828]" />}
+              {t.type === 'warning' && <AlertTriangle className="w-5 h-5 text-[#D9684C]" />}
+              {t.type === 'info' && <Info className="w-5 h-5 text-[#D9684C]" />}
             </div>
-            <div className="flex-1 text-sm font-medium leading-relaxed">{t.message}</div>
+            <div className="flex-1 text-xs font-semibold leading-relaxed">{t.message}</div>
             <button
               onClick={() => removeToast(t.id)}
-              className="text-slate-400 hover:text-slate-600 p-0.5 rounded transition-colors"
+              className="text-[#7A736E] hover:text-[#312C29] p-0.5 rounded transition-colors"
             >
               <X className="w-4 h-4" />
             </button>

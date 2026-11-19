@@ -602,13 +602,13 @@ const OnboardingPage = () => {
       {pasteResumeOpen && (
         <div className="bg-white rounded-2xl border border-brand-200 p-5 shadow-md space-y-3 animate-in fade-in-50">
           <div className="flex items-center justify-between">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-brand-600" />
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#D9684C]" />
               <span>Paste Resume or Candidate Summary for AI Extraction</span>
             </h4>
             <button
               onClick={() => setPasteResumeOpen(false)}
-              className="text-xs text-slate-400 hover:text-slate-600"
+              className="text-xs text-[#7A736E] hover:text-[#5D5753]"
             >
               Cancel
             </button>
@@ -618,13 +618,13 @@ const OnboardingPage = () => {
             value={rawResumeText}
             onChange={(e) => setRawResumeText(e.target.value)}
             placeholder="Paste raw resume paragraphs, LinkedIn profile summary, or candidate work history here..."
-            className="w-full p-3 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+            className="w-full p-3 text-xs rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
           />
           <div className="flex justify-end">
             <button
               onClick={handleParseRawText}
               disabled={isUploading || !rawResumeText.trim()}
-              className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-semibold text-xs transition-all shadow-xs"
+              className="px-4 py-2 rounded-xl bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white font-semibold text-xs transition-all shadow-xs"
             >
               {isUploading ? 'Analyzing with NLP...' : 'Extract & Fill Profile'}
             </button>
@@ -655,22 +655,22 @@ const OnboardingPage = () => {
                   onClick={() => setCurrentStep(step.num)}
                   className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 ${
                     isActive
-                      ? 'bg-white border-brand-500 shadow-sm ring-2 ring-brand-500/10'
-                      : 'bg-white/60 border-slate-200/70 hover:bg-white text-slate-600'
+                      ? 'bg-white border-[#D9684C] shadow-sm ring-2 ring-brand-500/10'
+                      : 'bg-white/60 border-[#DED1C9] hover:bg-white text-[#5D5753]'
                   }`}
                 >
                   <div
                     className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
-                      isActive ? 'bg-brand-600 text-white shadow-xs' : 'bg-slate-100 text-slate-500'
+                      isActive ? 'bg-[#312C29] text-white shadow-xs' : 'bg-[#F5E9DF] text-[#7A736E]'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <div className={`text-xs font-bold truncate ${isActive ? 'text-slate-900' : 'text-slate-700'}`}>
+                    <div className={`text-xs font-bold truncate ${isActive ? 'text-[#312C29]' : 'text-[#5D5753]'}`}>
                       {step.title}
                     </div>
-                    <div className="text-[11px] text-slate-400 truncate">{step.desc}</div>
+                    <div className="text-[11px] text-[#7A736E] truncate">{step.desc}</div>
                   </div>
                 </button>
               );
@@ -681,43 +681,43 @@ const OnboardingPage = () => {
           <div className="lg:col-span-3 space-y-6">
             {/* ── STEP 1: Personal & Role Baseline ── */}
             {currentStep === 1 && (
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
-                <div className="border-b border-slate-100 pb-4">
-                  <h3 className="text-lg font-bold text-slate-900">Personal & Professional Identity</h3>
-                  <p className="text-xs text-slate-500">Provide legal full name, work communication details, and job grade level.</p>
+              <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
+                <div className="border-b border-[#EFE7E1] pb-4">
+                  <h3 className="text-lg font-bold text-[#312C29]">Personal & Professional Identity</h3>
+                  <p className="text-xs text-[#7A736E]">Provide legal full name, work communication details, and job grade level.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Candidate Legal Full Name *</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Candidate Legal Full Name *</label>
                     <input
                       type="text"
                       required
                       value={profile.name}
                       onChange={(e) => setProfile({ ...profile, name: e.target.value })}
                       placeholder="e.g. Maya Krishnan"
-                      className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Designated Role / Job Title *</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Designated Role / Job Title *</label>
                     <input
                       type="text"
                       required
                       value={profile.role}
                       onChange={(e) => setProfile({ ...profile, role: e.target.value })}
                       placeholder="e.g. Senior Software Engineer"
-                      className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Assigned Department *</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Assigned Department *</label>
                     <select
                       value={profile.department}
                       onChange={(e) => setProfile({ ...profile, department: e.target.value })}
-                      className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     >
                       {DEPARTMENTS.map((dept) => (
                         <option key={dept} value={dept}>
@@ -728,44 +728,44 @@ const OnboardingPage = () => {
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Work Email Address</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Work Email Address</label>
                     <input
                       type="email"
                       value={profile.email}
                       onChange={(e) => setProfile({ ...profile, email: e.target.value })}
                       placeholder="e.g. maya.k@nirnaya.ai"
-                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Telephone Contact</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Telephone Contact</label>
                     <input
                       type="text"
                       value={profile.phone}
                       onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Base Office Location</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Base Office Location</label>
                     <input
                       type="text"
                       value={profile.location}
                       onChange={(e) => setProfile({ ...profile, location: e.target.value })}
                       placeholder="Bengaluru Tech Park, India"
-                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Work Model (Hybrid Baseline)</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Work Model (Hybrid Baseline)</label>
                     <select
                       value={profile.work_model}
                       onChange={(e) => setProfile({ ...profile, work_model: e.target.value })}
-                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     >
                       <option value="Hybrid (3 days office, 2 days remote)">Hybrid (3 days office, 2 days remote - POL-OPS-002)</option>
                       <option value="Full-Time Remote (Approved Exception)">Full-Time Remote (Approved Exception)</option>
@@ -774,11 +774,11 @@ const OnboardingPage = () => {
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-700 block mb-1">Job Grade Level</label>
+                    <label className="text-xs font-semibold text-[#5D5753] block mb-1">Job Grade Level</label>
                     <select
                       value={profile.JobLevel}
                       onChange={(e) => setProfile({ ...profile, JobLevel: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#DED1C9] focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     >
                       <option value={1}>Level 1: Associate / Junior Contributor</option>
                       <option value={2}>Level 2: Mid / Senior Individual Contributor</option>
@@ -788,10 +788,10 @@ const OnboardingPage = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-slate-100">
+                <div className="flex justify-end pt-4 border-t border-[#EFE7E1]">
                   <button
                     onClick={() => setCurrentStep(2)}
-                    className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
+                    className="px-5 py-2.5 rounded-xl bg-[#312C29] hover:bg-[#1C1816] text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
                   >
                     <span>Proceed to Skills & Competencies</span>
                     <ChevronRight className="w-4 h-4" />
@@ -802,20 +802,20 @@ const OnboardingPage = () => {
 
             {/* ── STEP 2: Skills & Competency Matrix ── */}
             {currentStep === 2 && (
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+              <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#EFE7E1] pb-4">
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">Technical & Non-Technical Skill Matrix</h3>
-                    <p className="text-xs text-slate-500">Add dynamic skills with proficiency rankings and years of experience.</p>
+                    <h3 className="text-lg font-bold text-[#312C29]">Technical & Non-Technical Skill Matrix</h3>
+                    <p className="text-xs text-[#7A736E]">Add dynamic skills with proficiency rankings and years of experience.</p>
                   </div>
-                  <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700 border border-brand-200">
+                  <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-brand-50 text-[#B2553E] border border-brand-200">
                     {profile.skills.length} Skills Catalogued
                   </span>
                 </div>
 
                 {/* Dynamic Skill Adder Form */}
-                <form onSubmit={addSkill} className="bg-slate-50/70 p-4 rounded-2xl border border-slate-200/80 space-y-3">
-                  <span className="text-xs font-bold text-slate-700 block">Add New Dynamic Skill</span>
+                <form onSubmit={addSkill} className="bg-[#FAF6F2] p-4 rounded-2xl border border-[#DED1C9] space-y-3">
+                  <span className="text-xs font-bold text-[#5D5753] block">Add New Dynamic Skill</span>
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                     <input
                       type="text"
@@ -823,13 +823,13 @@ const OnboardingPage = () => {
                       value={newSkill.name}
                       onChange={(e) => setNewSkill({ ...newSkill, name: e.target.value })}
                       placeholder="Skill name (e.g. Kubernetes, PyTorch, Leadership)"
-                      className="sm:col-span-1 px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                      className="sm:col-span-1 px-3 py-2 text-xs rounded-xl border border-[#DED1C9] bg-white"
                     />
 
                     <select
                       value={newSkill.category}
                       onChange={(e) => setNewSkill({ ...newSkill, category: e.target.value })}
-                      className="px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                      className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9] bg-white"
                     >
                       {SKILL_CATEGORIES.map((cat) => (
                         <option key={cat} value={cat}>
@@ -841,7 +841,7 @@ const OnboardingPage = () => {
                     <select
                       value={newSkill.proficiency}
                       onChange={(e) => setNewSkill({ ...newSkill, proficiency: e.target.value })}
-                      className="px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                      className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9] bg-white"
                     >
                       {PROFICIENCY_LEVELS.map((lvl) => (
                         <option key={lvl} value={lvl}>
@@ -858,11 +858,11 @@ const OnboardingPage = () => {
                         value={newSkill.years}
                         onChange={(e) => setNewSkill({ ...newSkill, years: parseInt(e.target.value, 10) || 0 })}
                         placeholder="Yrs"
-                        className="w-16 px-2.5 py-2 text-xs rounded-xl border border-slate-200 bg-white"
+                        className="w-16 px-2.5 py-2 text-xs rounded-xl border border-[#DED1C9] bg-white"
                       />
                       <button
                         type="submit"
-                        className="flex-1 px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center justify-center gap-1 shadow-xs"
+                        className="flex-1 px-3 py-2 rounded-xl bg-[#312C29] hover:bg-[#1C1816] text-white font-semibold text-xs flex items-center justify-center gap-1 shadow-xs"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Add</span>
@@ -882,45 +882,45 @@ const OnboardingPage = () => {
                     return (
                       <div
                         key={idx}
-                        className="p-3.5 rounded-2xl border border-slate-200/80 bg-white shadow-2xs flex flex-col justify-between gap-2 group hover:border-brand-300 transition-colors"
+                        className="p-3.5 rounded-2xl border border-[#DED1C9] bg-white shadow-2xs flex flex-col justify-between gap-2 group hover:border-brand-300 transition-colors"
                       >
                         <div className="flex items-start justify-between">
                           <div>
-                            <span className="font-bold text-xs text-slate-900 group-hover:text-brand-600 transition-colors">
+                            <span className="font-bold text-xs text-[#312C29] group-hover:text-[#D9684C] transition-colors">
                               {skillName}
                             </span>
-                            <span className="text-[10px] text-slate-400 block">{category}</span>
+                            <span className="text-[10px] text-[#7A736E] block">{category}</span>
                           </div>
                           <button
                             onClick={() => removeSkill(idx)}
-                            className="text-slate-300 hover:text-rose-500 p-1 transition-colors"
+                            className="text-[#A09891] hover:text-rose-500 p-1 transition-colors"
                             title="Remove Skill"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
 
-                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                          <span className="px-2 py-0.5 rounded-md bg-slate-100 font-semibold text-slate-700 text-[10px]">
+                        <div className="pt-2 border-t border-[#EFE7E1] flex items-center justify-between text-[11px]">
+                          <span className="px-2 py-0.5 rounded-md bg-[#F5E9DF] font-semibold text-[#5D5753] text-[10px]">
                             {proficiency}
                           </span>
-                          <span className="font-mono text-slate-500 text-[10px]">{years} yrs exp</span>
+                          <span className="font-mono text-[#7A736E] text-[10px]">{years} yrs exp</span>
                         </div>
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="flex justify-between pt-4 border-t border-slate-100">
+                <div className="flex justify-between pt-4 border-t border-[#EFE7E1]">
                   <button
                     onClick={() => setCurrentStep(1)}
-                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl"
                   >
                     Back
                   </button>
                   <button
                     onClick={() => setCurrentStep(3)}
-                    className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
+                    className="px-5 py-2.5 rounded-xl bg-[#312C29] hover:bg-[#1C1816] text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
                   >
                     <span>Proceed to Work & Projects</span>
                     <ChevronRight className="w-4 h-4" />
@@ -931,38 +931,38 @@ const OnboardingPage = () => {
 
             {/* ── STEP 3: Work History & Notable Projects ── */}
             {currentStep === 3 && (
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
-                <div className="border-b border-slate-100 pb-4">
-                  <h3 className="text-lg font-bold text-slate-900">Work Experience & Key Project Deliverables</h3>
-                  <p className="text-xs text-slate-500">Record past employment milestones and technical architecture initiatives.</p>
+              <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
+                <div className="border-b border-[#EFE7E1] pb-4">
+                  <h3 className="text-lg font-bold text-[#312C29]">Work Experience & Key Project Deliverables</h3>
+                  <p className="text-xs text-[#7A736E]">Record past employment milestones and technical architecture initiatives.</p>
                 </div>
 
                 {/* Work Experience Entries */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                      <Briefcase className="w-4 h-4 text-brand-600" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-1.5">
+                      <Briefcase className="w-4 h-4 text-[#D9684C]" />
                       <span>Past Employment Experience ({profile.experience.length})</span>
                     </span>
                   </div>
 
                   {profile.experience.map((exp, idx) => (
-                    <div key={idx} className="p-4 rounded-2xl bg-slate-50/70 border border-slate-200/80 relative group">
+                    <div key={idx} className="p-4 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] relative group">
                       <button
                         onClick={() => removeExperience(idx)}
-                        className="absolute top-3 right-3 text-slate-300 hover:text-rose-500"
+                        className="absolute top-3 right-3 text-[#A09891] hover:text-rose-500"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
-                      <div className="font-bold text-xs text-slate-900">{exp.role} — {exp.company}</div>
-                      <div className="text-[11px] text-slate-400 font-mono mt-0.5">{exp.duration}</div>
-                      <p className="text-xs text-slate-600 mt-2 leading-relaxed">{exp.description}</p>
+                      <div className="font-bold text-xs text-[#312C29]">{exp.role} — {exp.company}</div>
+                      <div className="text-[11px] text-[#7A736E] font-mono mt-0.5">{exp.duration}</div>
+                      <p className="text-xs text-[#5D5753] mt-2 leading-relaxed">{exp.description}</p>
                     </div>
                   ))}
 
                   {/* Add Experience Form */}
-                  <form onSubmit={addExperience} className="p-4 rounded-2xl border border-dashed border-slate-200 space-y-3">
-                    <span className="text-xs font-bold text-slate-700 block">+ Add Work Experience</span>
+                  <form onSubmit={addExperience} className="p-4 rounded-2xl border border-dashed border-[#DED1C9] space-y-3">
+                    <span className="text-xs font-bold text-[#5D5753] block">+ Add Work Experience</span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <input
                         type="text"
@@ -970,7 +970,7 @@ const OnboardingPage = () => {
                         value={newExperience.company}
                         onChange={(e) => setNewExperience({ ...newExperience, company: e.target.value })}
                         placeholder="Company name"
-                        className="px-3 py-2 text-xs rounded-xl border border-slate-200"
+                        className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                       />
                       <input
                         type="text"
@@ -978,14 +978,14 @@ const OnboardingPage = () => {
                         value={newExperience.role}
                         onChange={(e) => setNewExperience({ ...newExperience, role: e.target.value })}
                         placeholder="Title / Role"
-                        className="px-3 py-2 text-xs rounded-xl border border-slate-200"
+                        className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                       />
                       <input
                         type="text"
                         value={newExperience.duration}
                         onChange={(e) => setNewExperience({ ...newExperience, duration: e.target.value })}
                         placeholder="Duration (e.g. 2022 - 2024)"
-                        className="px-3 py-2 text-xs rounded-xl border border-slate-200"
+                        className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                       />
                     </div>
                     <textarea
@@ -993,11 +993,11 @@ const OnboardingPage = () => {
                       value={newExperience.description}
                       onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })}
                       placeholder="Key achievements and team scope..."
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                     />
                     <button
                       type="submit"
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-semibold"
+                      className="px-3 py-1.5 rounded-lg bg-[#312C29] text-white text-xs font-semibold"
                     >
                       Add Experience Entry
                     </button>
@@ -1005,40 +1005,40 @@ const OnboardingPage = () => {
                 </div>
 
                 {/* Notable Projects */}
-                <div className="space-y-4 pt-4 border-t border-slate-100">
+                <div className="space-y-4 pt-4 border-t border-[#EFE7E1]">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                      <FolderGit2 className="w-4 h-4 text-brand-600" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-1.5">
+                      <FolderGit2 className="w-4 h-4 text-[#D9684C]" />
                       <span>Notable Projects & Architectures ({profile.projects.length})</span>
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {profile.projects.map((proj, idx) => (
-                      <div key={idx} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs relative">
+                      <div key={idx} className="p-4 rounded-2xl bg-white border border-[#DED1C9] shadow-2xs relative">
                         <button
                           onClick={() => removeProject(idx)}
-                          className="absolute top-3 right-3 text-slate-300 hover:text-rose-500"
+                          className="absolute top-3 right-3 text-[#A09891] hover:text-rose-500"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
-                        <h4 className="font-bold text-xs text-slate-900 pr-6">{proj.title}</h4>
+                        <h4 className="font-bold text-xs text-[#312C29] pr-6">{proj.title}</h4>
                         <div className="flex flex-wrap gap-1 my-2">
                           {Array.isArray(proj.tech_stack) &&
                             proj.tech_stack.map((t, i) => (
-                              <span key={i} className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                              <span key={i} className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#F5E9DF] text-[#5D5753]">
                                 {t}
                               </span>
                             ))}
                         </div>
-                        <p className="text-[11px] text-slate-500 leading-relaxed">{proj.description}</p>
+                        <p className="text-[11px] text-[#7A736E] leading-relaxed">{proj.description}</p>
                       </div>
                     ))}
                   </div>
 
                   {/* Add Project Form */}
-                  <form onSubmit={addProject} className="p-4 rounded-2xl border border-dashed border-slate-200 space-y-3">
-                    <span className="text-xs font-bold text-slate-700 block">+ Add Project Portfolio Item</span>
+                  <form onSubmit={addProject} className="p-4 rounded-2xl border border-dashed border-[#DED1C9] space-y-3">
+                    <span className="text-xs font-bold text-[#5D5753] block">+ Add Project Portfolio Item</span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
                         type="text"
@@ -1046,14 +1046,14 @@ const OnboardingPage = () => {
                         value={newProject.title}
                         onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
                         placeholder="Project title"
-                        className="px-3 py-2 text-xs rounded-xl border border-slate-200"
+                        className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                       />
                       <input
                         type="text"
                         value={newProject.tech_stack}
                         onChange={(e) => setNewProject({ ...newProject, tech_stack: e.target.value })}
                         placeholder="Tech stack (comma-separated, e.g. Python, Docker, Redis)"
-                        className="px-3 py-2 text-xs rounded-xl border border-slate-200"
+                        className="px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                       />
                     </div>
                     <textarea
@@ -1061,27 +1061,27 @@ const OnboardingPage = () => {
                       value={newProject.description}
                       onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
                       placeholder="Architecture summary, system design patterns, or metrics achieved..."
-                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200"
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                     />
                     <button
                       type="submit"
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-semibold"
+                      className="px-3 py-1.5 rounded-lg bg-[#312C29] text-white text-xs font-semibold"
                     >
                       Add Project Entry
                     </button>
                   </form>
                 </div>
 
-                <div className="flex justify-between pt-4 border-t border-slate-100">
+                <div className="flex justify-between pt-4 border-t border-[#EFE7E1]">
                   <button
                     onClick={() => setCurrentStep(2)}
-                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl"
                   >
                     Back
                   </button>
                   <button
                     onClick={() => setCurrentStep(4)}
-                    className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
+                    className="px-5 py-2.5 rounded-xl bg-[#312C29] hover:bg-[#1C1816] text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
                   >
                     <span>Proceed to Education & Certifications</span>
                     <ChevronRight className="w-4 h-4" />
@@ -1092,43 +1092,43 @@ const OnboardingPage = () => {
 
             {/* ── STEP 4: Education & Certifications ── */}
             {currentStep === 4 && (
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
-                <div className="border-b border-slate-100 pb-4">
-                  <h3 className="text-lg font-bold text-slate-900">Education & Professional Certifications</h3>
-                  <p className="text-xs text-slate-500">Document formal university education and industry credential badges.</p>
+              <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
+                <div className="border-b border-[#EFE7E1] pb-4">
+                  <h3 className="text-lg font-bold text-[#312C29]">Education & Professional Certifications</h3>
+                  <p className="text-xs text-[#7A736E]">Document formal university education and industry credential badges.</p>
                 </div>
 
                 {/* Education Section */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <GraduationCap className="w-4 h-4 text-brand-600" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-1.5">
+                    <GraduationCap className="w-4 h-4 text-[#D9684C]" />
                     <span>Academic Qualifications ({profile.education.length})</span>
                   </span>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {profile.education.map((edu, idx) => (
-                      <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 relative">
+                      <div key={idx} className="p-3.5 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] relative">
                         <button
                           onClick={() => removeEducation(idx)}
-                          className="absolute top-2.5 right-2.5 text-slate-300 hover:text-rose-500"
+                          className="absolute top-2.5 right-2.5 text-[#A09891] hover:text-rose-500"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
-                        <div className="font-bold text-xs text-slate-900">{edu.degree}</div>
-                        <div className="text-[11px] text-slate-500">{edu.institution}</div>
-                        <div className="text-[10px] font-mono text-slate-400 mt-1">Class of {edu.year}</div>
+                        <div className="font-bold text-xs text-[#312C29]">{edu.degree}</div>
+                        <div className="text-[11px] text-[#7A736E]">{edu.institution}</div>
+                        <div className="text-[10px] font-mono text-[#7A736E] mt-1">Class of {edu.year}</div>
                       </div>
                     ))}
                   </div>
 
-                  <form onSubmit={addEducation} className="p-3 rounded-xl border border-dashed border-slate-200 flex flex-wrap gap-2 items-center">
+                  <form onSubmit={addEducation} className="p-3 rounded-xl border border-dashed border-[#DED1C9] flex flex-wrap gap-2 items-center">
                     <input
                       type="text"
                       required
                       value={newEducation.degree}
                       onChange={(e) => setNewEducation({ ...newEducation, degree: e.target.value })}
                       placeholder="Degree (e.g. M.Tech Software Engineering)"
-                      className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200"
+                      className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-[#DED1C9]"
                     />
                     <input
                       type="text"
@@ -1136,18 +1136,18 @@ const OnboardingPage = () => {
                       value={newEducation.institution}
                       onChange={(e) => setNewEducation({ ...newEducation, institution: e.target.value })}
                       placeholder="University / Institute"
-                      className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200"
+                      className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-[#DED1C9]"
                     />
                     <input
                       type="text"
                       value={newEducation.year}
                       onChange={(e) => setNewEducation({ ...newEducation, year: e.target.value })}
                       placeholder="Year"
-                      className="w-20 px-2.5 py-1.5 text-xs rounded-lg border border-slate-200"
+                      className="w-20 px-2.5 py-1.5 text-xs rounded-lg border border-[#DED1C9]"
                     />
                     <button
                       type="submit"
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-semibold"
+                      className="px-3 py-1.5 rounded-lg bg-[#312C29] text-white text-xs font-semibold"
                     >
                       + Add
                     </button>
@@ -1155,70 +1155,70 @@ const OnboardingPage = () => {
                 </div>
 
                 {/* Certifications Section */}
-                <div className="space-y-3 pt-4 border-t border-slate-100">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <Award className="w-4 h-4 text-brand-600" />
+                <div className="space-y-3 pt-4 border-t border-[#EFE7E1]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-[#D9684C]" />
                     <span>Industry Certifications ({profile.certifications.length})</span>
                   </span>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {profile.certifications.map((cert, idx) => (
-                      <div key={idx} className="p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-100 relative">
+                      <div key={idx} className="p-3.5 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] relative">
                         <button
                           onClick={() => removeCertification(idx)}
-                          className="absolute top-2.5 right-2.5 text-slate-300 hover:text-rose-500"
+                          className="absolute top-2.5 right-2.5 text-[#A09891] hover:text-rose-500"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
-                        <div className="font-bold text-xs text-indigo-950">{cert.name}</div>
-                        <div className="text-[11px] text-indigo-700">{cert.issuer} ({cert.year})</div>
-                        {cert.credId && <div className="text-[10px] font-mono text-slate-400 mt-1">ID: {cert.credId}</div>}
+                        <div className="font-bold text-xs text-[#312C29]">{cert.name}</div>
+                        <div className="text-[11px] text-[#B2553E]">{cert.issuer} ({cert.year})</div>
+                        {cert.credId && <div className="text-[10px] font-mono text-[#7A736E] mt-1">ID: {cert.credId}</div>}
                       </div>
                     ))}
                   </div>
 
-                  <form onSubmit={addCertification} className="p-3 rounded-xl border border-dashed border-slate-200 flex flex-wrap gap-2 items-center">
+                  <form onSubmit={addCertification} className="p-3 rounded-xl border border-dashed border-[#DED1C9] flex flex-wrap gap-2 items-center">
                     <input
                       type="text"
                       required
                       value={newCert.name}
                       onChange={(e) => setNewCert({ ...newCert, name: e.target.value })}
                       placeholder="Certification (e.g. CKA Kubernetes Administrator)"
-                      className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200"
+                      className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-[#DED1C9]"
                     />
                     <input
                       type="text"
                       value={newCert.issuer}
                       onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
                       placeholder="Issuer (e.g. Linux Foundation)"
-                      className="w-36 px-3 py-1.5 text-xs rounded-lg border border-slate-200"
+                      className="w-36 px-3 py-1.5 text-xs rounded-lg border border-[#DED1C9]"
                     />
                     <input
                       type="text"
                       value={newCert.credId}
                       onChange={(e) => setNewCert({ ...newCert, credId: e.target.value })}
                       placeholder="Credential ID"
-                      className="w-32 px-2.5 py-1.5 text-xs rounded-lg border border-slate-200"
+                      className="w-32 px-2.5 py-1.5 text-xs rounded-lg border border-[#DED1C9]"
                     />
                     <button
                       type="submit"
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-semibold"
+                      className="px-3 py-1.5 rounded-lg bg-[#312C29] text-white text-xs font-semibold"
                     >
                       + Add
                     </button>
                   </form>
                 </div>
 
-                <div className="flex justify-between pt-4 border-t border-slate-100">
+                <div className="flex justify-between pt-4 border-t border-[#EFE7E1]">
                   <button
                     onClick={() => setCurrentStep(3)}
-                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl"
                   >
                     Back
                   </button>
                   <button
                     onClick={() => setCurrentStep(5)}
-                    className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
+                    className="px-5 py-2.5 rounded-xl bg-[#312C29] hover:bg-[#1C1816] text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
                   >
                     <span>Proceed to Responsibilities & Goals</span>
                     <ChevronRight className="w-4 h-4" />
@@ -1229,24 +1229,24 @@ const OnboardingPage = () => {
 
             {/* ── STEP 5: Responsibilities & Career Aspirations ── */}
             {currentStep === 5 && (
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
-                <div className="border-b border-slate-100 pb-4">
-                  <h3 className="text-lg font-bold text-slate-900">Job Scope & Career Aspirations</h3>
-                  <p className="text-xs text-slate-500">Define key technical expectations, 60-day onboarding goals, and learning tracks.</p>
+              <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
+                <div className="border-b border-[#EFE7E1] pb-4">
+                  <h3 className="text-lg font-bold text-[#312C29]">Job Scope & Career Aspirations</h3>
+                  <p className="text-xs text-[#7A736E]">Define key technical expectations, 60-day onboarding goals, and learning tracks.</p>
                 </div>
 
                 {/* Core Responsibilities */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] block">
                     Core Technical & Functional Responsibilities
                   </span>
                   <div className="space-y-2">
                     {profile.responsibilities.map((resp, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 text-xs text-slate-700">
+                      <div key={idx} className="p-3 rounded-xl bg-[#FAF6F2] border border-[#DED1C9] flex items-center justify-between gap-3 text-xs text-[#5D5753]">
                         <span className="leading-relaxed">• {resp}</span>
                         <button
                           onClick={() => removeResponsibility(idx)}
-                          className="text-slate-300 hover:text-rose-500"
+                          className="text-[#A09891] hover:text-rose-500"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -1260,11 +1260,11 @@ const OnboardingPage = () => {
                       value={newResponsibility}
                       onChange={(e) => setNewResponsibility(e.target.value)}
                       placeholder="Add a new responsibility or domain ownership requirement..."
-                      className="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-200"
+                      className="flex-1 px-3 py-2 text-xs rounded-xl border border-[#DED1C9]"
                     />
                     <button
                       type="submit"
-                      className="px-3 py-2 rounded-xl bg-slate-800 text-white text-xs font-semibold"
+                      className="px-3 py-2 rounded-xl bg-[#312C29] text-white text-xs font-semibold"
                     >
                       Add
                     </button>
@@ -1272,14 +1272,14 @@ const OnboardingPage = () => {
                 </div>
 
                 {/* Career Goals */}
-                <div className="space-y-3 pt-4 border-t border-slate-100">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                <div className="space-y-3 pt-4 border-t border-[#EFE7E1]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] block">
                     Career Trajectory & Growth Expectations
                   </span>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-semibold text-slate-700 block mb-1">
+                      <label className="text-xs font-semibold text-[#5D5753] block mb-1">
                         60-Day Onboarding Target (Short-Term)
                       </label>
                       <textarea
@@ -1291,12 +1291,12 @@ const OnboardingPage = () => {
                             career_goals: { ...profile.career_goals, short_term: e.target.value }
                           })
                         }
-                        className="w-full p-3 text-xs rounded-xl border border-slate-200"
+                        className="w-full p-3 text-xs rounded-xl border border-[#DED1C9]"
                       />
                     </div>
 
                     <div>
-                      <label className="text-xs font-semibold text-slate-700 block mb-1">
+                      <label className="text-xs font-semibold text-[#5D5753] block mb-1">
                         1–2 Year Career Milestone (Long-Term)
                       </label>
                       <textarea
@@ -1308,22 +1308,22 @@ const OnboardingPage = () => {
                             career_goals: { ...profile.career_goals, long_term: e.target.value }
                           })
                         }
-                        className="w-full p-3 text-xs rounded-xl border border-slate-200"
+                        className="w-full p-3 text-xs rounded-xl border border-[#DED1C9]"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="flex justify-between pt-4 border-t border-slate-100">
+                <div className="flex justify-between pt-4 border-t border-[#EFE7E1]">
                   <button
                     onClick={() => setCurrentStep(4)}
-                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl"
                   >
                     Back
                   </button>
                   <button
                     onClick={() => setCurrentStep(6)}
-                    className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
+                    className="px-5 py-2.5 rounded-xl bg-[#312C29] hover:bg-[#1C1816] text-white font-semibold text-xs flex items-center gap-2 shadow-xs"
                   >
                     <span>View AI Ramp-Up & Policy Analysis</span>
                     <Sparkles className="w-4 h-4" />
@@ -1334,14 +1334,14 @@ const OnboardingPage = () => {
 
             {/* ── STEP 6: AI Ramp-Up Roadmap & Policy Perks Analysis ── */}
             {currentStep === 6 && (
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+              <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 sm:p-8 shadow-xs space-y-6 animate-in fade-in-50">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#EFE7E1] pb-4">
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-brand-600" />
+                    <h3 className="text-lg font-bold text-[#312C29] flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-[#D9684C]" />
                       <span>AI Skill Gap Analysis & 30-60-90 Day Roadmap</span>
                     </h3>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-[#7A736E]">
                       Personalized ramp-up trajectory evaluated against official company policies and role expectations.
                     </p>
                   </div>
@@ -1379,18 +1379,18 @@ const OnboardingPage = () => {
 
                 {/* 30-60-90 Day Roadmap */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] block">
                     Structured 30-60-90 Day Ramp-Up Milestones
                   </span>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     {analysis?.roadmap?.map((phase, idx) => (
-                      <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-brand-600">
+                      <div key={idx} className="p-4 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] space-y-2">
+                        <div className="text-[11px] font-bold uppercase tracking-wider text-[#D9684C]">
                           {phase.phase}
                         </div>
-                        <div className="text-xs font-bold text-slate-800">{phase.focus}</div>
-                        <ul className="text-[11px] text-slate-600 space-y-1.5 pt-2 border-t border-slate-200/70">
+                        <div className="text-xs font-bold text-[#312C29]">{phase.focus}</div>
+                        <ul className="text-[11px] text-[#5D5753] space-y-1.5 pt-2 border-t border-[#DED1C9]">
                           {phase.milestones.map((m, mi) => (
                             <li key={mi} className="flex items-start gap-1.5">
                               <span className="text-brand-500 font-bold">•</span>
@@ -1404,40 +1404,40 @@ const OnboardingPage = () => {
                 </div>
 
                 {/* Policy Benefits Entitlements */}
-                <div className="space-y-3 pt-4 border-t border-slate-100">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <div className="space-y-3 pt-4 border-t border-[#EFE7E1]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     <span>Verified Policy Entitlements & Compliance</span>
                   </span>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {analysis?.policy_benefits?.map((benefit, idx) => (
-                      <div key={idx} className="p-3.5 rounded-2xl border border-slate-200 bg-white shadow-2xs">
+                      <div key={idx} className="p-3.5 rounded-2xl border border-[#DED1C9] bg-white shadow-2xs">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-xs text-slate-900">{benefit.title}</span>
+                          <span className="font-bold text-xs text-[#312C29]">{benefit.title}</span>
                           <span className="font-mono text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
                             {benefit.value}
                           </span>
                         </div>
-                        <div className="text-[10px] text-brand-600 font-medium mt-0.5">{benefit.policy}</div>
-                        <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">{benefit.details}</p>
+                        <div className="text-[10px] text-[#D9684C] font-medium mt-0.5">{benefit.policy}</div>
+                        <p className="text-[11px] text-[#7A736E] mt-1 leading-relaxed">{benefit.details}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Final Register CTA */}
-                <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="pt-6 border-t border-[#EFE7E1] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <button
                     onClick={() => setCurrentStep(5)}
-                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl"
                   >
                     Back to Goals
                   </button>
                   <button
                     onClick={handleFinalRegistration}
                     disabled={submittingToDB || completeness < 40}
-                    className="px-6 py-3 rounded-2xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-bold text-sm shadow-md shadow-brand-500/25 active:scale-95 flex items-center gap-2"
+                    className="px-6 py-3 rounded-2xl bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white font-bold text-sm shadow-md shadow-brand-500/25 active:scale-95 flex items-center gap-2"
                   >
                     <span>{submittingToDB ? 'Writing to PostgreSQL Database...' : 'Register Candidate in Workforce DB'}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -1453,7 +1453,7 @@ const OnboardingPage = () => {
       {/* ── TAB 2: AI CONVERSATIONAL AGENT CHAT ──────────────────────────────── */}
       {/* ──────────────────────────────────────────────────────────────────────── */}
       {activeTab === 'chat' && (
-        <div className="h-[650px] bg-white rounded-3xl border border-slate-200/80 shadow-xs flex flex-col overflow-hidden animate-in fade-in-50">
+        <div className="h-[650px] bg-white rounded-3xl border border-[#DED1C9] shadow-xs flex flex-col overflow-hidden animate-in fade-in-50">
           {/* Chat Messages Log */}
           <div className="flex-1 p-6 overflow-y-auto space-y-4">
             {messages.map((msg) => (
@@ -1466,8 +1466,8 @@ const OnboardingPage = () => {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                     msg.sender === 'user'
-                      ? 'bg-brand-600 text-white shadow-xs'
-                      : 'bg-brand-100 text-brand-700'
+                      ? 'bg-[#312C29] text-white shadow-xs'
+                      : 'bg-brand-100 text-[#B2553E]'
                   }`}
                 >
                   {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -1477,14 +1477,14 @@ const OnboardingPage = () => {
                   <div
                     className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                       msg.sender === 'user'
-                        ? 'bg-brand-600 text-white rounded-tr-none'
-                        : 'bg-slate-50 border border-slate-200/80 text-slate-800 rounded-tl-none'
+                        ? 'bg-[#312C29] text-white rounded-tr-none'
+                        : 'bg-[#FAF6F2] border border-[#DED1C9] text-[#312C29] rounded-tl-none'
                     }`}
                   >
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                   </div>
                   <div
-                    className={`text-[10px] text-slate-400 px-1 ${
+                    className={`text-[10px] text-[#7A736E] px-1 ${
                       msg.sender === 'user' ? 'text-right' : 'text-left'
                     }`}
                   >
@@ -1496,11 +1496,11 @@ const OnboardingPage = () => {
 
             {chatLoading && (
               <div className="flex gap-3 max-w-xl mr-auto animate-in fade-in-50">
-                <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-brand-100 text-[#B2553E] flex items-center justify-center flex-shrink-0">
                   <Bot className="w-4 h-4" />
                 </div>
-                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl rounded-tl-none p-4 flex items-center gap-2 text-xs text-slate-500">
-                  <Sparkles className="w-4 h-4 text-brand-600 animate-spin" />
+                <div className="bg-[#FAF6F2] border border-[#DED1C9] rounded-2xl rounded-tl-none p-4 flex items-center gap-2 text-xs text-[#7A736E]">
+                  <Sparkles className="w-4 h-4 text-[#D9684C] animate-spin" />
                   <span>Onboarding agent is analyzing profile and updating attributes...</span>
                 </div>
               </div>
@@ -1509,19 +1509,19 @@ const OnboardingPage = () => {
           </div>
 
           {/* Quick Chat Input */}
-          <div className="p-4 bg-slate-50/80 border-t border-slate-200/80 flex items-center gap-2">
+          <div className="p-4 bg-[#FAF6F2] border-t border-[#DED1C9] flex items-center gap-2">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSendChatMessage()}
               placeholder="Tell me about your role, technical skills, or education..."
-              className="flex-1 px-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              className="flex-1 px-4 py-2.5 text-xs sm:text-sm rounded-xl border border-[#DED1C9] bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
             />
             <button
               onClick={handleSendChatMessage}
               disabled={chatLoading || !inputText.trim()}
-              className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white rounded-xl font-semibold text-xs transition-all flex items-center gap-2 shadow-xs"
+              className="px-4 py-2.5 bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white rounded-xl font-semibold text-xs transition-all flex items-center gap-2 shadow-xs"
             >
               <span>Send</span>
               <Send className="w-4 h-4" />
