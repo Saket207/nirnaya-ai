@@ -85,8 +85,9 @@ def test_team_risk_summary():
     assert "common_risk_factors" in summary_data
 
 def test_genai_stubs():
-    onboarding_res = client.post("/onboarding/chat", json={"user_message": "Hello"})
-    assert onboarding_res.status_code == 501
+    onboarding_res = client.post("/onboarding/chat", json={"user_message": "Hello, I am Maya joining Engineering as Senior Backend Engineer"})
+    assert onboarding_res.status_code == 200
+    assert "reply" in onboarding_res.json()
 
     policy_res = client.post("/policy/ask", json={"question": "What is vacation policy?"})
     assert policy_res.status_code == 501

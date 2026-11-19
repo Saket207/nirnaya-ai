@@ -26,7 +26,8 @@ def create_employee(employee_in: EmployeeCreate, db: Session = Depends(get_db)):
         overtime_hours=employee_in.overtime_hours if employee_in.overtime_hours is not None else 0.0,
         JobLevel=employee_in.JobLevel or 1,
         WorkLifeBalance=employee_in.WorkLifeBalance or 3,
-        skills=employee_in.skills or []
+        skills=employee_in.skills or [],
+        profile_details=employee_in.profile_details or {}
     )
     db.add(new_employee)
     db.commit()

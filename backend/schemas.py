@@ -14,6 +14,7 @@ class EmployeeBase(BaseModel):
     JobLevel: int = 1
     WorkLifeBalance: int = 3
     skills: List[str] = Field(default_factory=list)
+    profile_details: Optional[dict] = Field(default_factory=dict)
 
 class EmployeeCreate(BaseModel):
     name: str
@@ -26,6 +27,7 @@ class EmployeeCreate(BaseModel):
     JobLevel: Optional[int] = 1
     WorkLifeBalance: Optional[int] = 3
     skills: Optional[List[str]] = Field(default_factory=list)
+    profile_details: Optional[dict] = Field(default_factory=dict)
 
 class EmployeeUpdate(BaseModel):
     name: Optional[str] = None
@@ -38,6 +40,7 @@ class EmployeeUpdate(BaseModel):
     JobLevel: Optional[int] = None
     WorkLifeBalance: Optional[int] = None
     skills: Optional[List[str]] = None
+    profile_details: Optional[dict] = None
     recommendedAction: Optional[str] = None
 
 class EmployeeResponse(EmployeeBase):

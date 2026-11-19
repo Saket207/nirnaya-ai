@@ -21,6 +21,9 @@ class Employee(Base):
     # Skills array stored as JSON
     skills = Column(JSON, default=list)
     
+    # Detailed Onboarding & Profile Metadata (Experience, Education, Projects, Goals)
+    profile_details = Column(JSON, default=dict)
+    
     # ML Risk Prediction Output
     riskScore = Column(Float, default=0.0)
     riskLevel = Column(String, default="Low")

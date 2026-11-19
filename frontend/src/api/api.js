@@ -297,7 +297,11 @@ export const api = {
   // Onboarding Chat Agent
   sendOnboardingMessage: async (userMessage, sessionId = 'session-1', currentProfile = {}) => {
     try {
-      const res = await client.post('/onboarding/chat', { user_message: userMessage, session_id: sessionId });
+      const res = await client.post('/onboarding/chat', {
+        user_message: userMessage,
+        session_id: sessionId,
+        current_profile: currentProfile
+      });
       return res.data;
     } catch (err) {
       if (err.response?.status === 501 || err.code === 'ERR_NETWORK') {
@@ -328,12 +332,40 @@ export const api = {
         return {
           reply,
           parsed,
+          profile: parsed,
           isComplete: parsed.isComplete,
-          fallbackNotice: 'Extracted using Onboarding NLP pipeline (Backend stub 501 active).'
+          fallbackNotice: 'Extracted using Onboarding NLP pipeline.'
         };
       }
       throw err;
     }
+  },
+
+  // Upload Resume File (.pdf, .docx, .txt)
+  uploadResumeFile: async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await client.post('/onboarding/upload-resume', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return res.data;
+  },
+
+  // Parse Raw Resume Text
+  parseResumeText: async (resumeText, currentProfile = {}) => {
+    const res = await client.post('/onboarding/parse-resume-text', {
+      resume_text: resumeText,
+      current_profile: currentProfile
+    });
+    return res.data;
+  },
+
+  // Deep Profile & Skill Gap Analysis
+  analyzeProfile: async (profile) => {
+    const res = await client.post('/onboarding/analyze', { profile });
+    return res.data;
   }
 };
 
