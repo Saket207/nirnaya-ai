@@ -74,23 +74,18 @@ const OnboardingPage = () => {
     setLoading(true);
 
     try {
-      const response = await api.sendOnboardingMessage(text);
+      const response = await api.sendOnboardingMessage(text, 'session-1', extractedProfile);
 
       // Merge newly extracted fields
       if (response.parsed) {
-        setExtractedProfile((prev) => ({
-          name: response.parsed.name || prev.name,
-          role: response.parsed.role || prev.role,
-          department: response.parsed.department || prev.department,
-          skills: response.parsed.skills?.length > 0 ? response.parsed.skills : prev.skills
-        }));
-
-        const complete = Boolean(
-          (response.parsed.name || extractedProfile.name) &&
-          (response.parsed.role || extractedProfile.role) &&
-          (response.parsed.department || extractedProfile.department)
-        );
-        setIsComplete(complete);
+        const updated = {
+          name: response.parsed.name || extractedProfile.name,
+          role: response.parsed.role || extractedProfile.role,
+          department: response.parsed.department || extractedProfile.department,
+          skills: response.parsed.skills?.length > 0 ? response.parsed.skills : extractedProfile.skills
+        };
+        setExtractedProfile(updated);
+        setIsComplete(Boolean(updated.name && updated.role && updated.department));
       }
 
       const botReply = {
