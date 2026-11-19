@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Sparkles,
@@ -16,17 +16,19 @@ import {
   FileText,
   Lock,
   ChevronRight,
+  ChevronLeft,
   ExternalLink,
   Cpu,
   Compass,
   Briefcase,
   Zap,
   BarChart3,
-  Server
+  Server,
+  Fingerprint
 } from 'lucide-react';
 import { useAuth, ROLES } from '../context/AuthContext';
 
-// High-resolution photography assets from Noovotic CDN & workspace intelligence
+// High-resolution photography & monochrome assets from Noovotic CDN & platform
 const ASSETS = {
   heroWorkspace: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c46a038c5276c46c28d8_three-colleagues-gathered-around-a-table-writing-n.webp',
   teamReview: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c41c7c42ec1a182b8ddb_two-colleagues-reviewing-a-tablet-by-a-large-windo.webp',
@@ -34,13 +36,38 @@ const ASSETS = {
   portraitWoman: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c3dd8b371d14f8868b08_black-and-white-portrait-of-a-woman-with-wind-blow.webp',
   portraitMan: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c3ddcabca94c5e665e7a_black-and-white-portrait-of-a-smiling-man-wearing-.webp',
   portraitExecutive: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c3dd1808a1d01d0fe115_black-and-white-portrait-of-a-young-man.webp',
-  deskWork: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c41c59f40751e40a0ac3_smiling-professional-holding-a-folder-at-his-desk-.webp'
+  deskWork: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c41c59f40751e40a0ac3_smiling-professional-holding-a-folder-at-his-desk-.webp',
+  
+  // Noovotic 4-step process cards (monochrome geometric series)
+  processObserve: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c444ebf366815a0e72c2_image-beeipbc4gh.webp',
+  processQuantify: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c445a138eb77fd4be165_image-vz86l8e6yb.webp',
+  processExplain: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c4440708bd3746e51c18_image-vnk3ehgfnf.webp',
+  processIntervene: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c445336a25d5ef163f74_image-6pjrjfv3d4.webp',
+  
+  // Noovotic Creation of Adam Hands (Pointing inwards towards center CTA)
+  handLeft: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c469aaee9a947f733e0f_hand-with-the-index-finger-pointing-to-the-right.webp',
+  handRight: 'https://cdn.prod.website-files.com/6af4bf993221c7453b81c713/6af4c469aaee9a947f733e23_hand-with-the-index-finger-pointing-to-the-left.webp'
 };
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user, login } = useAuth();
-  const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
+
+  // Scroll Progress across entire page
+  const [pageScrollProgress, setPageScrollProgress] = useState(0);
+
+  // Michelangelo Hands Coming Together scroll progress [0 -> 1]
+  const [handsProgress, setHandsProgress] = useState(0);
+  const handsSectionRef = useRef(null);
+
+  // 4-Step Process Section horizontal scrolling state
+  const processStickyRef = useRef(null);
+  const processTrackRef = useRef(null);
+  const [horizontalScrollProgress, setHorizontalScrollProgress] = useState(0);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+
+  // Interactive Persona Demo Switcher in Hero
+  const [activeHeroPersona, setActiveHeroPersona] = useState('hr_staff');
 
   const handleQuickLaunch = (role, defaultUser) => {
     login(role, defaultUser);
@@ -51,10 +78,120 @@ const HomePage = () => {
     }
   };
 
+  // Scroll listener for Top Progress Bar, Horizontal Process Track, and Hands Parallax
+  useEffect(() => {
+    const handleScroll = () => {
+      // 1. Overall page progress
+      const totalDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalDocHeight > 0) {
+        setPageScrollProgress(Math.min(100, Math.max(0, (window.scrollY / totalDocHeight) * 100)));
+      }
+
+      // 2. Horizontal Process Track Scroll Progress
+      if (processStickyRef.current) {
+        const rect = processStickyRef.current.getBoundingClientRect();
+        const sectionHeight = processStickyRef.current.offsetHeight;
+        const windowH = window.innerHeight;
+        
+        // When section enters the viewport and sticky starts
+        const startY = -rect.top;
+        const scrollableDist = sectionHeight - windowH;
+        
+        if (scrollableDist > 0) {
+          const progress = Math.min(1, Math.max(0, startY / scrollableDist));
+          setHorizontalScrollProgress(progress);
+          const currentStep = Math.min(3, Math.floor(progress * 4));
+          setActiveStepIndex(currentStep);
+        }
+      }
+
+      // 3. Hands Parallax Progress
+      if (handsSectionRef.current) {
+        const rect = handsSectionRef.current.getBoundingClientRect();
+        const windowH = window.innerHeight;
+        
+        // Progress reaches 1 when section is centered in screen
+        const start = windowH;
+        const end = windowH * 0.15;
+        const current = rect.top;
+        
+        const progress = Math.min(1, Math.max(0, (start - current) / (start - end)));
+        setHandsProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 4-step process data matching Noovotic layout
+  const processSteps = [
+    {
+      step: 'Step 1',
+      number: '01',
+      title: 'Observe',
+      iconType: 'quad',
+      description: 'We continuously capture telemetry across Okta SSO logins, overtime hours, and compa-ratios. Every weak signal counts.',
+      badge: 'Okta & Workday Telemetry',
+      image: ASSETS.processObserve,
+      metric: '0.84 Retention R²'
+    },
+    {
+      step: 'Step 2',
+      number: '02',
+      title: 'Quantify',
+      iconType: 'star',
+      description: 'We quantify calibrated attrition flight probabilities through gradient boosted trees, clustering workforce risk tiers.',
+      badge: 'XGBoost Risk Classifier',
+      image: ASSETS.processQuantify,
+      metric: '84.2% ML Accuracy'
+    },
+    {
+      step: 'Step 3',
+      number: '03',
+      title: 'Explain',
+      iconType: 'hex',
+      description: 'We mathematically isolate TreeSHAP attributions, distinguishing overtime burnout drivers from protective compensation signals.',
+      badge: 'SHAP Attribution Engine',
+      image: ASSETS.processExplain,
+      metric: 'Game-Theoretic SHAP'
+    },
+    {
+      step: 'Step 4',
+      number: '04',
+      title: 'Intervene',
+      iconType: 'compass',
+      description: 'We synthesize policy-verified retention playbooks cross-referenced with active company handbooks and compensation guidelines.',
+      badge: 'ChromaDB & Groq RAG',
+      image: ASSETS.processIntervene,
+      metric: '<95ms Policy Audit'
+    }
+  ];
+
+  // Manual scroll helper for the process track
+  const scrollProcessToStep = (index) => {
+    setActiveStepIndex(index);
+    if (processStickyRef.current) {
+      const sectionTop = processStickyRef.current.offsetTop;
+      const sectionHeight = processStickyRef.current.offsetHeight;
+      const scrollableDist = sectionHeight - window.innerHeight;
+      const targetScroll = sectionTop + (index / 3) * scrollableDist;
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#FBF4EF] text-[#312C29] selection:bg-[#D9684C] selection:text-white font-sans">
+    <div className="min-h-screen bg-[#FBF4EF] text-[#312C29] selection:bg-[#D9684C] selection:text-white font-sans overflow-x-hidden">
+      {/* ── 0. Top Reading Progress Indicator (Noovotic Terracotta Accent) ── */}
+      <div
+        className="fixed top-0 left-0 h-[3px] bg-[#D9684C] z-[70] transition-[width] duration-150 ease-out"
+        style={{ width: `${pageScrollProgress}%` }}
+      />
+
       {/* ── 1. Top Navigation Bar (Noovotic Minimalist Header) ── */}
-      <header className="sticky top-0 z-50 bg-[#FBF4EF]/90 backdrop-blur-md border-b border-[#DED1C9] px-6 lg:px-12 h-20 flex items-center justify-between transition-all">
+      <header className="sticky top-0 z-50 bg-[#FBF4EF]/95 backdrop-blur-md border-b border-[#DED1C9] px-6 lg:px-12 h-20 flex items-center justify-between transition-all">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-[#312C29] text-[#D9684C] flex items-center justify-center font-heading font-bold shadow-md shadow-[#312C29]/15 group-hover:scale-105 transition-transform">
@@ -76,10 +213,10 @@ const HomePage = () => {
         {/* Center Nav Anchors */}
         <nav className="hidden md:flex items-center gap-8 text-xs font-semibold text-[#5D5753]">
           <a href="#solutions" className="hover:text-[#312C29] transition-colors">Solutions</a>
-          <a href="#methodology" className="hover:text-[#312C29] transition-colors">Methodology</a>
-          <a href="#architecture" className="hover:text-[#312C29] transition-colors">AI Architecture</a>
+          <a href="#process" className="hover:text-[#312C29] transition-colors">4-Step Process</a>
           <a href="#cases" className="hover:text-[#312C29] transition-colors">Evidence</a>
-          <a href="#insights" className="hover:text-[#312C29] transition-colors">Research</a>
+          <a href="#get-started" className="hover:text-[#312C29] transition-colors">Action Center</a>
+          <a href="#governance" className="hover:text-[#312C29] transition-colors">Governance</a>
         </nav>
 
         {/* Right CTA / Auth Status */}
@@ -156,7 +293,7 @@ const HomePage = () => {
               </button>
             </div>
 
-            {/* Founder & Research Charter Card (Inspired by Daniel Hamilton in Noovotic) */}
+            {/* Founder & Research Charter Card */}
             <div className="p-4 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-8">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-xl bg-[#312C29] text-[#D9684C] font-heading font-bold flex items-center justify-center text-sm shadow-xs flex-shrink-0">
@@ -197,12 +334,12 @@ const HomePage = () => {
                 />
               </div>
 
-              {/* Floating Live AI Risk Card */}
+              {/* Floating Live AI Risk Card with Interactive Persona Toggle */}
               <div className="absolute -bottom-8 -left-6 sm:-left-8 bg-white p-5 rounded-2xl border border-[#DED1C9] shadow-2xl max-w-xs animate-in slide-in-from-bottom-6">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#2E7D32] animate-pulse" />
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A736E]">Live XGBoost Score</span>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A736E]">Live Telemetry</span>
                   </div>
                   <span className="text-[10px] font-bold bg-[#E8F5E9] text-[#2E7D32] px-2 py-0.5 rounded-full border border-[#A5D6A7]">
                     Low Risk (23%)
@@ -212,7 +349,7 @@ const HomePage = () => {
                 <div className="space-y-2">
                   <div className="text-xs font-bold text-[#312C29]">Saket Kumar • Senior Backend Lead</div>
                   <div className="p-2.5 rounded-xl bg-[#FAF6F2] border border-[#DED1C9] text-[11px] text-[#5D5753] leading-relaxed">
-                    <strong className="text-[#312C29]">SHAP Attribution:</strong> 0 hrs/wk excessive overtime protects against burnout; 0 mos promotion lag indicates active leveling.
+                    <strong className="text-[#312C29]">SHAP Attribution:</strong> 0 hrs/wk overtime protects from burnout; 0 mos promotion lag indicates active leveling.
                   </div>
                   <div className="flex items-center justify-between pt-1 text-[10px] text-[#7A736E]">
                     <span>Policy Standard: POL-HR-COC-2026-V4</span>
@@ -365,66 +502,162 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ── 5. The 4-Stage Methodology (Noovotic's "Process that begins with common sense") ── */}
-      <section id="methodology" className="px-6 lg:px-12 py-20 bg-[#FAF6F2] border-y border-[#DED1C9]">
-        <div className="max-w-7xl mx-auto space-y-14">
-          <div className="max-w-xl space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#D9684C]">Operational Flow</span>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#312C29]">
-              A strategic process that begins with common sense.
-            </h2>
-            <p className="text-xs text-[#7A736E]">
-              How Nirnaya converts continuous enterprise noise into high-confidence, policy-verified human capital decisions.
-            </p>
+      {/* ── 5. EXACT NOOVOTIC 4-STEP PROCESS (Sticky Pinned Horizontal Scroll) ── */}
+      {/* Inspired directly by user screenshot 1: Dark background, cards translate right-to-left as user scrolls */}
+      <section id="process" ref={processStickyRef} className="relative h-[280vh] bg-[#221D1A] text-white">
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-between py-12 px-6 lg:px-16 z-20">
+          {/* Header Row (Direct replica of Noovotic: -- OUR 4-STEP PROCESS, Title, (06) indicator) */}
+          <div className="max-w-7xl mx-auto w-full pt-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-6 h-[2px] bg-[#D9684C]" />
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-[#D9684C]">
+                    Our 4-Step Process
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight">
+                  A process that begins with common sense.
+                </h2>
+              </div>
+              <div className="text-2xl sm:text-3xl font-heading font-light text-[#D9684C] tracking-tight">
+                (06)
+              </div>
+            </div>
+
+            {/* Step Selector & Navigation Arrows for Instant Interactive Cycling */}
+            <div className="flex items-center justify-between pt-4 text-xs">
+              <div className="flex items-center gap-2">
+                {processSteps.map((s, idx) => (
+                  <button
+                    key={s.step}
+                    onClick={() => scrollProcessToStep(idx)}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                      activeStepIndex === idx
+                        ? 'bg-[#D9684C] text-white shadow-xs'
+                        : 'bg-white/10 text-white/70 hover:bg-white/20'
+                    }`}
+                  >
+                    {s.step}: {s.title}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => scrollProcessToStep(Math.max(0, activeStepIndex - 1))}
+                  disabled={activeStepIndex === 0}
+                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  aria-label="Previous step"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => scrollProcessToStep(Math.min(3, activeStepIndex + 1))}
+                  disabled={activeStepIndex === 3}
+                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  aria-label="Next step"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Step 1 */}
-            <div className="bg-white p-6 rounded-3xl border border-[#DED1C9] shadow-xs space-y-4 relative">
-              <span className="text-3xl font-heading font-extrabold text-[#D9684C] block">01</span>
-              <h3 className="text-base font-heading font-bold text-[#312C29]">Observe (Telemetry)</h3>
-              <p className="text-xs text-[#5D5753] leading-relaxed">
-                Continuous ingestion of Okta SSO session logins, overtime hours, compensation compa-ratios, and Culture Amp sentiment pulse scores.
-              </p>
-              <div className="pt-3 border-t border-[#DED1C9] text-[10px] text-[#7A736E] font-mono">
-                Provider: Okta SSO / Workday API
-              </div>
-            </div>
+          {/* Cards Track: Translates horizontally from right to left as user scrolls vertically down */}
+          <div className="w-full overflow-hidden py-4">
+            <div
+              ref={processTrackRef}
+              className="flex gap-6 sm:gap-8 transition-transform duration-300 ease-out will-change-transform"
+              style={{
+                transform: `translateX(-${horizontalScrollProgress * 1150}px)`
+              }}
+            >
+              {processSteps.map((step, idx) => (
+                <div
+                  key={step.step}
+                  className="w-[360px] sm:w-[460px] flex-shrink-0 bg-white rounded-3xl p-6 sm:p-8 flex gap-5 border border-[#DED1C9] shadow-2xl text-[#312C29] transition-transform hover:-translate-y-1.5"
+                >
+                  {/* Left Column: Vertical Step label and Terracotta Glyph */}
+                  <div className="flex flex-col justify-between items-center border-r border-[#EFE7E1] pr-4 flex-shrink-0">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#7A736E] [writing-mode:vertical-lr] rotate-180">
+                      {step.step}
+                    </span>
 
-            {/* Step 2 */}
-            <div className="bg-white p-6 rounded-3xl border border-[#DED1C9] shadow-xs space-y-4 relative">
-              <span className="text-3xl font-heading font-extrabold text-[#D9684C] block">02</span>
-              <h3 className="text-base font-heading font-bold text-[#312C29]">Quantify (XGBoost)</h3>
-              <p className="text-xs text-[#5D5753] leading-relaxed">
-                Trained gradient boosted trees compute calibrated flight probabilities, categorizing every team member into Low, Medium, or High risk tiers.
-              </p>
-              <div className="pt-3 border-t border-[#DED1C9] text-[10px] text-[#7A736E] font-mono">
-                Model: XGBClassifier (84% Acc)
-              </div>
-            </div>
+                    {/* Terracotta glyph icons matching screenshot 1 */}
+                    <div className="text-[#D9684C] pt-4">
+                      {step.iconType === 'quad' && (
+                        <div className="grid grid-cols-2 gap-1 w-5 h-5">
+                          <span className="w-2 h-2 rounded-full bg-[#D9684C]" />
+                          <span className="w-2 h-2 rounded-full bg-[#D9684C]" />
+                          <span className="w-2 h-2 rounded-full bg-[#D9684C]" />
+                          <span className="w-2 h-2 rounded-full bg-[#D9684C]" />
+                        </div>
+                      )}
+                      {step.iconType === 'star' && (
+                        <div className="text-xl font-bold leading-none select-none">
+                          ✱
+                        </div>
+                      )}
+                      {step.iconType === 'hex' && (
+                        <div className="text-xl font-bold leading-none select-none">
+                          ✧
+                        </div>
+                      )}
+                      {step.iconType === 'compass' && (
+                        <div className="w-5 h-5 rounded-full border-2 border-[#D9684C] flex items-center justify-center">
+                          <span className="w-1.5 h-1.5 bg-[#D9684C] rounded-full" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-            {/* Step 3 */}
-            <div className="bg-white p-6 rounded-3xl border border-[#DED1C9] shadow-xs space-y-4 relative">
-              <span className="text-3xl font-heading font-extrabold text-[#D9684C] block">03</span>
-              <h3 className="text-base font-heading font-bold text-[#312C29]">Explain (SHAP)</h3>
-              <p className="text-xs text-[#5D5753] leading-relaxed">
-                Game-theoretic Shapley values mathematically isolate primary attrition drivers (overtime burden, stagnation lag) from protective factors.
-              </p>
-              <div className="pt-3 border-t border-[#DED1C9] text-[10px] text-[#7A736E] font-mono">
-                Engine: TreeExplainer Attribution
-              </div>
-            </div>
+                  {/* Main Card Body */}
+                  <div className="flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <h3 className="text-xl sm:text-2xl font-heading font-bold text-[#312C29]">
+                          {step.title}
+                        </h3>
+                        <span className="text-[10px] font-mono text-[#D9684C] font-semibold bg-[#FDEAE5] px-2 py-0.5 rounded-full">
+                          {step.metric}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#5D5753] leading-relaxed line-clamp-3">
+                        {step.description}
+                      </p>
+                    </div>
 
-            {/* Step 4 */}
-            <div className="bg-white p-6 rounded-3xl border border-[#DED1C9] shadow-xs space-y-4 relative">
-              <span className="text-3xl font-heading font-extrabold text-[#D9684C] block">04</span>
-              <h3 className="text-base font-heading font-bold text-[#312C29]">Intervene (Policy RAG)</h3>
-              <p className="text-xs text-[#5D5753] leading-relaxed">
-                Synthesizes individualized retention action plans verified against official employee handbooks, expense caps, and WFH policies.
-              </p>
-              <div className="pt-3 border-t border-[#DED1C9] text-[10px] text-[#7A736E] font-mono">
-                Verification: ChromaDB + Groq LLM
-              </div>
+                    {/* High-Resolution Monochrome Media */}
+                    <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#DED1C9] shadow-inner bg-[#FAF6F2]">
+                      <img
+                        src={step.image}
+                        alt={step.title}
+                        className="w-full h-full object-cover filter contrast-[1.05] grayscale hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px] text-[#7A736E] pt-1 border-t border-[#EFE7E1]">
+                      <span className="font-semibold text-[#312C29]">{step.badge}</span>
+                      <span className="text-[#D9684C] font-bold">Step {step.number} of 04</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom Progress Bar & Instruction Hint */}
+          <div className="max-w-7xl mx-auto w-full flex items-center justify-between text-xs text-white/50 pb-2">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#D9684C] animate-pulse" />
+              Scroll down to slide through methodology
+            </span>
+            <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#D9684C] transition-[width] duration-150"
+                style={{ width: `${horizontalScrollProgress * 100}%` }}
+              />
             </div>
           </div>
         </div>
@@ -492,7 +725,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ── 7. Client & Leadership Testimonials (Noovotic's "Hear From Our Satisfied Clients") ── */}
+      {/* ── 7. Client & Leadership Testimonials ── */}
       <section className="px-6 lg:px-12 py-20 bg-[#FAF6F2] border-y border-[#DED1C9]">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="max-w-xl space-y-2">
@@ -545,43 +778,96 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ── 8. Conversion Call to Action Banner (Noovotic Style) ── */}
-      <section className="px-6 lg:px-12 py-20 max-w-7xl mx-auto">
-        <div className="bg-[#312C29] text-[#FBF4EF] rounded-3xl p-8 sm:p-14 border border-[#1C1816] shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative overflow-hidden">
-          {/* Subtle warm glow */}
-          <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#D9684C]/20 rounded-full blur-3xl pointer-events-none" />
+      {/* ── 8. EXACT NOOVOTIC MICHELANGELO CREATION OF ADAM HANDS CTA ── */}
+      {/* Directly inspired by user screenshot 2: Hands moving inwards towards each other as user scrolls */}
+      <section
+        id="get-started"
+        ref={handsSectionRef}
+        className="relative px-6 lg:px-12 py-28 bg-[#FAF6F2] border-b border-[#DED1C9] overflow-hidden min-h-[580px] flex items-center justify-center"
+      >
+        {/* Subtle spherical wireframe background pattern from Noovotic */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
+          <svg
+            className="w-[1000px] h-[600px] max-w-none text-[#DED1C9]"
+            viewBox="0 0 1000 600"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+          >
+            <ellipse cx="500" cy="300" rx="460" ry="260" strokeDasharray="3 3" />
+            <ellipse cx="500" cy="300" rx="340" ry="260" />
+            <ellipse cx="500" cy="300" rx="200" ry="260" strokeDasharray="2 2" />
+            <line x1="500" y1="40" x2="500" y2="560" stroke="#D9684C" strokeWidth="1.5" />
+            <circle cx="500" cy="230" r="4" fill="#D9684C" />
+          </svg>
+        </div>
 
-          <div className="space-y-3 max-w-2xl relative z-10">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#D9684C]">
-              Enterprise Readiness
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-white tracking-tight">
-              Ready to transform your workforce intelligence today?
-            </h2>
-            <p className="text-xs sm:text-sm text-[#FBF4EF]/85 leading-relaxed">
-              Launch the live interactive demo or sign in to experience XGBoost flight risk modeling, SHAP explainability, and policy governance firsthand.
-            </p>
-          </div>
+        {/* Left Hand: Points to the right, moves inwards as user scrolls into view */}
+        <div
+          className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out z-10 w-[320px] sm:w-[480px] lg:w-[580px]"
+          style={{
+            transform: `translate3d(${(1 - handsProgress) * -180}px, -50%, 0)`
+          }}
+        >
+          <img
+            src={ASSETS.handLeft}
+            alt="Hand reaching from left"
+            className="w-full object-contain filter grayscale contrast-[1.05] drop-shadow-md"
+          />
+        </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 relative z-10">
+        {/* Right Hand: Points to the left, moves inwards as user scrolls into view */}
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out z-10 w-[320px] sm:w-[480px] lg:w-[580px]"
+          style={{
+            transform: `translate3d(${(1 - handsProgress) * 180}px, -50%, 0)`
+          }}
+        >
+          <img
+            src={ASSETS.handRight}
+            alt="Hand reaching from right"
+            className="w-full object-contain filter grayscale contrast-[1.05] drop-shadow-md"
+          />
+        </div>
+
+        {/* Center Content: Exact typography & CTA from Noovotic screenshot 2 */}
+        <div className="relative z-20 text-center max-w-xl mx-auto space-y-6 px-4">
+          <div className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-[#D9684C] mb-2 animate-ping" />
+          
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-[#312C29] tracking-tight leading-[1.12]">
+            Get started with Nirnaya today
+          </h2>
+
+          <p className="text-xs sm:text-sm text-[#5D5753] leading-relaxed max-w-md mx-auto">
+            Bridge empirical attendance telemetry, explainable attrition algorithms, and verified corporate policy into one unified workspace.
+          </p>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            {/* Primary Noovotic Dark Button with Glowing Dot */}
             <button
               onClick={() => handleQuickLaunch(ROLES.HR_STAFF, 'aditi_hr')}
-              className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#D9684C] hover:bg-[#B2553E] text-white text-xs font-bold transition-all shadow-md active:scale-95 text-center"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#312C29] hover:bg-[#1C1816] text-white text-xs font-bold tracking-wider uppercase shadow-xl transition-all active:scale-95 group"
             >
-              Launch Live Workspace
+              <span className="w-2 h-2 rounded-full bg-[#D9684C] group-hover:scale-125 transition-transform" />
+              <span>Launch Live Workspace</span>
             </button>
+
             <button
               onClick={() => navigate('/login')}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/20 transition-all text-center"
+              className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white hover:bg-[#F2EAE3] text-[#312C29] text-xs font-bold tracking-wider uppercase border border-[#DED1C9] transition-all shadow-xs"
             >
-              Sign In with Persona
+              <span>Select Persona</span>
             </button>
           </div>
+
+          <p className="text-[10px] text-[#7A736E] font-mono pt-2">
+            Instant Demo • No Setup Required • DSCE Hackathon 2026
+          </p>
         </div>
       </section>
 
       {/* ── 9. Mega-Footer (Noovotic Clean Editorial Design) ── */}
-      <footer className="bg-[#FAF6F2] border-t border-[#DED1C9] px-6 lg:px-12 py-16 text-xs text-[#7A736E]">
+      <footer id="governance" className="bg-[#FAF6F2] border-t border-[#DED1C9] px-6 lg:px-12 py-16 text-xs text-[#7A736E]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Col 1: Brand Info */}
           <div className="space-y-3 md:col-span-1">
