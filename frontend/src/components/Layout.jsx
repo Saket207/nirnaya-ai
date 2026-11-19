@@ -80,30 +80,32 @@ const Layout = ({ children }) => {
   const visibleNav = navItems.filter((item) => !item.roles || item.roles.includes(role));
 
   return (
-    <div className="min-h-screen flex bg-slate-50 text-slate-800">
+    <div className="min-h-screen flex bg-[#FBF4EF] text-[#312C29] font-sans selection:bg-[#D9684C] selection:text-white">
       {/* ── Left Sidebar (Desktop) ── */}
-      <aside className="hidden lg:flex flex-col w-72 bg-white border-r border-slate-200/80 shadow-[1px_0_3px_0_rgba(0,0,0,0.02)] fixed inset-y-0 z-30">
+      <aside className="hidden lg:flex flex-col w-72 bg-[#FAF6F2] border-r border-[#DED1C9] shadow-[1px_0_16px_rgba(49,44,41,0.03)] fixed inset-y-0 z-30">
         {/* Brand Header */}
-        <div className="p-6 border-b border-slate-100 flex flex-col gap-1">
+        <div className="p-6 border-b border-[#DED1C9] flex flex-col gap-1">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+            <div className="w-10 h-10 rounded-xl bg-[#312C29] text-[#D9684C] flex items-center justify-center shadow-md shadow-[#312C29]/15">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-xl font-bold tracking-tight text-slate-900">Nirnaya<span className="text-brand-600">.ai</span></span>
-                <span className="text-[10px] font-semibold bg-brand-50 text-brand-700 px-1.5 py-0.5 rounded border border-brand-200 uppercase">
+                <span className="text-xl font-heading font-bold tracking-tight text-[#312C29]">
+                  Nirnaya<span className="text-[#D9684C]">.ai</span>
+                </span>
+                <span className="text-[10px] font-semibold bg-[#FDEAE5] text-[#B2553E] px-1.5 py-0.5 rounded-full border border-[#D9684C]/30 uppercase tracking-wider">
                   v1.0
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-medium">Workforce Intelligence</p>
+              <p className="text-[11px] text-[#7A736E] font-medium tracking-wide">Workforce Intelligence</p>
             </div>
           </div>
         </div>
 
         {/* Navigation Links */}
-        <div className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-          <div className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+        <div className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+          <div className="px-3 pb-2 text-[10px] font-bold uppercase tracking-widest text-[#7A736E]">
             Workforce Platform
           </div>
 
@@ -114,19 +116,19 @@ const Layout = ({ children }) => {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all group ${
+                  `flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs tracking-tight transition-all group ${
                     isActive
-                      ? 'bg-brand-50 text-brand-700 font-semibold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                      ? 'bg-[#312C29] text-white font-semibold shadow-sm'
+                      : 'text-[#5D5753] hover:text-[#312C29] hover:bg-[#F2EAE3]'
                   }`
                 }
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 transition-colors group-hover:text-brand-600" />
+                  <Icon className="w-4 h-4 transition-colors group-hover:text-[#D9684C]" />
                   <span>{item.label}</span>
                 </div>
                 {item.badge && (
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/60 group-hover:border-brand-200 group-hover:bg-brand-100/50 group-hover:text-brand-700 transition-colors">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#F5E9DF] text-[#5D5753] border border-[#DED1C9] group-hover:border-[#D9684C]/40 group-hover:text-[#312C29] transition-colors">
                     {item.badge}
                   </span>
                 )}
@@ -136,31 +138,31 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Hackathon Team Credits */}
-        <div className="p-4 mx-4 mb-4 rounded-xl bg-slate-50 border border-slate-200/70">
-          <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-slate-700">
-            <span className="w-2 h-2 rounded-full bg-brand-500 animate-ping" />
-            <span>Team Curious Coders</span>
+        <div className="p-4 mx-4 mb-4 rounded-2xl bg-white border border-[#DED1C9] shadow-xs">
+          <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-[#312C29]">
+            <span className="w-2 h-2 rounded-full bg-[#D9684C] animate-pulse" />
+            <span className="font-heading">Team Curious Coders</span>
           </div>
-          <p className="text-[11px] text-slate-500 leading-tight">
-            Dayananda Sagar College of Engineering (DSCE) • Theme: AI in HR
+          <p className="text-[11px] text-[#7A736E] leading-relaxed">
+            Dayananda Sagar College of Engineering • AI in HR
           </p>
         </div>
 
         {/* User Footer Profile */}
-        <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
+        <div className="p-4 border-t border-[#DED1C9] bg-[#F5E9DF]/50 flex items-center justify-between">
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-[#312C29] text-[#FBF4EF] font-heading font-bold flex items-center justify-center text-sm flex-shrink-0">
               {user?.name?.charAt(0) || 'U'}
             </div>
             <div className="truncate">
-              <p className="text-xs font-bold text-slate-900 truncate">{user?.name}</p>
-              <p className="text-[11px] text-slate-500 capitalize">{ROLE_LABELS[role]}</p>
+              <p className="text-xs font-bold text-[#312C29] truncate">{user?.name}</p>
+              <p className="text-[11px] text-[#7A736E] capitalize">{ROLE_LABELS[role]}</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
             title="Log Out"
-            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+            className="p-2 text-[#7A736E] hover:text-[#C62828] hover:bg-[#FFEBEE] rounded-lg transition-colors"
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -170,46 +172,48 @@ const Layout = ({ children }) => {
       {/* ── Main Content Area ── */}
       <div className="flex-1 lg:pl-72 flex flex-col min-h-screen">
         {/* Top Navbar */}
-        <header className="sticky top-0 z-20 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 lg:px-8 flex items-center justify-between shadow-xs">
+        <header className="sticky top-0 z-20 h-16 bg-[#FBF4EF]/90 backdrop-blur-md border-b border-[#DED1C9] px-4 lg:px-8 flex items-center justify-between">
           {/* Mobile hamburger */}
           <div className="flex items-center gap-3 lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-600 hover:text-slate-900 rounded-lg"
+              className="p-2 text-[#312C29] hover:bg-[#F2EAE3] rounded-lg"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
-            <span className="font-bold text-slate-900">Nirnaya<span className="text-brand-600">.ai</span></span>
+            <span className="font-heading font-bold text-[#312C29]">
+              Nirnaya<span className="text-[#D9684C]">.ai</span>
+            </span>
           </div>
 
           {/* Quick Context & Role Switcher */}
           <div className="hidden sm:flex items-center gap-2">
-            <span className="text-xs font-medium text-slate-500">Active Role Mode:</span>
+            <span className="text-xs font-medium text-[#7A736E]">Active Role Mode:</span>
             <div className="relative">
               <button
                 onClick={() => setRoleSwitcherOpen(!roleSwitcherOpen)}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200/80 text-xs font-semibold text-slate-800 transition-colors border border-slate-200/80"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-[#F5E9DF] text-xs font-semibold text-[#312C29] transition-colors border border-[#DED1C9] shadow-xs"
               >
-                <Shield className="w-3.5 h-3.5 text-brand-600" />
+                <Shield className="w-3.5 h-3.5 text-[#D9684C]" />
                 <span>{ROLE_LABELS[role]}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#7A736E]" />
               </button>
 
               {roleSwitcherOpen && (
-                <div className="absolute left-0 mt-1.5 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-1 z-50 animate-in fade-in-50 zoom-in-95">
-                  <div className="px-3 py-1.5 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                <div className="absolute left-0 mt-1.5 w-48 bg-white rounded-2xl shadow-xl border border-[#DED1C9] py-1.5 z-50 animate-in fade-in-50 zoom-in-95">
+                  <div className="px-3.5 py-1 text-[10px] uppercase font-bold text-[#7A736E] tracking-wider">
                     Quick Role Switch
                   </div>
                   {Object.entries(ROLE_LABELS).map(([rKey, rLabel]) => (
                     <button
                       key={rKey}
                       onClick={() => handleSwitchRole(rKey)}
-                      className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-slate-50 ${
-                        role === rKey ? 'font-bold text-brand-700 bg-brand-50/50' : 'text-slate-700'
+                      className={`w-full text-left px-3.5 py-2 text-xs flex items-center justify-between hover:bg-[#FBF4EF] ${
+                        role === rKey ? 'font-bold text-[#B2553E] bg-[#FDEAE5]' : 'text-[#312C29]'
                       }`}
                     >
                       <span>{rLabel}</span>
-                      {role === rKey && <span className="w-1.5 h-1.5 rounded-full bg-brand-600" />}
+                      {role === rKey && <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C]" />}
                     </button>
                   ))}
                 </div>
@@ -219,16 +223,16 @@ const Layout = ({ children }) => {
 
           {/* Right Header Status */}
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 bg-slate-100/80 px-3 py-1.5 rounded-full border border-slate-200/60">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <div className="hidden md:flex items-center gap-2 text-xs text-[#5D5753] bg-white px-3.5 py-1.5 rounded-full border border-[#DED1C9]">
+              <span className="w-2 h-2 rounded-full bg-[#2E7D32]" />
               <span>FastAPI Backend Active</span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-700 hidden sm:inline">{user?.name}</span>
+              <span className="text-xs font-semibold text-[#312C29] hidden sm:inline">{user?.name}</span>
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-rose-600 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-rose-200 hover:bg-rose-50 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5D5753] hover:text-[#C62828] px-3 py-1.5 rounded-xl border border-[#DED1C9] hover:border-[#C62828]/30 hover:bg-[#FFEBEE] transition-colors"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Logout</span>
@@ -239,7 +243,7 @@ const Layout = ({ children }) => {
 
         {/* Mobile Slide-down Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-3 space-y-1 z-30">
+          <div className="lg:hidden bg-[#FAF6F2] border-b border-[#DED1C9] px-4 py-3 space-y-1.5 z-30">
             {visibleNav.map((item) => {
               const Icon = item.icon;
               return (
@@ -248,8 +252,8 @@ const Layout = ({ children }) => {
                   to={item.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm ${
-                      isActive ? 'bg-brand-50 text-brand-700 font-semibold' : 'text-slate-600'
+                    `flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs ${
+                      isActive ? 'bg-[#312C29] text-white font-semibold' : 'text-[#5D5753]'
                     }`
                   }
                 >
@@ -258,7 +262,7 @@ const Layout = ({ children }) => {
                     <span>{item.label}</span>
                   </div>
                   {item.badge && (
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#F5E9DF] text-[#5D5753] border border-[#DED1C9]">
                       {item.badge}
                     </span>
                   )}

@@ -497,20 +497,20 @@ const OnboardingPage = () => {
   return (
     <div className="space-y-6 pb-12">
       {/* ── Top Header & Progress Overview ── */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white rounded-3xl border border-[#DED1C9] p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2.5 mb-1">
-            <span className="w-8 h-8 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+            <span className="w-8 h-8 rounded-xl bg-[#FDEAE5] text-[#D9684C] flex items-center justify-center">
               <Compass className="w-5 h-5" />
             </span>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-2xl font-heading font-bold tracking-tight text-[#312C29]">
               Enterprise Employee Onboarding Studio
             </h1>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#A5D6A7] uppercase tracking-wider">
               AI Powered
             </span>
           </div>
-          <p className="text-xs text-slate-500 max-w-2xl">
+          <p className="text-xs text-[#7A736E] max-w-2xl">
             Extract profile attributes from resumes, configure multi-tiered skill sets, verify policy entitlements, and register complete candidate records into Nirnaya.ai.
           </p>
         </div>
@@ -518,12 +518,12 @@ const OnboardingPage = () => {
         {/* Readiness Meter & Quick Registration Button */}
         <div className="flex items-center gap-4 self-end md:self-auto">
           <div className="text-right">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Profile Readiness</div>
-            <div className="text-xl font-extrabold font-mono text-brand-600">{completeness}% Complete</div>
-            <div className="w-32 h-2 bg-slate-100 rounded-full mt-1 overflow-hidden border border-slate-200/60">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-[#7A736E]">Profile Readiness</div>
+            <div className="text-xl font-extrabold font-mono text-[#D9684C]">{completeness}% Complete</div>
+            <div className="w-32 h-2 bg-[#F5E9DF] rounded-full mt-1 overflow-hidden border border-[#DED1C9]">
               <div
                 className={`h-full transition-all duration-500 ${
-                  completeness >= 80 ? 'bg-emerald-500' : completeness >= 50 ? 'bg-amber-500' : 'bg-brand-600'
+                  completeness >= 80 ? 'bg-[#2E7D32]' : completeness >= 50 ? 'bg-[#D9684C]' : 'bg-[#B2553E]'
                 }`}
                 style={{ width: `${completeness}%` }}
               />
@@ -533,7 +533,7 @@ const OnboardingPage = () => {
           <button
             onClick={handleFinalRegistration}
             disabled={submittingToDB || completeness < 40}
-            className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-semibold text-xs transition-all shadow-md shadow-brand-500/25 active:scale-95 flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white font-semibold text-xs transition-all shadow-xs active:scale-95 flex items-center gap-2"
           >
             <span>{submittingToDB ? 'Registering...' : 'Complete & Register'}</span>
             <ArrowRight className="w-4 h-4" />
@@ -544,13 +544,13 @@ const OnboardingPage = () => {
       {/* ── Mode Navigation Bar: Studio vs Conversational AI ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Dual Mode Switcher */}
-        <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200/80 w-fit">
+        <div className="flex bg-[#FAF6F2] p-1 rounded-2xl border border-[#DED1C9] w-fit">
           <button
             onClick={() => setActiveTab('studio')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
               activeTab === 'studio'
-                ? 'bg-white text-brand-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#312C29] text-white shadow-xs'
+                : 'text-[#5D5753] hover:text-[#312C29]'
             }`}
           >
             <Layers className="w-4 h-4" />
@@ -561,8 +561,8 @@ const OnboardingPage = () => {
             onClick={() => setActiveTab('chat')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
               activeTab === 'chat'
-                ? 'bg-white text-brand-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#312C29] text-white shadow-xs'
+                : 'text-[#5D5753] hover:text-[#312C29]'
             }`}
           >
             <Bot className="w-4 h-4" />
@@ -582,15 +582,15 @@ const OnboardingPage = () => {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/80 text-slate-700 font-semibold text-xs shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white hover:bg-[#F5E9DF] border border-[#DED1C9] text-[#312C29] font-semibold text-xs shadow-xs transition-colors"
           >
-            <UploadCloud className="w-4 h-4 text-brand-600" />
+            <UploadCloud className="w-4 h-4 text-[#D9684C]" />
             <span>{isUploading ? 'Extracting...' : 'Upload Resume (PDF/DOCX)'}</span>
           </button>
 
           <button
             onClick={() => setPasteResumeOpen(!pasteResumeOpen)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 font-semibold text-xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#FAF6F2] hover:bg-[#F2EAE3] border border-[#DED1C9] text-[#5D5753] font-semibold text-xs transition-colors"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Paste Text</span>

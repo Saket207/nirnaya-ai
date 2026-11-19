@@ -171,27 +171,27 @@ const PolicyQAPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
+          <h1 className="text-2xl font-heading font-bold tracking-tight text-[#312C29] flex items-center gap-2.5">
             <span>Policy Q&A Intelligence</span>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#A5D6A7] uppercase tracking-wider">
               Verified Citations
             </span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[#7A736E] mt-0.5">
             RAG Assistant powered by ChromaDB vector retrieval & Groq LLM with official document citations.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 text-xs text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="flex items-center gap-2 text-xs text-[#5D5753] bg-white px-3.5 py-1.5 rounded-xl border border-[#DED1C9] shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
             <span>4 Policy Books • 35 Inquiries Indexed</span>
           </div>
         </div>
       </div>
 
       {/* Main Chat Box Container */}
-      <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col overflow-hidden relative">
+      <div className="flex-1 bg-white rounded-2xl border border-[#DED1C9] shadow-xs flex flex-col overflow-hidden relative">
         {/* Messages Scroll Area */}
         <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4">
           {messages.map((msg) => (
@@ -203,10 +203,10 @@ const PolicyQAPage = () => {
             >
               {/* Avatar */}
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
+                className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                   msg.sender === 'user'
-                    ? 'bg-brand-600 text-white shadow-xs'
-                    : 'bg-emerald-100 text-emerald-700'
+                    ? 'bg-[#312C29] text-white shadow-xs'
+                    : 'bg-[#D9684C] text-white'
                 }`}
               >
                 {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -217,30 +217,30 @@ const PolicyQAPage = () => {
                 <div
                   className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-brand-600 text-white rounded-tr-none shadow-xs'
-                      : 'bg-slate-50 border border-slate-200/80 text-slate-800 rounded-tl-none'
+                      ? 'bg-[#312C29] text-[#FBF4EF] rounded-tr-none shadow-xs'
+                      : 'bg-[#FAF6F2] border border-[#DED1C9] text-[#312C29] rounded-tl-none'
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{msg.text}</p>
 
                   {/* Document Citation Chip */}
                   {msg.source && (
-                    <div className="mt-3 pt-2.5 border-t border-slate-200/80 flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
-                        <FileText className="w-3.5 h-3.5 text-brand-600" />
+                    <div className="mt-3 pt-2.5 border-t border-[#DED1C9] flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-semibold text-[#7A736E] flex items-center gap-1">
+                        <FileText className="w-3.5 h-3.5 text-[#D9684C]" />
                         Source:
                       </span>
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium border ${
                           msg.source === 'Not covered by policy'
-                            ? 'bg-amber-50 text-amber-700 border-amber-200'
-                            : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                            ? 'bg-[#FDEAE5] text-[#B2553E] border-[#D9684C]/30'
+                            : 'bg-[#E8F5E9] text-[#2E7D32] border-[#A5D6A7]'
                         }`}
                       >
                         {msg.source}
                       </span>
                       {msg.policyCode && (
-                        <span className="text-[10px] text-slate-400 font-mono">
+                        <span className="text-[10px] text-[#7A736E] font-mono">
                           ({msg.policyCode})
                         </span>
                       )}
@@ -249,14 +249,14 @@ const PolicyQAPage = () => {
 
                   {/* Fallback Notice if active */}
                   {msg.fallbackNotice && (
-                    <div className="mt-1 text-[10px] text-slate-400 italic">
+                    <div className="mt-1 text-[10px] text-[#7A736E] italic">
                       {msg.fallbackNotice}
                     </div>
                   )}
                 </div>
 
                 <div
-                  className={`text-[10px] text-slate-400 px-1 ${
+                  className={`text-[10px] text-[#7A736E] px-1 ${
                     msg.sender === 'user' ? 'text-right' : 'text-left'
                   }`}
                 >
@@ -269,11 +269,11 @@ const PolicyQAPage = () => {
           {/* Typing Indicator */}
           {loading && (
             <div className="flex gap-3 max-w-xl mr-auto animate-in fade-in-50">
-              <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-[#D9684C] text-white flex items-center justify-center flex-shrink-0">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-slate-50 border border-slate-200/80 rounded-2xl rounded-tl-none p-4 flex items-center gap-2 text-xs text-slate-500">
-                <Sparkles className="w-4 h-4 text-brand-600 animate-spin" />
+              <div className="bg-[#FAF6F2] border border-[#DED1C9] rounded-2xl rounded-tl-none p-4 flex items-center gap-2 text-xs text-[#7A736E]">
+                <Sparkles className="w-4 h-4 text-[#D9684C] animate-spin" />
                 <span>Searching policy vector store & synthesizing verified answer...</span>
               </div>
             </div>
@@ -283,15 +283,15 @@ const PolicyQAPage = () => {
         </div>
 
         {/* ── Suggested Inquiries Section (Categorized & Expandable) ── */}
-        <div className="bg-slate-50/90 border-t border-slate-200/90 transition-all duration-300">
+        <div className="bg-[#FAF6F2] border-t border-[#DED1C9] transition-all duration-300">
           {/* Top bar with Toggle & Category Tabs */}
-          <div className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/60">
+          <div className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b border-[#DED1C9]">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                <HelpCircle className="w-4 h-4 text-brand-600" />
+              <span className="text-xs font-heading font-bold text-[#312C29] flex items-center gap-1.5">
+                <HelpCircle className="w-4 h-4 text-[#D9684C]" />
                 <span>Suggested Inquiries ({filteredSuggestions.length})</span>
               </span>
-              <span className="text-[10px] font-semibold bg-brand-50 text-brand-700 border border-brand-200 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold bg-[#FDEAE5] text-[#B2553E] border border-[#D9684C]/30 px-2 py-0.5 rounded-full uppercase">
                 35 Verified Prompts
               </span>
             </div>
@@ -299,7 +299,7 @@ const PolicyQAPage = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setSuggestionsExpanded(!suggestionsExpanded)}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:border-brand-300 text-slate-700 transition-colors shadow-2xs"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-[#DED1C9] hover:border-[#D9684C]/50 text-[#312C29] transition-colors shadow-2xs"
               >
                 <span>{suggestionsExpanded ? 'Collapse' : 'Explore All 35+ Topics'}</span>
                 {suggestionsExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
@@ -309,7 +309,7 @@ const PolicyQAPage = () => {
 
           {/* Expanded Drawer: Category Selector & Instant Search */}
           {suggestionsExpanded && (
-            <div className="p-3 bg-white border-b border-slate-200 space-y-2.5 animate-in slide-in-from-bottom-2">
+            <div className="p-3 bg-white border-b border-[#DED1C9] space-y-2.5 animate-in slide-in-from-bottom-2">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
                 {/* Category Pills */}
                 <div className="flex flex-wrap gap-1">
@@ -319,8 +319,8 @@ const PolicyQAPage = () => {
                       onClick={() => setSelectedCategory(cat)}
                       className={`text-[11px] font-semibold px-2.5 py-1 rounded-lg transition-all ${
                         selectedCategory === cat
-                          ? 'bg-brand-600 text-white shadow-2xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900'
+                          ? 'bg-[#312C29] text-white shadow-2xs'
+                          : 'bg-[#FAF6F2] text-[#5D5753] hover:bg-[#F2EAE3] hover:text-[#312C29]'
                       }`}
                     >
                       {cat}
@@ -330,18 +330,18 @@ const PolicyQAPage = () => {
 
                 {/* Search Bar within Suggestions */}
                 <div className="relative w-full sm:w-56">
-                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  <Search className="w-3.5 h-3.5 text-[#7A736E] absolute left-2.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     value={suggestionSearch}
                     onChange={(e) => setSuggestionSearch(e.target.value)}
                     placeholder="Filter prompts..."
-                    className="w-full pl-8 pr-2.5 py-1 text-[11px] rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
+                    className="w-full pl-8 pr-2.5 py-1 text-[11px] rounded-lg border border-[#DED1C9] bg-[#FAF6F2] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#D9684C] text-[#312C29]"
                   />
                   {suggestionSearch && (
                     <button
                       onClick={() => setSuggestionSearch('')}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-[#7A736E] hover:text-[#312C29]"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -363,9 +363,9 @@ const PolicyQAPage = () => {
                   key={idx}
                   onClick={() => handleSend(item.question)}
                   disabled={loading}
-                  className="text-xs bg-white hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 text-slate-700 border border-slate-200/80 px-3 py-1.5 rounded-xl transition-all shadow-2xs text-left flex items-center gap-1.5 group"
+                  className="text-xs bg-white hover:bg-[#FDEAE5] hover:text-[#B2553E] hover:border-[#D9684C]/40 text-[#312C29] border border-[#DED1C9] px-3 py-1.5 rounded-xl transition-all shadow-2xs text-left flex items-center gap-1.5 group"
                 >
-                  <span className="text-[10px] font-semibold px-1.5 py-0.2 bg-slate-100 group-hover:bg-brand-100/70 text-slate-500 group-hover:text-brand-700 rounded transition-colors">
+                  <span className="text-[10px] font-semibold px-1.5 py-0.2 bg-[#FAF6F2] group-hover:bg-[#FDEAE5] text-[#7A736E] group-hover:text-[#B2553E] rounded transition-colors">
                     {item.category}
                   </span>
                   <span>{item.question}</span>
@@ -375,7 +375,7 @@ const PolicyQAPage = () => {
               {!suggestionsExpanded && filteredSuggestions.length > 5 && (
                 <button
                   onClick={() => setSuggestionsExpanded(true)}
-                  className="text-xs bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold border border-brand-200 px-3 py-1.5 rounded-xl transition-colors"
+                  className="text-xs bg-[#FDEAE5] hover:bg-[#F5E9DF] text-[#B2553E] font-semibold border border-[#D9684C]/30 px-3 py-1.5 rounded-xl transition-colors"
                 >
                   +{filteredSuggestions.length - 5} more inquiries...
                 </button>
@@ -385,19 +385,19 @@ const PolicyQAPage = () => {
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 sm:p-4 bg-white border-t border-slate-200/80 flex items-center gap-2">
+        <div className="p-3 sm:p-4 bg-white border-t border-[#DED1C9] flex items-center gap-2">
           <input
             type="text"
             value={inputQuestion}
             onChange={(e) => setInputQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Ask anything about leave, WFH equipment stipend, travel per diem, L&D budget, promotions, moonlighting..."
-            className="flex-1 px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
+            className="flex-1 px-4 py-2.5 text-xs rounded-xl border border-[#DED1C9] bg-[#FAF6F2] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C] text-[#312C29] transition-all"
           />
           <button
             onClick={() => handleSend()}
             disabled={loading || !inputQuestion.trim()}
-            className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white rounded-xl font-semibold text-sm transition-all flex items-center gap-2 shadow-xs active:scale-95"
+            className="px-4 py-2.5 bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white rounded-xl font-semibold text-xs transition-all flex items-center gap-2 shadow-xs active:scale-95"
           >
             <span>Ask</span>
             <Send className="w-4 h-4" />

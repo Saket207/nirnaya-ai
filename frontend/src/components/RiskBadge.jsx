@@ -10,19 +10,19 @@ export const getRiskInfo = (score, level) => {
   // If score is provided, use it; otherwise normalize level
   if (score !== undefined && score !== null) {
     const num = Number(score);
-    if (num >= 0.7) return { level: 'High', color: 'bg-rose-50 text-rose-700 border-rose-200 ring-rose-500/20', dot: 'bg-rose-500' };
-    if (num >= 0.4) return { level: 'Medium', color: 'bg-amber-50 text-amber-700 border-amber-200 ring-amber-500/20', dot: 'bg-amber-500' };
-    return { level: 'Low', color: 'bg-emerald-50 text-emerald-700 border-emerald-200 ring-emerald-500/20', dot: 'bg-emerald-500' };
+    if (num >= 0.7) return { level: 'High', color: 'bg-[#FFEBEE] text-[#C62828] border-[#EF9A9A] ring-[#C62828]/20', dot: 'bg-[#C62828]' };
+    if (num >= 0.4) return { level: 'Medium', color: 'bg-[#FDEAE5] text-[#B2553E] border-[#D9684C]/40 ring-[#D9684C]/20', dot: 'bg-[#D9684C]' };
+    return { level: 'Low', color: 'bg-[#E8F5E9] text-[#2E7D32] border-[#A5D6A7] ring-[#2E7D32]/20', dot: 'bg-[#2E7D32]' };
   }
 
   const norm = String(level || '').toLowerCase();
   if (norm === 'high') {
-    return { level: 'High', color: 'bg-rose-50 text-rose-700 border-rose-200 ring-rose-500/20', dot: 'bg-rose-500' };
+    return { level: 'High', color: 'bg-[#FFEBEE] text-[#C62828] border-[#EF9A9A] ring-[#C62828]/20', dot: 'bg-[#C62828]' };
   }
   if (norm === 'medium') {
-    return { level: 'Medium', color: 'bg-amber-50 text-amber-700 border-amber-200 ring-amber-500/20', dot: 'bg-amber-500' };
+    return { level: 'Medium', color: 'bg-[#FDEAE5] text-[#B2553E] border-[#D9684C]/40 ring-[#D9684C]/20', dot: 'bg-[#D9684C]' };
   }
-  return { level: 'Low', color: 'bg-emerald-50 text-emerald-700 border-emerald-200 ring-emerald-500/20', dot: 'bg-emerald-500' };
+  return { level: 'Low', color: 'bg-[#E8F5E9] text-[#2E7D32] border-[#A5D6A7] ring-[#2E7D32]/20', dot: 'bg-[#2E7D32]' };
 };
 
 const RiskBadge = ({ score, level, showScore = false, size = 'sm' }) => {

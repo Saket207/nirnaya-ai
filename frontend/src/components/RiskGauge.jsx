@@ -8,31 +8,31 @@ const RiskGauge = ({ score = 0, level = 'Low' }) => {
   const info = getRiskInfo(numScore, level);
 
   const getStatusIcon = () => {
-    if (info.level === 'High') return <ShieldAlert className="w-6 h-6 text-rose-600" />;
-    if (info.level === 'Medium') return <AlertTriangle className="w-6 h-6 text-amber-600" />;
-    return <ShieldCheck className="w-6 h-6 text-emerald-600" />;
+    if (info.level === 'High') return <ShieldAlert className="w-6 h-6 text-[#C62828]" />;
+    if (info.level === 'Medium') return <AlertTriangle className="w-6 h-6 text-[#D9684C]" />;
+    return <ShieldCheck className="w-6 h-6 text-[#2E7D32]" />;
   };
 
   const getBarColor = () => {
-    if (info.level === 'High') return 'bg-rose-500';
-    if (info.level === 'Medium') return 'bg-amber-500';
-    return 'bg-emerald-500';
+    if (info.level === 'High') return 'bg-[#C62828]';
+    if (info.level === 'Medium') return 'bg-[#D9684C]';
+    return 'bg-[#2E7D32]';
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+    <div className="bg-white rounded-2xl border border-[#DED1C9] p-6 shadow-xs">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           {getStatusIcon()}
           <div>
-            <h4 className="text-sm font-semibold text-slate-800">Attrition Risk Prediction</h4>
-            <p className="text-xs text-slate-500">XGBoost Classification Model (84% test accuracy)</p>
+            <h4 className="text-sm font-heading font-bold text-[#312C29]">Attrition Risk Prediction</h4>
+            <p className="text-xs text-[#7A736E]">XGBoost Classification Model (84% test accuracy)</p>
           </div>
         </div>
         <div className="text-right">
-          <span className="text-xs uppercase tracking-wider font-semibold text-slate-400 block">Status</span>
+          <span className="text-[10px] uppercase tracking-wider font-bold text-[#7A736E] block">Status</span>
           <span className={`text-sm font-bold ${
-            info.level === 'High' ? 'text-rose-600' : info.level === 'Medium' ? 'text-amber-600' : 'text-emerald-600'
+            info.level === 'High' ? 'text-[#C62828]' : info.level === 'Medium' ? 'text-[#B2553E]' : 'text-[#2E7D32]'
           }`}>
             {info.level} Risk
           </span>
@@ -41,15 +41,15 @@ const RiskGauge = ({ score = 0, level = 'Low' }) => {
 
       {/* Main Score Display */}
       <div className="flex items-baseline gap-2 my-2">
-        <span className="text-5xl font-extrabold tracking-tight text-slate-900 font-mono">
+        <span className="text-5xl font-extrabold tracking-tight text-[#312C29] font-mono">
           {percentage}%
         </span>
-        <span className="text-sm font-medium text-slate-500">estimated flight probability</span>
+        <span className="text-xs font-medium text-[#7A736E]">estimated flight probability</span>
       </div>
 
       {/* Segmented Risk Progress Bar */}
       <div className="mt-4 space-y-1.5">
-        <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
+        <div className="h-3 w-full bg-[#F5E9DF] rounded-full overflow-hidden p-0.5 border border-[#DED1C9]">
           <div
             className={`h-full rounded-full transition-all duration-700 ease-out ${getBarColor()}`}
             style={{ width: `${Math.max(percentage, 4)}%` }}
@@ -57,17 +57,17 @@ const RiskGauge = ({ score = 0, level = 'Low' }) => {
         </div>
 
         {/* Threshold Markers */}
-        <div className="flex justify-between text-[11px] font-medium text-slate-400 px-0.5 pt-1">
+        <div className="flex justify-between text-[11px] font-medium text-[#7A736E] px-0.5 pt-1">
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] inline-block" />
             0% Low
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D9684C] inline-block" />
             40% Medium
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C62828] inline-block" />
             70% High
           </span>
           <span>100%</span>

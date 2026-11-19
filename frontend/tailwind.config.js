@@ -8,26 +8,39 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+          50: '#fdf8f5',
+          100: '#fbf4ef',
+          200: '#f5e9df',
+          300: '#fdeae5',
+          400: '#e89580',
+          500: '#d9684c', // Primary Noovotic terracotta
+          600: '#b2553e', // Deep Noovotic rust
+          700: '#8c402e',
+          800: '#59271b',
+          900: '#312c29', // Deep espresso
+          950: '#1c1816',
+        },
+        noovotic: {
+          linen: '#FBF4EF',
+          oatmeal: '#F5F0EC',
+          espresso: '#312C29',
+          stone: '#5D5753',
+          muted: '#7A736E',
+          border: '#DED1C9',
+          terracotta: '#D9684C',
+          rust: '#B2553E',
+          tint: '#FDEAE5',
+          card: '#FFFFFF',
         },
         risk: {
-          low: '#10b981', // green-500
-          medium: '#f59e0b', // amber-500
-          high: '#ef4444', // red-500
+          low: '#2e7d32', // refined forest green
+          medium: '#d9684c', // terracotta amber
+          high: '#c62828', // rich crimson
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Geist', 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        heading: ['"DM Sans"', 'system-ui', 'sans-serif'],
       }
     },
   },

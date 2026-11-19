@@ -4,7 +4,11 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 antialiased font-sans selection:bg-brand-500 selection:text-white;
+    @apply bg-[#FBF4EF] text-[#312C29] antialiased font-sans selection:bg-[#D9684C] selection:text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight text-[#312C29];
   }
 }
 
@@ -19,10 +23,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #DED1C9;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #B8A89C;
 }
