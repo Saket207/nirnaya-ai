@@ -9,17 +9,74 @@ import {
   AlertCircle,
   Bot,
   User,
-  ExternalLink,
-  ShieldCheck
+  ChevronDown,
+  ChevronUp,
+  Search,
+  ShieldCheck,
+  Compass,
+  Layers,
+  X
 } from 'lucide-react';
 import { api } from '../api/api';
 import { useAuth } from '../context/AuthContext';
 
-const EXAMPLE_QUESTIONS = [
-  "How many sick leaves do I get per year?",
-  "What is the WFH equipment stipend and connectivity allowance?",
-  "What are the promotion criteria and stagnation review guardrails?",
-  "What are the hotel lodging caps and meal per diem for travel?"
+const POLICY_SUGGESTIONS = [
+  // ── Leave & Time Off (POL-HR-LEAVE-2026-V1) ──
+  { category: 'Leave & PTO', question: 'How many days of paid annual leave do I get per year?' },
+  { category: 'Leave & PTO', question: 'How many sick leaves can I take without a medical certificate?' },
+  { category: 'Leave & PTO', question: 'Can I carry forward unused annual leave to the next year?' },
+  { category: 'Leave & PTO', question: 'How many weeks of paid maternity leave are provided?' },
+  { category: 'Leave & PTO', question: 'What is the entitlement and timeline for paternity leave?' },
+  { category: 'Leave & PTO', question: 'How many days in advance must planned annual leave be submitted?' },
+
+  // ── Remote & Hybrid (POL-OPS-002) ──
+  { category: 'Remote & Hybrid', question: 'What is the hybrid baseline schedule and mandatory office presence?' },
+  { category: 'Remote & Hybrid', question: 'Which days of the week are mandatory in-office anchor days?' },
+  { category: 'Remote & Hybrid', question: 'What are the core working hours during remote work?' },
+  { category: 'Remote & Hybrid', question: 'Who is eligible for full-time permanent remote work?' },
+  { category: 'Remote & Hybrid', question: 'How much is the one-time home office equipment reimbursement?' },
+  { category: 'Remote & Hybrid', question: 'What is the monthly internet and connectivity stipend?' },
+  { category: 'Remote & Hybrid', question: 'What is the company policy on the Right to Disconnect?' },
+
+  // ── Travel & Expenses (POL-FIN-EXP-2026-V1) ──
+  { category: 'Travel & Expenses', question: 'What are the hotel lodging caps for Tier 1 metro cities?' },
+  { category: 'Travel & Expenses', question: 'What is the daily meal per diem allowance during business travel?' },
+  { category: 'Travel & Expenses', question: 'When is domestic air travel permitted and what flight class is allowed?' },
+  { category: 'Travel & Expenses', question: 'Are personal laundry and mini-bar expenses reimbursable?' },
+  { category: 'Travel & Expenses', question: 'How many days in advance must business travel be booked?' },
+  { category: 'Travel & Expenses', question: 'Can alcohol be expensed under the individual meal per diem?' },
+
+  // ── Learning & L&D (POL-FIN-EXP-2026-V1) ──
+  { category: 'Learning & L&D', question: 'How much is the annual Professional Development (L&D) budget?' },
+  { category: 'Learning & L&D', question: 'Which technical certifications are approved for reimbursement?' },
+  { category: 'Learning & L&D', question: 'Does the L&D budget have a clawback provision if I resign?' },
+  { category: 'Learning & L&D', question: "Can I use the L&D budget for Coursera, Udemy, or O'Reilly subscriptions?" },
+  { category: 'Learning & L&D', question: 'What is the quarterly team morale and collaboration budget?' },
+
+  // ── Promotion & Mobility (POL-HR-COC-2026-V4) ──
+  { category: 'Promotion & Mobility', question: 'When do formal promotion cycles take place?' },
+  { category: 'Promotion & Mobility', question: 'What is the stagnation review guardrail for engineers?' },
+  { category: 'Promotion & Mobility', question: 'What is the maximum retention bonus for high flight risk employees?' },
+  { category: 'Promotion & Mobility', question: 'What approvals are required for an exceptional 15% retention bonus?' },
+  { category: 'Promotion & Mobility', question: 'What are the rules for internal job transfers and mobility?' },
+  { category: 'Promotion & Mobility', question: 'What is the exploratory 15% Project-Swap program?' },
+
+  // ── Ethics & Conduct (POL-HR-COC-2026-V4 & POL-OPS-002) ──
+  { category: 'Ethics & Conduct', question: 'What is the company policy on moonlighting and outside employment?' },
+  { category: 'Ethics & Conduct', question: 'Are personal open-source contributions permitted?' },
+  { category: 'Ethics & Conduct', question: 'Can I connect to public Wi-Fi without the company VPN?' },
+  { category: 'Ethics & Conduct', question: 'What is the zero-tolerance policy on workplace harassment?' },
+  { category: 'Ethics & Conduct', question: 'What are the triggers, duration, and mentorship requirements for a PIP?' }
+];
+
+const CATEGORIES = [
+  'All',
+  'Leave & PTO',
+  'Remote & Hybrid',
+  'Travel & Expenses',
+  'Learning & L&D',
+  'Promotion & Mobility',
+  'Ethics & Conduct'
 ];
 
 const PolicyQAPage = () => {
@@ -36,6 +93,11 @@ const PolicyQAPage = () => {
   const [inputQuestion, setInputQuestion] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Suggestions Interactive Drawer State
+  const [suggestionsExpanded, setSuggestionsExpanded] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [suggestionSearch, setSuggestionSearch] = useState('');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -97,6 +159,13 @@ const PolicyQAPage = () => {
     }
   };
 
+  // Filtered Suggestions based on Category and Search
+  const filteredSuggestions = POLICY_SUGGESTIONS.filter((s) => {
+    const matchesCat = selectedCategory === 'All' || s.category === selectedCategory;
+    const matchesSearch = !suggestionSearch || s.question.toLowerCase().includes(suggestionSearch.toLowerCase()) || s.category.toLowerCase().includes(suggestionSearch.toLowerCase());
+    return matchesCat && matchesSearch;
+  });
+
   return (
     <div className="h-[calc(100vh-8rem)] flex flex-col space-y-4">
       {/* Header */}
@@ -113,14 +182,16 @@ const PolicyQAPage = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs self-start sm:self-auto">
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>4 Active Policy Books Indexed</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-xs text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span>4 Policy Books • 35 Inquiries Indexed</span>
+          </div>
         </div>
       </div>
 
       {/* Main Chat Box Container */}
-      <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col overflow-hidden">
+      <div className="flex-1 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col overflow-hidden relative">
         {/* Messages Scroll Area */}
         <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4">
           {messages.map((msg) => (
@@ -203,7 +274,7 @@ const PolicyQAPage = () => {
               </div>
               <div className="bg-slate-50 border border-slate-200/80 rounded-2xl rounded-tl-none p-4 flex items-center gap-2 text-xs text-slate-500">
                 <Sparkles className="w-4 h-4 text-brand-600 animate-spin" />
-                <span>Searching policy documents & synthesizing verified response...</span>
+                <span>Searching policy vector store & synthesizing verified answer...</span>
               </div>
             </div>
           )}
@@ -211,23 +282,105 @@ const PolicyQAPage = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Example Clickable Prompts */}
-        <div className="px-4 py-3 bg-slate-50/80 border-t border-slate-100">
-          <div className="text-[11px] font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
-            <HelpCircle className="w-3.5 h-3.5 text-brand-500" />
-            <span>Suggested Inquiries:</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {EXAMPLE_QUESTIONS.map((eq, i) => (
+        {/* ── Suggested Inquiries Section (Categorized & Expandable) ── */}
+        <div className="bg-slate-50/90 border-t border-slate-200/90 transition-all duration-300">
+          {/* Top bar with Toggle & Category Tabs */}
+          <div className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/60">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <HelpCircle className="w-4 h-4 text-brand-600" />
+                <span>Suggested Inquiries ({filteredSuggestions.length})</span>
+              </span>
+              <span className="text-[10px] font-semibold bg-brand-50 text-brand-700 border border-brand-200 px-2 py-0.5 rounded-full">
+                35 Verified Prompts
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
               <button
-                key={i}
-                onClick={() => handleSend(eq)}
-                disabled={loading}
-                className="text-xs bg-white hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 text-slate-600 border border-slate-200 px-3 py-1.5 rounded-xl transition-all shadow-2xs text-left"
+                onClick={() => setSuggestionsExpanded(!suggestionsExpanded)}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:border-brand-300 text-slate-700 transition-colors shadow-2xs"
               >
-                {eq}
+                <span>{suggestionsExpanded ? 'Collapse' : 'Explore All 35+ Topics'}</span>
+                {suggestionsExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
               </button>
-            ))}
+            </div>
+          </div>
+
+          {/* Expanded Drawer: Category Selector & Instant Search */}
+          {suggestionsExpanded && (
+            <div className="p-3 bg-white border-b border-slate-200 space-y-2.5 animate-in slide-in-from-bottom-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+                {/* Category Pills */}
+                <div className="flex flex-wrap gap-1">
+                  {CATEGORIES.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-lg transition-all ${
+                        selectedCategory === cat
+                          ? 'bg-brand-600 text-white shadow-2xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Search Bar within Suggestions */}
+                <div className="relative w-full sm:w-56">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={suggestionSearch}
+                    onChange={(e) => setSuggestionSearch(e.target.value)}
+                    placeholder="Filter prompts..."
+                    className="w-full pl-8 pr-2.5 py-1 text-[11px] rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
+                  />
+                  {suggestionSearch && (
+                    <button
+                      onClick={() => setSuggestionSearch('')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Suggestions List Grid */}
+          <div
+            className={`p-3 overflow-y-auto ${
+              suggestionsExpanded ? 'max-h-56' : 'max-h-24'
+            } transition-all`}
+          >
+            <div className="flex flex-wrap gap-1.5">
+              {(suggestionsExpanded ? filteredSuggestions : filteredSuggestions.slice(0, 5)).map((item, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSend(item.question)}
+                  disabled={loading}
+                  className="text-xs bg-white hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 text-slate-700 border border-slate-200/80 px-3 py-1.5 rounded-xl transition-all shadow-2xs text-left flex items-center gap-1.5 group"
+                >
+                  <span className="text-[10px] font-semibold px-1.5 py-0.2 bg-slate-100 group-hover:bg-brand-100/70 text-slate-500 group-hover:text-brand-700 rounded transition-colors">
+                    {item.category}
+                  </span>
+                  <span>{item.question}</span>
+                </button>
+              ))}
+
+              {!suggestionsExpanded && filteredSuggestions.length > 5 && (
+                <button
+                  onClick={() => setSuggestionsExpanded(true)}
+                  className="text-xs bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold border border-brand-200 px-3 py-1.5 rounded-xl transition-colors"
+                >
+                  +{filteredSuggestions.length - 5} more inquiries...
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -238,7 +391,7 @@ const PolicyQAPage = () => {
             value={inputQuestion}
             onChange={(e) => setInputQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about leave rules, WFH equipment stipend, travel expenses, code of conduct..."
+            placeholder="Ask anything about leave, WFH equipment stipend, travel per diem, L&D budget, promotions, moonlighting..."
             className="flex-1 px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
           />
           <button
