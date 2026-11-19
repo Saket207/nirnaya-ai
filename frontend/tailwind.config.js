@@ -40,7 +40,7 @@ export default {
       },
       fontFamily: {
         sans: ['Geist', 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        heading: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        heading: ['DM Sans', 'system-ui', 'sans-serif'],
       }
     },
   },
