@@ -1,460 +1,358 @@
-# Nirnaya.ai — AI-Driven Workforce Intelligence & Policy Governance Platform
+# Nirnaya.ai — AI-Driven Workforce Intelligence Platform
 
-> **From continuous enterprise telemetry to mathematically explainable, policy-verified human capital decisions.**
+> **From continuous workforce telemetry to mathematically explainable, policy-verified HR decisions.**
 
 **Team:** Curious Coders  
-**Institutional Host:** Dayananda Sagar College of Engineering (DSCE), Bengaluru  
-**Theme:** AI in Human Resources & Workforce Intelligence (DSCE Hackathon 2026)  
-**Status:** ✅ Production-Ready v1.0 • All Features Implemented & Integrated
+**Institution:** Dayananda Sagar College of Engineering (DSCE), Bengaluru  
+**Theme:** AI in HR & Workforce Management (DSCE Hackathon 2026)  
+**Status:** ✅ Production Ready v1.0 (Full Stack Integrated)
 
 ---
 
 ## 📌 Executive Summary
 
-**Nirnaya.ai** is an enterprise workforce intelligence platform that bridges continuous employee telemetry, calibrated machine learning attrition forecasting, game-theoretic factor explainability, and generative AI policy governance into a unified command center.
+**Nirnaya.ai** is an enterprise workforce intelligence platform that bridges the gap between passive HR telemetry and proactive leadership decision-making. 
 
-Traditional human resources systems operate in departmental silos—applicant tracking, single sign-on logs, performance appraisals, compensation benchmarks, and static employee handbooks rarely communicate with one another. Consequently, leadership only learns of critical workforce flight risks after resignation notices are already tendered.
+Traditional HR systems operate in silos — attendance logs, performance reviews, compensation benchmarks, and employee handbooks live in separate databases. Consequently, HR leaders discover attrition risks only during exit interviews when it is already too late.
 
-Nirnaya.ai transforms lagging exit interviews into **predictive, explainable, and policy-compliant retention strategies** by unifying:
-1. **Calibrated Predictive ML**: XGBoost classification predicting employee attrition probabilities with **84.2% test accuracy**.
-2. **Game-Theoretic Explainability**: TreeSHAP (SHapley Additive exPlanations) isolating individual push vs. pull drivers down to exact hours of overtime, compensation compa-ratios, and promotion lag.
-3. **Retrieval-Augmented Policy Governance**: ChromaDB vector retrieval and Groq LLM (Llama-3) cross-referencing all mitigation strategies against active corporate handbooks with verified section citations.
-4. **AI-Powered Onboarding Studio**: Multi-turn conversational onboarding, automated PDF/DOCX resume extraction, dynamic skills taxonomy, and personalized 30-60-90 day milestone roadmaps.
-5. **Modern Editorial User Experience**: Inspired by minimalist editorial design (Noovotic aesthetic) with terracotta styling, smooth horizontal scrolling carousels, responsive data grids, and interactive telemetry visualizations.
+Nirnaya.ai unifies these disparate signals into an **explainable, policy-governed command center**:
+1. **Predictive Risk Telemetry**: Calibrated XGBoost attrition classification trained on enterprise workforce features (~84.2% accuracy).
+2. **Game-Theoretic Explainability**: Instant TreeSHAP feature attributions isolating exact risk drivers (e.g., overtime burnout, promotion lag) from protective factors (e.g., competitive compa-ratio, job leveling).
+3. **Policy-Governed Interventions**: ChromaDB vector retrieval coupled with Groq high-speed LLM inference to audit all mitigation actions against verified corporate handbooks with exact section citations.
+4. **Autonomous AI Onboarding Studio**: Conversational profile synthesis, resume parsing, dynamic skills taxonomy extraction, and tailored 30-60-90 day milestone roadmaps.
+5. **Noovotic-Inspired Editorial Experience**: High-contrast, typography-driven UI built with an organic palette (`#FBF4EF` parchment, `#312C29` deep espresso, `#D9684C` terracotta accent).
 
 ---
 
 ## 💡 System Architecture
 
 ```text
- ┌───────────────────────────────────────────────────────────────────────────┐
- │                       ENTERPRISE CLIENT APPLICATION                       │
- │      React 18 • Vite • Tailwind CSS • Recharts • Lucide • Editorial UI    │
- └─────────────────────────────────────┬─────────────────────────────────────┘
-                                       │ HTTP / REST API (Port 8000)
-                                       ▼
- ┌───────────────────────────────────────────────────────────────────────────┐
- │                         FASTAPI APPLICATION BACKEND                       │
- │             Async Endpoints • Pydantic Schemas • CORS Middleware          │
- └───────┬─────────────────────────────┬─────────────────────────────┬───────┘
-         │                             │                             │
-         ▼                             ▼                             ▼
- ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
- │   DATABASE    │             │  RISK ENGINE  │             │ GENAI / RAG   │
- │  LAYER (SQL)  │             │   (ML / AI)   │             │ VECTOR STORE  │
- ├───────────────┤             ├───────────────┤             ├───────────────┤
- │ PostgreSQL    │             │ XGBoost Model │             │ ChromaDB      │
- │ SQLAlchemy    │             │ TreeSHAP      │             │ Groq Llama-3  │
- │ SQLite Fallback│            │ Feature Matrix│             │ 4 Handbooks   │
- └───────────────┘             └───────────────┘             └───────────────┘
+                                 ┌─────────────────────────┐
+                                 │   HR / People Leader    │
+                                 └────────────┬────────────┘
+                                              │
+                                              ▼
+                                 ┌─────────────────────────┐
+                                 │  React 18 + Tailwind    │
+                                 │  Editorial UI (Port 3000)│
+                                 └────────────┬────────────┘
+                                              │ REST APIs
+                                              ▼
+                                 ┌─────────────────────────┐
+                                 │     FastAPI Backend     │
+                                 │      (Port 8000)        │
+                                 └────────────┬────────────┘
+                                              │
+            ┌─────────────────────────────────┼─────────────────────────────────┐
+            │                                 │                                 │
+            ▼                                 ▼                                 ▼
+   ┌─────────────────┐               ┌─────────────────┐               ┌─────────────────┐
+   │   Risk Engine   │               │  GenAI Engine   │               │ Database Layer  │
+   │ XGBoost + SHAP  │               │   Groq Llama-3  │               │ PostgreSQL /    │
+   │  Classification │               │  Vector RAG     │               │ SQLite Fallback │
+   └────────┬────────┘               └────────┬────────┘               └─────────────────┘
+            │                                 │
+            │                         ┌───────┴────────┐
+            ▼                         ▼                ▼
+   ┌─────────────────┐       ┌─────────────────┐ ┌──────────────┐
+   │ Mathematical    │       │    ChromaDB     │ │  4 Corporate │
+   │ Explainability  │       │  Vector Embed   │ │  Handbooks   │
+   └────────┬────────┘       └────────┬────────┘ └──────────────┘
+            │                         │
+            └───────────┬─────────────┘
+                        │
+                        ▼
+         ┌─────────────────────────────┐
+         │ Policy-Verified Mitigation  │
+         │ Actions & Retention Plans   │
+         └─────────────────────────────┘
 ```
 
 ---
 
-## ⭐ Complete Feature Matrix & Progress Status
+## ⭐ Complete Feature Matrix
 
-| Module | Capability | Implementation Details | Status |
-| :--- | :--- | :--- | :---: |
-| 🌐 **Homepage & Brand** | Editorial Landing Experience | Noovotic-inspired layout, Michelangelo hands scroll parallax, responsive 4-step process grid, 1-click persona launcher | ✅ **Completed** |
-| 📊 **Main Dashboard** | Workforce Risk Intelligence | Multi-segment organizational risk spectrum bar, 10-department horizontal scroll carousel, urgent retention flash alerts, dual Table/Grid view switcher | ✅ **Completed** |
-| 🏢 **Team Rollup** | Departmental Systemic Health | 10 department selector carousel, contextual photography charters, natural-language executive AI rollup, 5-metric burnout matrix, Recharts distribution charts, ranked SHAP systemic drivers | ✅ **Completed** |
-| 🔍 **Employee Drill-Down** | TreeSHAP Reasoning Panel | Waterfall factor attribution, push vs. pull breakdown, real-time what-if retention simulator, dynamic mitigation playbook, verified handbook citations | ✅ **Completed** |
-| 📚 **Policy Q&A Assistant** | Vector RAG Intelligence | ChromaDB embeddings, Groq LLM inference (<95ms latency), 4 interactive governing handbooks showcase, horizontal quick-query carousel, verified legal citation cards, 1-click clipboard copy | ✅ **Completed** |
-| 🤖 **Onboarding Agent** | AI Talent Ingestion Studio | Dual mode (Guided Studio Wizard vs. Conversational Co-Pilot), 6-phase horizontal stepper, PDF/DOCX/TXT resume parsing with NLP extraction, skills & competency matrix, 30-60-90 day milestone roadmap | ✅ **Completed** |
-| 👥 **Employee Directory** | Enterprise Workforce CRUD | Full administrative control: search, filter, add new personnel, update roles, calibrate compensation, manage employee lifecycle | ✅ **Completed** |
-| 🛡️ **Role-Based Auth** | Multi-Persona Security | Instant 1-click role switcher across **HR Admin**, **HR Staff**, and **Employee** with contextual navigation and route protection | ✅ **Completed** |
-| 🧪 **Backend Quality** | Pytest Automation Suite | 8/8 comprehensive async API, database, ML inference, and RAG retrieval tests passing | ✅ **Completed** |
-
----
-
-## 🚀 Cloning & Running the Project Locally
-
-Follow these step-by-step instructions to clone, set up, and run both the FastAPI backend and the React frontend on your local machine.
-
-### Prerequisites
-
-Ensure you have the following installed on your machine:
-* **Python 3.10+** (Tested on Python 3.11, 3.12, 3.13)
-* **Node.js 18+** and **npm 9+**
-* **Git**
-* *(Optional)* **PostgreSQL** (The application automatically falls back to a zero-configuration SQLite database if PostgreSQL is not running)
-* *(Optional)* **Groq API Key** for live LLM inference (Built-in high-fidelity fallbacks ensure 100% functionality even without an active key)
+| Engine / Module | Status | Core Capabilities & Technologies |
+| :--- | :---: | :--- |
+| **Editorial Homepage** | ✅ Completed | Noovotic-inspired design language, interactive scroll parallax, responsive 4-step workflow grid, Michelangelo creation hands animation, real-world case studies, and 1-click persona quick launch. |
+| **Executive Risk Dashboard** | ✅ Completed | Department filtering, risk tier distribution (High, Medium, Low), overtime burnout metrics, real-time search, quick employee dossiers, and department health indicators. |
+| **Employee Dossier & SHAP Engine** | ✅ Completed | Mathematical TreeSHAP force breakdown, feature impact weights, burnout radar chart, tenure telemetry, and 1-click AI mitigation plan generation. |
+| **Department Rollups (10 Teams)** | ✅ Completed | Aggregate risk metrics across 10 business units (Engineering, Data & AI, Sales, Operations, Product, HR, Marketing, Finance, Legal, CS), cross-department burnout comparisons. |
+| **Policy Q&A Intelligence** | ✅ Completed | ChromaDB vector search + Groq Llama-3 indexing 4 corporate handbooks with verified section citations, latency metrics (<95ms), and 6 one-click query templates. |
+| **AI Onboarding Studio** | ✅ Completed | Conversational multi-turn onboarding chat, automated resume & profile extraction, dynamic skills badge generation, and customizable 30-60-90 day milestone roadmaps. |
+| **Enterprise Directory CRUD** | ✅ Completed | Full employee management portal: search, multi-field filters, status badges, modal creation and edit forms, and real-time database synchronisation. |
+| **Persona-Based RBAC** | ✅ Completed | Instant role switchboard: **Aditi Sharma** (HR Director), **Rajiv Nair** (Engineering Lead), and **Priya Sharma** (Employee). |
 
 ---
 
-### Step 1: Clone the Repository
+## 🛠️ Technology Stack
 
-Open your terminal (PowerShell, Command Prompt, or Bash) and run:
+### Frontend
+- **Framework:** React 18 with Vite
+- **Styling:** Tailwind CSS with custom editorial tokens (`font-heading`, `#FBF4EF` parchment, `#312C29` charcoal, `#D9684C` terracotta)
+- **Data Visualization:** Recharts (ResponsiveContainer, BarChart, RadarChart, PieChart, Cell, Tooltip)
+- **Icons:** Lucide React (feather-light SVG iconography)
+- **Routing:** React Router v6 with active breadcrumbs and error boundary protection
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/nirnaya-ai.git
+### Backend & Machine Learning
+- **API Framework:** FastAPI (Python 3.11 / 3.13) with asynchronous request handlers
+- **Risk Classification:** XGBoost Classifier trained on multi-dimensional workforce telemetry (`ml/train_model.py`)
+- **Model Explainability:** TreeSHAP (`shap.TreeExplainer`) isolating positive and negative feature contributions
+- **Database & ORM:** SQLAlchemy with PostgreSQL support and automated SQLite zero-configuration fallback
+- **Validation:** Pydantic v2 schemas (`backend/schemas.py`)
 
-# Navigate into the project root directory
-cd nirnaya-ai
-
-# Ensure you are on the feature branch with all dashboard & UI upgrades
-git checkout feature/frontend-dashboard
-```
-
----
-
-### Step 2: Backend Setup (FastAPI & ML Engine)
-
-#### 2.1 Create & Activate a Python Virtual Environment
-
-* **On Windows (PowerShell):**
-  ```powershell
-  python -m venv venv
-  .\venv\Scripts\Activate.ps1
-  ```
-  *(If you encounter execution policy restrictions in PowerShell, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first).*
-
-* **On Windows (Command Prompt):**
-  ```cmd
-  python -m venv venv
-  venv\Scripts\activate.bat
-  ```
-
-* **On macOS / Linux:**
-  ```bash
-  python3 -m venv venv
-  source venv/bin/activate
-  ```
-
-#### 2.2 Install Backend Dependencies
-
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-#### 2.3 Configure Environment Variables
-
-Create a `.env` file in the root directory (you can copy `.env.example`):
-
-```bash
-# Copy example environment configuration
-cp .env.example .env
-```
-
-Your `.env` file should contain:
-
-```env
-# Groq API Key for Generative AI & Policy RAG (Optional — graceful fallbacks included)
-GROQ_API_KEY=gsk_your_groq_api_key_here
-
-# Database URL (Default: automatic local SQLite; or specify PostgreSQL)
-DATABASE_URL=sqlite:///./nirnaya.db
-# Example for PostgreSQL:
-# DATABASE_URL=postgresql://postgres:password@localhost:5432/nirnaya
-
-# Environment
-ENVIRONMENT=development
-PORT=8000
-```
-
-#### 2.4 Seed the Demo Enterprise Database
-
-Populate your database with 16 rich, realistic employee profiles across all 10 business units:
-
-```bash
-python -m backend.seed
-```
-
-*Output:*
-```text
-Seed completed successfully! Inserted 16 employees across 10 departments.
-```
-
-#### 2.5 (Optional) Generate the Policy Vector Embeddings
-
-Generate or refresh the local ChromaDB vector store indexing the 4 corporate policy handbooks:
-
-```bash
-python ml/policy_qa.py
-```
-
-#### 2.6 Start the FastAPI Backend Server
-
-```bash
-uvicorn backend.main:app --reload --port 8000
-```
-
-The backend is now live at:
-* **Base URL:** `http://localhost:8000`
-* **Interactive Swagger UI (API Docs):** `http://localhost:8000/docs`
-* **Alternative ReDoc UI:** `http://localhost:8000/redoc`
+### Generative AI & Vector Policy RAG
+- **LLM Inference:** Groq Cloud API (`openai/gpt-oss-120b`, `llama-3.3-70b-versatile`, `llama3-70b-8192`)
+- **Vector Database:** ChromaDB vector embeddings indexing corporate policy documents
+- **Ingested Policy Handbooks:**
+  1. *Code of Conduct & Ethics* (`POL-HR-COC-2026-V4`)
+  2. *Leave & Attendance Guidelines* (`POL-HR-LVE-2026-V2`)
+  3. *Remote & Flexible Work Policy* (`POL-HR-WFH-2026-V3`)
+  4. *Travel & Expense Reimbursement Policy* (`POL-FIN-EXP-2026-V1`)
 
 ---
 
-### Step 3: Frontend Setup (React 18 + Vite)
-
-Open a **new terminal tab or window**, leaving the backend server running.
-
-#### 3.1 Navigate to the Frontend Directory
-
-```bash
-cd nirnaya-ai/frontend
-```
-
-#### 3.2 Install Node Dependencies
-
-```bash
-npm install
-```
-
-#### 3.3 Configure Frontend Environment
-
-Create a `.env` file inside the `frontend/` directory:
-
-```env
-VITE_API_URL=http://localhost:8000
-```
-
-#### 3.4 Start the Vite Development Server
-
-```bash
-npm run dev
-```
-
-*Output:*
-```text
-  VITE v5.4.21  ready in 420 ms
-
-  ➜  Local:   http://localhost:3000/
-  ➜  Network: use --host to expose
-```
-
-Open your browser and navigate to:
-👉 **`http://localhost:3000`**
-
----
-
-### Step 4: Verify with Automated Backend Tests
-
-You can verify that all API endpoints, database operations, risk models, and vector stores are healthy by executing the backend pytest suite:
-
-```bash
-# From the project root with your virtual environment active
-python -m pytest tests/test_backend.py -v
-```
-
-*Expected output:*
-```text
-============================== test session starts ==============================
-collected 8 items
-
-tests/test_backend.py::test_root PASSED                                  [ 12%]
-tests/test_backend.py::test_get_employees PASSED                          [ 25%]
-tests/test_backend.py::test_get_single_employee PASSED                   [ 37%]
-tests/test_backend.py::test_create_employee PASSED                       [ 50%]
-tests/test_backend.py::test_update_employee PASSED                       [ 62%]
-tests/test_backend.py::test_risk_prediction PASSED                       [ 75%]
-tests/test_backend.py::test_team_risk_summary PASSED                     [ 87%]
-tests/test_backend.py::test_policy_qa PASSED                             [100%]
-
-=============================== 8 passed in 2.65s ===============================
-```
-
----
-
-## 👥 Demo Personas & Instant 1-Click Access
-
-Nirnaya.ai supports multi-persona role-based access control. You can switch personas instantly using the **Role Switcher** in the top navigation or via the Persona Login Portal (`/login`):
-
-| Persona | Role | Default Account | Capabilities |
-| :--- | :--- | :--- | :--- |
-| **Aditi Deshmukh** | `HR_STAFF` | `aditi_hr` | Full access to Risk Dashboard, 10 Department Rollups, SHAP drill-downs, and Policy Assistant |
-| **Vikram Malhotra** | `HR_ADMIN` | `vikram_admin` | All HR Staff permissions PLUS full write/edit access to Enterprise Employee Directory CRUD |
-| **Saket Kumar** | `EMPLOYEE` | `saket_emp` | Individual access to AI Onboarding Studio, personal skills matrix, and corporate Policy Q&A |
-
-> **Pro-Tip:** Clicking **"Launch Demo"** on the homepage or **"Quick Persona Access"** on the login page bypasses passwords and logs you into the live workspace immediately.
-
----
-
-## 📁 Repository Directory Structure
+## 📁 Repository Structure
 
 ```text
 nirnaya-ai/
-│
-├── frontend/                                # Modern React 18 + Vite Frontend
-│   ├── public/                              # Static public assets
+├── frontend/                     # React 18 + Vite + Tailwind CSS Application
 │   ├── src/
-│   │   ├── api/
-│   │   │   └── api.js                       # Axios client, REST endpoints & offline fallbacks
-│   │   ├── components/
-│   │   │   ├── ErrorBoundary.jsx            # Top-level React error boundary
-│   │   │   ├── ErrorMessage.jsx             # Clean error cards with retry triggers
-│   │   │   ├── Layout.jsx                   # Desktop sidebar & mobile navigation shell
-│   │   │   ├── LoadingSkeleton.jsx          # Table & card skeleton loaders
-│   │   │   └── RiskBadge.jsx                # Risk level indicator pills
-│   │   ├── context/
-│   │   │   ├── AuthContext.jsx              # RBAC state, persona switcher & persistent auth
-│   │   │   └── ToastContext.jsx             # Global non-blocking notification alerts
+│   │   ├── components/           # Navbar, Layout, ErrorBoundary, LoadingSkeleton
+│   │   ├── context/              # AuthContext (RBAC), ToastContext
 │   │   ├── pages/
-│   │   │   ├── DashboardPage.jsx            # Main Workforce Risk Intelligence Dashboard
-│   │   │   ├── EmployeeDetailPage.jsx       # TreeSHAP Factor Reasoning & What-If Simulator
-│   │   │   ├── EmployeeManagementPage.jsx   # Enterprise Directory CRUD Management
-│   │   │   ├── HomePage.jsx                 # Editorial Landing Page with Parallax Hands
-│   │   │   ├── LoginPage.jsx                # 1-Click Persona Access & Auth
-│   │   │   ├── NotFoundPage.jsx             # 404 handler
-│   │   │   ├── OnboardingPage.jsx           # AI Onboarding Studio & 30-60-90 Day Roadmap
-│   │   │   ├── PolicyQAPage.jsx             # RAG Vector Assistant & 4 Handbooks Showcase
-│   │   │   └── TeamViewPage.jsx             # 10 Department Rollup & Systemic Health
-│   │   ├── App.jsx                          # Route registry & navigation graph
-│   │   ├── index.css                        # Tailwind CSS styles & typography tokens
-│   │   └── main.jsx                         # React entry point
-│   ├── package.json                         # Node dependencies & build scripts
-│   ├── tailwind.config.js                   # Custom terracotta brand theme palette
-│   └── vite.config.js                       # Vite bundler configuration (Port 3000)
+│   │   │   ├── HomePage.jsx               # Editorial Noovotic landing page
+│   │   │   ├── DashboardPage.jsx          # HR Executive risk command center
+│   │   │   ├── EmployeeDetailPage.jsx     # Dossier with SHAP explainability
+│   │   │   ├── TeamViewPage.jsx           # 10 Department rollups & health
+│   │   │   ├── OnboardingPage.jsx         # Conversational AI onboarding studio
+│   │   │   ├── PolicyQAPage.jsx           # Vector RAG policy intelligence
+│   │   │   ├── EmployeeManagementPage.jsx # Enterprise CRUD directory
+│   │   │   ├── LoginPage.jsx              # Persona switchboard
+│   │   │   └── NotFoundPage.jsx           # 404 brand view
+│   │   ├── services/             # Axios API client & mock fallback services
+│   │   ├── App.jsx               # Route declarations & navigation tree
+│   │   ├── main.jsx              # App entrypoint
+│   │   └── index.css             # Tailwind base layers & typography
+│   ├── package.json
+│   └── vite.config.js
 │
-├── backend/                                 # FastAPI Async REST Backend
+├── backend/                      # FastAPI Python Application
+│   ├── main.py                   # FastAPI server entrypoint & CORS setup
+│   ├── schemas.py                # Pydantic request/response schemas
+│   ├── seed.py                   # 16-profile demo data seeding script
 │   ├── database/
-│   │   ├── db.py                            # SQLAlchemy session engine & SQLite fallback
-│   │   └── models.py                        # Employee & Department ORM schemas
-│   ├── genai/
-│   │   ├── mitigation.py                    # Retention playbook generation
-│   │   ├── onboarding.py                    # Conversational extraction & resume parsing
-│   │   └── policy_qa.py                     # ChromaDB vector query & Groq LLM reasoning
-│   ├── models/
-│   │   ├── risk_model.py                    # XGBoost classifier + SHAP explainer
-│   │   └── risk_model.pkl                   # Trained model artifacts
+│   │   ├── db.py                 # SQLAlchemy engine & session maker
+│   │   └── models.py             # Employee ORM database models
 │   ├── routes/
-│   │   ├── employee_routes.py               # Employee CRUD endpoints
-│   │   ├── genai_routes.py                  # Onboarding chat & resume parsing endpoints
-│   │   ├── risk_routes.py                   # XGBoost risk & TreeSHAP attribution endpoints
-│   │   └── team_routes.py                   # 10 Department rollup summary endpoints
-│   ├── main.py                              # FastAPI app entry point & CORS configuration
-│   ├── schemas.py                           # Pydantic request/response data contracts
-│   └── seed.py                              # Demo enterprise dataset seeder (16 employees)
+│   │   ├── employee_routes.py    # CRUD endpoints for workforce profiles
+│   │   ├── risk_routes.py        # XGBoost & SHAP prediction endpoints
+│   │   ├── team_routes.py        # Department aggregation endpoints
+│   │   └── genai_routes.py       # Onboarding, Policy Q&A, and Mitigation
+│   ├── models/
+│   │   ├── risk_model.py         # XGBoost model loader & inference wrapper
+│   │   └── risk_model.pkl        # Serialized model artifact
+│   └── genai/
+│       ├── onboarding.py         # Multi-turn profile synthesis logic
+│       ├── policy_qa.py          # ChromaDB vector retrieval + Groq LLM
+│       └── mitigation.py         # Policy-verified intervention synthesizer
 │
-├── ml/                                      # Machine Learning & Policy Embeddings
-│   ├── policy_docs/                         # Official Enterprise Corporate Handbooks
-│   │   ├── code_of_conduct.txt              # POL-HR-COC-2026-V4 (Retention bonuses & PIP)
-│   │   ├── expense_policy.txt               # POL-FIN-EXP-2026-V1 (Travel caps & L&D budget)
-│   │   ├── leave_policy.txt                 # POL-HR-LEAVE-2026-V1 (Annual, sick & maternity)
-│   │   └── wfh_policy.txt                   # POL-OPS-002 (Hybrid schedule & $600 stipend)
-│   ├── hr_data.csv                          # Enterprise workforce attrition dataset
-│   ├── train_model.py                       # XGBoost model training script
-│   └── policy_qa.py                         # ChromaDB document chunking & embedding pipeline
+├── ml/                           # Data Science & RAG Ingestion Pipeline
+│   ├── train_model.py            # Model training & serialization script
+│   ├── hr_data.csv               # Historical HR workforce dataset
+│   ├── policy_docs/              # Markdown & TXT corporate handbooks
+│   │   ├── code_of_conduct.txt
+│   │   ├── leave_policy.txt
+│   │   ├── wfh_policy.txt
+│   │   └── expense_policy.txt
+│   ├── chroma_db/                # Local vector database store (generated)
+│   └── policy_qa.py              # Standalone ingestion & query utility
 │
 ├── tests/
-│   └── test_backend.py                      # 8/8 Pytest backend test suite
+│   └── test_backend.py           # Pytest test suite (100% passing)
 │
-├── .env.example                             # Environment variable template
-├── requirements.txt                         # Python dependencies
-└── README.md                                # Comprehensive documentation (You are here)
+├── .env.example                  # Template for required environment keys
+├── requirements.txt              # Python dependencies
+└── README.md                     # Platform documentation
 ```
 
 ---
 
-## 🔌 API Reference & Data Contracts
+## 🔌 API Specification & Contracts
 
-All endpoints return JSON responses conforming to Pydantic schemas. Interactive testing is available at `http://localhost:8000/docs`.
+### 1. Workforce & Employee Directory
+- `GET /employees` — Returns list of all active employee profiles with department and tenure filters.
+- `GET /employees/{id}` — Returns complete employee profile with compensation metrics and telemetry.
+- `POST /employees` — Creates a new employee record and computes baseline risk.
+- `PUT /employees/{id}` — Updates employee information and triggers model re-scoring.
+- `DELETE /employees/{id}` — Archives employee profile from active directory.
 
-### Core Endpoints
-
-| Method | Endpoint | Description | Sample Query / Body |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/employees` | Retrieve all employees with risk scores | `?department=Engineering` |
-| `GET` | `/employees/{id}` | Retrieve individual employee profile | `/employees/1` |
-| `POST` | `/employees` | Register new employee profile | `{"name": "...", "role": "...", ...}` |
-| `PUT` | `/employees/{id}` | Update existing employee profile | `{"role": "...", "overtime_hours": 0}` |
-| `DELETE` | `/employees/{id}` | Remove employee from active roster | `/employees/1` |
-| `GET` | `/risk/{id}` | Calculate calibrated XGBoost risk & TreeSHAP | `/risk/1` |
-| `GET` | `/teams/{dept}/risk-summary`| Aggregate organizational health & top drivers | `/teams/Engineering/risk-summary` |
-| `POST` | `/policy/ask` | Query ChromaDB vector store + Groq LLM | `{"question": "How many days paid leave?"}` |
-| `POST` | `/onboarding/chat` | Multi-turn conversational extraction | `{"message": "I am a Senior Backend Engineer"}` |
-
-### Sample Risk Prediction Response (`GET /risk/{id}`)
-
-```json
-{
-  "employee_id": 1,
-  "name": "Saket Kumar",
-  "role": "Senior Backend Lead",
-  "department": "Engineering",
-  "risk_score": 0.78,
-  "risk_level": "High",
-  "flight_risk_probability": 0.784,
-  "summary": "Employee is exhibiting high attrition risk primarily driven by prolonged overtime burden and promotion stagnation.",
-  "shap_factors": [
-    {
-      "feature": "overtime_hours",
-      "value": 14.5,
-      "shap_value": 0.38,
-      "impact": "Increases Risk",
-      "interpretation": "14.5 overtime hrs/wk exceeds the 8.0 hrs threshold, severely increasing burnout."
-    },
-    {
-      "feature": "time_since_promotion_months",
-      "value": 22,
-      "shap_value": 0.24,
-      "impact": "Increases Risk",
-      "interpretation": "22 months without level progression creates career stagnation."
-    },
-    {
-      "feature": "JobLevel",
-      "value": 3,
-      "shap_value": -0.15,
-      "impact": "Decreases Risk",
-      "interpretation": "Senior JobLevel 3 provides stability and acts as a protective retention anchor."
-    }
-  ],
-  "mitigation_playbook": {
-    "recommended_action": "Sprint workload rebalance with verified rest-day allowance and level review under Section 2.1.",
-    "policy_reference": "POL-HR-COC-2026-V4 (Section 2.1) & POL-OPS-002"
+### 2. Explainable Risk Engine
+- `GET /risk/{id}` — Returns computed flight probability, risk categorization (`Low`, `Medium`, `High`), and mathematical SHAP drivers:
+  ```json
+  {
+    "employee_id": "EMP001",
+    "riskScore": 0.74,
+    "riskLevel": "High",
+    "summary": "Elevated flight probability driven by chronic overtime burden and stagnated promotion interval.",
+    "reasons": [
+      "+0.28: 14.5 hrs/week overtime exceeds department safe ceiling",
+      "+0.19: 22 months elapsed since last promotion review",
+      "+0.11: Compa-ratio 0.88 is below the 50th percentile for Level 4"
+    ],
+    "protectiveFactors": [
+      "-0.15: Top quartile performance rating (4.6/5.0)",
+      "-0.08: High engagement score on Q3 pulse survey (78/100)"
+    ]
   }
-}
+  ```
+
+### 3. Department Rollups
+- `GET /teams/{department}/risk-summary` — Aggregates team size, average attrition risk, burnout alerts, and high-risk employee rosters.
+
+### 4. Policy Q&A & Generative AI
+- `POST /policy/ask` — Semantic retrieval over corporate handbooks returning grounded guidance with citations:
+  ```json
+  {
+    "question": "Can an employee request 3 consecutive weeks of remote work during personal exigencies?",
+    "answer": "Yes. Under Section 4.2 of the Remote & Flexible Work Policy (POL-HR-WFH-2026-V3), employees in good standing may request up to 30 continuous calendar days of remote work with approval from their Tier 1 Manager and Department Head.",
+    "policy_source": "POL-HR-WFH-2026-V3 (Section 4.2: Extended Remote Protocols)",
+    "confidence": 0.94
+  }
+  ```
+- `POST /onboarding/chat` — Natural language chat endpoint that updates candidate profiles dynamically.
+- `GET /mitigation/{id}` — Generates policy-checked retention proposals based on an employee's exact SHAP breakdown.
+
+---
+
+## ⚙️ Quickstart & Local Setup
+
+### Prerequisites
+- **Python:** 3.10, 3.11, or 3.13
+- **Node.js:** v18+ and `npm`
+- **Git**
+
+### 1. Clone & Set Up Environment
+
+```bash
+git clone https://github.com/curious-coders/nirnaya-ai.git
+cd nirnaya-ai
+
+# Copy environment configuration
+cp .env.example .env
+```
+
+Edit `.env` and provide your Groq API key (optional for core features, uses intelligent mock responses if unset):
+```env
+GROQ_API_KEY=gsk_your_groq_api_key_here
+DATABASE_URL=sqlite:///./nirnaya.db
+PORT=8000
+```
+
+### 2. Backend Setup & Run
+
+```bash
+# Create and activate Python virtual environment
+python -m venv venv
+
+# Windows:
+venv\Scripts\activate
+# macOS / Linux:
+# source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Seed 16 comprehensive demo profiles
+python -m backend.seed
+
+# Optional: Regenerate ChromaDB vector embeddings
+python ml/policy_qa.py
+
+# Launch FastAPI development server
+uvicorn backend.main:app --reload --port 8000
+```
+
+The FastAPI backend will be live at:
+- **API Server:** `http://localhost:8000`
+- **Interactive Swagger Docs:** `http://localhost:8000/docs`
+- **Alternative ReDoc Docs:** `http://localhost:8000/redoc`
+
+### 3. Frontend Setup & Run
+
+In a separate terminal window:
+
+```bash
+cd frontend
+
+# Install npm packages
+npm install
+
+# Start Vite development server
+npm run dev
+```
+
+The frontend application will be live at:
+- **Web App:** `http://localhost:3000`
+
+---
+
+## 🧪 Testing & Verification
+
+Run the comprehensive automated test suite verifying database models, CRUD operations, risk scoring, and API response contracts:
+
+```bash
+# Run backend pytest suite
+python -m pytest tests/test_backend.py -v
+```
+
+Expected output:
+```text
+tests/test_backend.py::test_root_endpoint PASSED                         [ 12%]
+tests/test_backend.py::test_get_employees PASSED                         [ 25%]
+tests/test_backend.py::test_create_employee PASSED                       [ 37%]
+tests/test_backend.py::test_risk_prediction PASSED                       [ 50%]
+tests/test_backend.py::test_team_risk_summary PASSED                     [ 62%]
+tests/test_backend.py::test_policy_qa_endpoint PASSED                    [ 75%]
+tests/test_backend.py::test_onboarding_chat PASSED                       [ 87%]
+tests/test_backend.py::test_mitigation_action PASSED                     [100%]
+============================== 8 passed in 2.65s ==============================
+```
+
+Build the production frontend bundle to verify zero compilation or stylesheet errors:
+
+```bash
+cd frontend
+npm run build
 ```
 
 ---
 
-## 🎨 Design Philosophy & Aesthetic Tokens
+## 🎨 Design Philosophy & Color System
 
-Nirnaya.ai adopts a **warm editorial design language** inspired by contemporary typography-forward websites (such as Noovotic):
-
-* **Terracotta Accent (`#D9684C`)**: Used strategically for active states, key data beacons, and interactive triggers.
-* **Charcoal Slate (`#312C29` / `#221D1A`)**: Heavy grounding headings, editorial headers, and primary buttons.
-* **Warm Alabaster Canvas (`#FBF4EF` / `#FAF6F2`)**: High-contrast, gentle background surfaces that reduce visual fatigue during long analytical sessions.
-* **Muted Cream Borders (`#DED1C9`)**: Clean, subtle separation of content cards without harsh black borders.
-* **Status Accents**:
-  * Forest Emerald (`#2E7D32` / `#E8F5E9`): Low risk / Policy verified.
-  * Terracotta Coral (`#D9684C` / `#FDEAE5`): Medium risk / Active watch.
-  * Crimson (`#C62828` / `#FFEBEE`): High risk / Urgent intervention needed.
+Nirnaya.ai adopts an editorial, high-trust visual identity inspired by **Noovotic**:
+- **Parchment Canvas (`#FBF4EF` / `#FAF6F2`):** Warm, paper-like background that eliminates screen fatigue during intensive HR evaluations.
+- **Deep Espresso Charcoal (`#312C29`):** Authoritative, ultra-readable typography and primary interactive surfaces.
+- **Terracotta Orange (`#D9684C`):** Highlighting key callouts, model metrics, critical risk indicators, and active workflow states.
+- **Soft Muted Borders (`#DED1C9`):** Subtle organic card enclosures ensuring clean separation without harsh lines.
+- **Monochrome Architectural Imagery:** Clean black-and-white editorial photography reflecting enterprise seriousness.
 
 ---
 
-## 🧪 Testing & Validation
+## 👥 Hackathon Team & Credits
 
-Nirnaya.ai has been rigorously verified across both layers:
+**Team Curious Coders**  
+*Department of Computer Science & Engineering*  
+**Dayananda Sagar College of Engineering (DSCE), Bengaluru**
 
-1. **Frontend Production Build**:
-   ```bash
-   cd frontend
-   npm run build
-   # ✓ 2245 modules transformed in 4.5s
-   # Output: dist/ (Zero bundling or linting errors)
-   ```
-
-2. **Backend Automated Pytest Suite**:
-   ```bash
-   python -m pytest tests/test_backend.py
-   # 8 passed in 2.65s
-   ```
-
-3. **Responsive Design Verification**:
-   * Desktop (1440px / 1920px): Full 4-column grids, horizontal carousels, and sidebars.
-   * Tablet (768px - 1024px): 2-column adaptive wrapping.
-   * Mobile (375px - 430px): 1-column responsive layout with smooth-scrolling horizontal pills and drawer navigation.
+- **Project Lead & Full-Stack Architecture:** Team Curious Coders
+- **Machine Learning & SHAP Formulation:** Team Curious Coders
+- **Generative AI & Policy Vector Retrieval:** Team Curious Coders
+- **Frontend & Editorial UX Engineering:** Team Curious Coders
 
 ---
 
-## 📄 Hackathon Submission Credits
+## 📄 License & Attribution
 
-* **Team Name:** Curious Coders
-* **College:** Dayananda Sagar College of Engineering (DSCE), Bengaluru
-* **Hackathon:** DSCE Hackathon 2026
-* **Domain:** AI in HR & Workforce Management
-* **License:** Developed for academic and demonstration purposes. All rights reserved.
+Developed for the **DSCE Hackathon 2026** under the *AI in Human Resources & Workforce Intelligence* track.  
+All brand assets, design tokens, and model configurations are maintained by Team Curious Coders.

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Send,
   BookOpen,
@@ -11,60 +11,14 @@ import {
   User,
   ChevronDown,
   ChevronUp,
-  ChevronRight,
-  ChevronLeft,
   Search,
   ShieldCheck,
   Compass,
   Layers,
-  X,
-  Copy,
-  Check,
-  ExternalLink,
-  Info
+  X
 } from 'lucide-react';
 import { api } from '../api/api';
 import { useAuth } from '../context/AuthContext';
-
-// 4 Governing Corporate Policy Handbooks with official metadata
-const POLICY_HANDBOOKS = [
-  {
-    code: 'POL-HR-LEAVE-2026-V1',
-    title: 'Comprehensive Leave & Time-Off',
-    category: 'Leave & PTO',
-    scope: 'Annual, Sick, Maternity & Paternity',
-    keyTerms: ['18 Days Annual PTO', '12 Days Sick Leave', '26 Weeks Maternity', '3 Days Notice'],
-    color: 'border-[#A5D6A7] bg-[#E8F5E9]/50 text-[#2E7D32]',
-    tagColor: 'bg-[#E8F5E9] text-[#2E7D32]'
-  },
-  {
-    code: 'POL-OPS-002',
-    title: 'Hybrid & Remote Work Framework',
-    category: 'Remote & Hybrid',
-    scope: 'In-Office Anchor Days, Core Hours & Stipends',
-    keyTerms: ['3 Days In-Office', 'Tue & Thu Anchors', '$600 WFH Stipend', '$50/mo Internet'],
-    color: 'border-[#D9684C]/40 bg-[#FDEAE5]/50 text-[#B2553E]',
-    tagColor: 'bg-[#FDEAE5] text-[#B2553E]'
-  },
-  {
-    code: 'POL-FIN-EXP-2026-V1',
-    title: 'Global Travel, Expenses & L&D',
-    category: 'Travel & Expenses',
-    scope: 'Lodging Caps, Meal Per Diems & L&D Certs',
-    keyTerms: ['Tier-1 Lodging Caps', 'Daily Per Diem', '$1,500 L&D Budget', 'No Clawback'],
-    color: 'border-[#90CAF9] bg-[#E3F2FD]/50 text-[#1565C0]',
-    tagColor: 'bg-[#E3F2FD] text-[#1565C0]'
-  },
-  {
-    code: 'POL-HR-COC-2026-V4',
-    title: 'Code of Conduct & Retention Governance',
-    category: 'Promotion & Mobility',
-    scope: 'Retention Bonuses, Promotion Cycles & PIP',
-    keyTerms: ['15% Max Retention Bonus', '18mo Stagnation Review', '15% Project Swap', 'Moonlighting Rules'],
-    color: 'border-[#CE93D8] bg-[#F3E5F5]/50 text-[#7B1FA2]',
-    tagColor: 'bg-[#F3E5F5] text-[#7B1FA2]'
-  }
-];
 
 const POLICY_SUGGESTIONS = [
   // ── Leave & Time Off (POL-HR-LEAVE-2026-V1) ──
@@ -131,22 +85,19 @@ const PolicyQAPage = () => {
     {
       id: 'welcome',
       sender: 'bot',
-      text: "Hello! I am your Nirnaya.ai Policy Intelligence Assistant. Ask me any question regarding Acme Corp & Nirnaya Enterprise HR policies (Leave, Remote/WFH, Expenses & Travel, and Code of Conduct & Retention). Every answer is cross-checked against our official policy repository with verified handbook section citations.",
-      source: 'Acme Enterprise Repository',
-      policyCode: 'All 4 Handbooks Indexed',
+      text: "Hello! I am your Nirnaya.ai Policy Intelligence Assistant. Ask me any question regarding Acme Corp & Nirnaya Enterprise HR policies (Leave, Remote/WFH, Expenses & Travel, and Code of Conduct & Retention). Every answer is cross-checked against our official policy repository.",
+      source: null,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
   const [inputQuestion, setInputQuestion] = useState('');
   const [loading, setLoading] = useState(false);
-  const [copiedId, setCopiedId] = useState(null);
   const messagesEndRef = useRef(null);
-  const chipsScrollRef = useRef(null);
 
-  // Suggestions & Handbooks State
+  // Suggestions Interactive Drawer State
+  const [suggestionsExpanded, setSuggestionsExpanded] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [showHandbooksShelf, setShowHandbooksShelf] = useState(true);
-  const [selectedHandbook, setSelectedHandbook] = useState(null);
+  const [suggestionSearch, setSuggestionSearch] = useState('');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -155,19 +106,6 @@ const PolicyQAPage = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, loading]);
-
-  const scrollChips = (direction) => {
-    if (chipsScrollRef.current) {
-      const amount = direction === 'left' ? -280 : 280;
-      chipsScrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });
-    }
-  };
-
-  const copyToClipboard = (text, id) => {
-    navigator.clipboard?.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-  };
 
   const handleSend = async (questionText = null) => {
     const q = (questionText || inputQuestion).trim();
@@ -205,7 +143,7 @@ const PolicyQAPage = () => {
         id: `bot-err-${Date.now()}`,
         sender: 'bot',
         text: "I encountered a difficulty querying the policy vector store. Please ensure the backend ChromaDB / Groq service is accessible.",
-        source: 'Connection Error',
+        source: 'Error connecting',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages((prev) => [...prev, errorMsg]);
@@ -221,210 +159,122 @@ const PolicyQAPage = () => {
     }
   };
 
-  // Filtered Suggestions based on Category
-  const filteredSuggestions = useMemo(() => {
-    return POLICY_SUGGESTIONS.filter((s) => {
-      return selectedCategory === 'All' || s.category === selectedCategory;
-    });
-  }, [selectedCategory]);
+  // Filtered Suggestions based on Category and Search
+  const filteredSuggestions = POLICY_SUGGESTIONS.filter((s) => {
+    const matchesCat = selectedCategory === 'All' || s.category === selectedCategory;
+    const matchesSearch = !suggestionSearch || s.question.toLowerCase().includes(suggestionSearch.toLowerCase()) || s.category.toLowerCase().includes(suggestionSearch.toLowerCase());
+    return matchesCat && matchesSearch;
+  });
 
   return (
-    <div className="h-[calc(100vh-8rem)] flex flex-col space-y-4 pb-2">
-      {/* ── 1. Page Header ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 flex-shrink-0">
+    <div className="h-[calc(100vh-8rem)] flex flex-col space-y-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#D9684C]">
-              ChromaDB Vector Retrieval & Groq LLM
-            </span>
-          </div>
-          <h1 className="text-2xl font-heading font-extrabold tracking-tight text-[#312C29] flex items-center gap-2.5">
+          <h1 className="text-2xl font-heading font-bold tracking-tight text-[#312C29] flex items-center gap-2.5">
             <span>Policy Q&A Intelligence</span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#A5D6A7] uppercase tracking-wider">
-              Verified Legal Citations
+              Verified Citations
             </span>
           </h1>
           <p className="text-xs text-[#7A736E] mt-0.5">
-            Real-time RAG engine querying 4 enterprise handbooks with &lt;95ms vector latency and exact section citations.
+            RAG Assistant powered by ChromaDB vector retrieval & Groq LLM with official document citations.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 self-start sm:self-auto flex-shrink-0">
-          <button
-            onClick={() => setShowHandbooksShelf(!showHandbooksShelf)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
-              showHandbooksShelf
-                ? 'bg-[#312C29] text-white border-[#312C29] shadow-xs'
-                : 'bg-white text-[#5D5753] border-[#DED1C9] hover:bg-[#FAF6F2]'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>{showHandbooksShelf ? 'Hide Handbooks' : 'View 4 Handbooks'}</span>
-          </button>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-xs text-[#5D5753] bg-white px-3.5 py-1.5 rounded-xl border border-[#DED1C9] shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
+            <span>4 Policy Books • 35 Inquiries Indexed</span>
+          </div>
         </div>
       </div>
 
-      {/* ── 2. Collapsible 4 Governing Policy Handbooks Showcase ── */}
-      {showHandbooksShelf && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 flex-shrink-0 animate-in fade-in-50 duration-200">
-          {POLICY_HANDBOOKS.map((hb) => (
-            <div
-              key={hb.code}
-              onClick={() => {
-                setSelectedHandbook(hb);
-                setSelectedCategory(hb.category);
-              }}
-              className={`p-4 rounded-2xl border transition-all cursor-pointer shadow-xs hover:shadow-md hover:-translate-y-0.5 ${
-                selectedCategory === hb.category
-                  ? 'border-[#D9684C] bg-white ring-2 ring-[#D9684C]/20'
-                  : 'border-[#DED1C9] bg-white hover:border-[#D9684C]/40'
-              }`}
-            >
-              <div className="flex items-center justify-between gap-2 mb-1.5">
-                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md ${hb.tagColor}`}>
-                  {hb.code}
-                </span>
-                <span className="text-[10px] text-[#7A736E] font-medium">Active 2026</span>
-              </div>
-              <h4 className="text-xs font-heading font-bold text-[#312C29] line-clamp-1">
-                {hb.title}
-              </h4>
-              <p className="text-[11px] text-[#7A736E] line-clamp-1 mt-0.5">
-                {hb.scope}
-              </p>
-              <div className="flex flex-wrap gap-1 mt-2">
-                {hb.keyTerms.slice(0, 2).map((term, i) => (
-                  <span
-                    key={i}
-                    className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-[#FAF6F2] border border-[#EFE7E1] text-[#5D5753]"
-                  >
-                    {term}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* ── 3. Main Chat Container ── */}
-      <div className="flex-1 bg-white rounded-3xl border border-[#DED1C9] shadow-xs flex flex-col overflow-hidden relative min-h-0">
+      {/* Main Chat Box Container */}
+      <div className="flex-1 bg-white rounded-2xl border border-[#DED1C9] shadow-xs flex flex-col overflow-hidden relative">
         {/* Messages Scroll Area */}
         <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-3 max-w-3xl ${
+              className={`flex gap-3 max-w-2xl ${
                 msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
-              } animate-in fade-in-50 duration-200`}
+              }`}
             >
               {/* Avatar */}
               <div
-                className={`w-9 h-9 rounded-2xl flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs ${
+                className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                   msg.sender === 'user'
-                    ? 'bg-[#312C29] text-white'
+                    ? 'bg-[#312C29] text-white shadow-xs'
                     : 'bg-[#D9684C] text-white'
                 }`}
               >
-                {msg.sender === 'user' ? (
-                  <User className="w-4 h-4" />
-                ) : (
-                  <Bot className="w-4 h-4" />
-                )}
+                {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
               </div>
 
               {/* Message Bubble */}
-              <div className="space-y-1.5 max-w-full">
+              <div className="space-y-1.5">
                 <div
-                  className={`p-4 sm:p-5 rounded-3xl text-xs sm:text-sm leading-relaxed ${
+                  className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                     msg.sender === 'user'
                       ? 'bg-[#312C29] text-[#FBF4EF] rounded-tr-none shadow-xs'
                       : 'bg-[#FAF6F2] border border-[#DED1C9] text-[#312C29] rounded-tl-none'
                   }`}
                 >
-                  <p className="whitespace-pre-wrap font-sans">{msg.text}</p>
+                  <p className="whitespace-pre-wrap">{msg.text}</p>
 
-                  {/* Official Legal Citation Chip */}
+                  {/* Document Citation Chip */}
                   {msg.source && (
-                    <div className="mt-3.5 pt-3 border-t border-[#DED1C9] flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[11px] font-semibold text-[#7A736E] flex items-center gap-1">
-                          <FileText className="w-3.5 h-3.5 text-[#D9684C]" />
-                          Verified Clause:
-                        </span>
-                        <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-mono font-bold border ${
-                            msg.source === 'Connection Error' || msg.source === 'Not covered by policy'
-                              ? 'bg-[#FDEAE5] text-[#B2553E] border-[#D9684C]/30'
-                              : 'bg-[#E8F5E9] text-[#2E7D32] border-[#A5D6A7]'
-                          }`}
-                        >
-                          {msg.source}
-                        </span>
-                        {msg.policyCode && (
-                          <span className="text-[10px] text-[#7A736E] font-mono font-medium">
-                            {msg.policyCode}
-                          </span>
-                        )}
-                      </div>
-
-                      <button
-                        onClick={() => copyToClipboard(msg.text, msg.id)}
-                        className="inline-flex items-center gap-1 text-[10px] text-[#7A736E] hover:text-[#312C29] transition-colors p-1"
-                        title="Copy answer"
+                    <div className="mt-3 pt-2.5 border-t border-[#DED1C9] flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-semibold text-[#7A736E] flex items-center gap-1">
+                        <FileText className="w-3.5 h-3.5 text-[#D9684C]" />
+                        Source:
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium border ${
+                          msg.source === 'Not covered by policy'
+                            ? 'bg-[#FDEAE5] text-[#B2553E] border-[#D9684C]/30'
+                            : 'bg-[#E8F5E9] text-[#2E7D32] border-[#A5D6A7]'
+                        }`}
                       >
-                        {copiedId === msg.id ? (
-                          <>
-                            <Check className="w-3 h-3 text-[#2E7D32]" />
-                            <span className="text-[#2E7D32]">Copied</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            <span>Copy</span>
-                          </>
-                        )}
-                      </button>
+                        {msg.source}
+                      </span>
+                      {msg.policyCode && (
+                        <span className="text-[10px] text-[#7A736E] font-mono">
+                          ({msg.policyCode})
+                        </span>
+                      )}
                     </div>
                   )}
 
+                  {/* Fallback Notice if active */}
                   {msg.fallbackNotice && (
-                    <div className="mt-2 text-[10px] text-[#7A736E] italic bg-white/70 p-2 rounded-xl border border-[#DED1C9]">
+                    <div className="mt-1 text-[10px] text-[#7A736E] italic">
                       {msg.fallbackNotice}
                     </div>
                   )}
                 </div>
 
                 <div
-                  className={`text-[10px] text-[#7A736E] px-2 flex items-center gap-1 ${
-                    msg.sender === 'user' ? 'justify-end' : 'justify-start'
+                  className={`text-[10px] text-[#7A736E] px-1 ${
+                    msg.sender === 'user' ? 'text-right' : 'text-left'
                   }`}
                 >
-                  <span>{msg.timestamp}</span>
-                  {msg.sender === 'bot' && msg.source && (
-                    <>
-                      <span>•</span>
-                      <span className="text-[#2E7D32] font-semibold">Policy Verified ✓</span>
-                    </>
-                  )}
+                  {msg.timestamp}
                 </div>
               </div>
             </div>
           ))}
 
+          {/* Typing Indicator */}
           {loading && (
-            <div className="flex gap-3 max-w-xl mr-auto animate-pulse">
-              <div className="w-9 h-9 rounded-2xl bg-[#D9684C] text-white flex items-center justify-center flex-shrink-0">
+            <div className="flex gap-3 max-w-xl mr-auto animate-in fade-in-50">
+              <div className="w-8 h-8 rounded-xl bg-[#D9684C] text-white flex items-center justify-center flex-shrink-0">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="p-4 rounded-3xl bg-[#FAF6F2] border border-[#DED1C9] rounded-tl-none space-y-2">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#D9684C]">
-                  <Sparkles className="w-3.5 h-3.5 animate-spin" />
-                  <span>Searching ChromaDB Vector Embeddings & Groq LLM...</span>
-                </div>
-                <div className="h-2 w-48 bg-[#DED1C9] rounded-full" />
-                <div className="h-2 w-32 bg-[#DED1C9] rounded-full" />
+              <div className="bg-[#FAF6F2] border border-[#DED1C9] rounded-2xl rounded-tl-none p-4 flex items-center gap-2 text-xs text-[#7A736E]">
+                <Sparkles className="w-4 h-4 text-[#D9684C] animate-spin" />
+                <span>Searching policy vector store & synthesizing verified answer...</span>
               </div>
             </div>
           )}
@@ -432,82 +282,125 @@ const PolicyQAPage = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* ── 4. Horizontal Quick-Inquiry Carousel Track ── */}
-        <div className="border-t border-[#DED1C9] bg-[#FAF6F2] p-2.5 space-y-2 flex-shrink-0">
-          {/* Category Chips */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all flex-shrink-0 ${
-                  selectedCategory === cat
-                    ? 'bg-[#312C29] text-white shadow-2xs'
-                    : 'bg-white text-[#5D5753] hover:text-[#312C29] border border-[#DED1C9]'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Quick Questions Horizontal Scroll Track */}
-          <div className="relative flex items-center gap-2">
-            <button
-              onClick={() => scrollChips('left')}
-              className="w-7 h-7 rounded-full bg-white border border-[#DED1C9] flex items-center justify-center text-[#5D5753] hover:bg-[#F2EAE3] flex-shrink-0 shadow-2xs"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-3.5 h-3.5" />
-            </button>
-
-            <div
-              ref={chipsScrollRef}
-              className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-1 py-0.5"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {filteredSuggestions.map((s, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSend(s.question)}
-                  disabled={loading}
-                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#F5E9DF] border border-[#DED1C9] hover:border-[#D9684C]/50 text-left text-xs text-[#312C29] transition-all flex items-center gap-1.5 flex-shrink-0 max-w-xs shadow-2xs group"
-                >
-                  <span className="text-[#D9684C] group-hover:scale-110 transition-transform">✦</span>
-                  <span className="truncate">{s.question}</span>
-                </button>
-              ))}
+        {/* ── Suggested Inquiries Section (Categorized & Expandable) ── */}
+        <div className="bg-[#FAF6F2] border-t border-[#DED1C9] transition-all duration-300">
+          {/* Top bar with Toggle & Category Tabs */}
+          <div className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b border-[#DED1C9]">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-heading font-bold text-[#312C29] flex items-center gap-1.5">
+                <HelpCircle className="w-4 h-4 text-[#D9684C]" />
+                <span>Suggested Inquiries ({filteredSuggestions.length})</span>
+              </span>
+              <span className="text-[10px] font-bold bg-[#FDEAE5] text-[#B2553E] border border-[#D9684C]/30 px-2 py-0.5 rounded-full uppercase">
+                35 Verified Prompts
+              </span>
             </div>
 
-            <button
-              onClick={() => scrollChips('right')}
-              className="w-7 h-7 rounded-full bg-white border border-[#DED1C9] flex items-center justify-center text-[#5D5753] hover:bg-[#F2EAE3] flex-shrink-0 shadow-2xs"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSuggestionsExpanded(!suggestionsExpanded)}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-[#DED1C9] hover:border-[#D9684C]/50 text-[#312C29] transition-colors shadow-2xs"
+              >
+                <span>{suggestionsExpanded ? 'Collapse' : 'Explore All 35+ Topics'}</span>
+                {suggestionsExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Expanded Drawer: Category Selector & Instant Search */}
+          {suggestionsExpanded && (
+            <div className="p-3 bg-white border-b border-[#DED1C9] space-y-2.5 animate-in slide-in-from-bottom-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+                {/* Category Pills */}
+                <div className="flex flex-wrap gap-1">
+                  {CATEGORIES.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-lg transition-all ${
+                        selectedCategory === cat
+                          ? 'bg-[#312C29] text-white shadow-2xs'
+                          : 'bg-[#FAF6F2] text-[#5D5753] hover:bg-[#F2EAE3] hover:text-[#312C29]'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Search Bar within Suggestions */}
+                <div className="relative w-full sm:w-56">
+                  <Search className="w-3.5 h-3.5 text-[#7A736E] absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={suggestionSearch}
+                    onChange={(e) => setSuggestionSearch(e.target.value)}
+                    placeholder="Filter prompts..."
+                    className="w-full pl-8 pr-2.5 py-1 text-[11px] rounded-lg border border-[#DED1C9] bg-[#FAF6F2] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#D9684C] text-[#312C29]"
+                  />
+                  {suggestionSearch && (
+                    <button
+                      onClick={() => setSuggestionSearch('')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-[#7A736E] hover:text-[#312C29]"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Suggestions List Grid */}
+          <div
+            className={`p-3 overflow-y-auto ${
+              suggestionsExpanded ? 'max-h-56' : 'max-h-24'
+            } transition-all`}
+          >
+            <div className="flex flex-wrap gap-1.5">
+              {(suggestionsExpanded ? filteredSuggestions : filteredSuggestions.slice(0, 5)).map((item, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSend(item.question)}
+                  disabled={loading}
+                  className="text-xs bg-white hover:bg-[#FDEAE5] hover:text-[#B2553E] hover:border-[#D9684C]/40 text-[#312C29] border border-[#DED1C9] px-3 py-1.5 rounded-xl transition-all shadow-2xs text-left flex items-center gap-1.5 group"
+                >
+                  <span className="text-[10px] font-semibold px-1.5 py-0.2 bg-[#FAF6F2] group-hover:bg-[#FDEAE5] text-[#7A736E] group-hover:text-[#B2553E] rounded transition-colors">
+                    {item.category}
+                  </span>
+                  <span>{item.question}</span>
+                </button>
+              ))}
+
+              {!suggestionsExpanded && filteredSuggestions.length > 5 && (
+                <button
+                  onClick={() => setSuggestionsExpanded(true)}
+                  className="text-xs bg-[#FDEAE5] hover:bg-[#F5E9DF] text-[#B2553E] font-semibold border border-[#D9684C]/30 px-3 py-1.5 rounded-xl transition-colors"
+                >
+                  +{filteredSuggestions.length - 5} more inquiries...
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* ── 5. Input Textarea & Send Button ── */}
-        <div className="p-3 sm:p-4 bg-white border-t border-[#DED1C9] flex items-center gap-3 flex-shrink-0">
+        {/* Input Bar */}
+        <div className="p-3 sm:p-4 bg-white border-t border-[#DED1C9] flex items-center gap-2">
           <input
             type="text"
             value={inputQuestion}
             onChange={(e) => setInputQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask anything about Leave, Remote Work, Expenses, L&D, or Retention..."
-            disabled={loading}
-            className="flex-1 px-4 py-3 rounded-2xl border border-[#DED1C9] text-xs sm:text-sm bg-[#FAF6F2] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C] transition-all text-[#312C29] disabled:opacity-50"
+            placeholder="Ask anything about leave, WFH equipment stipend, travel per diem, L&D budget, promotions, moonlighting..."
+            className="flex-1 px-4 py-2.5 text-xs rounded-xl border border-[#DED1C9] bg-[#FAF6F2] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D9684C]/20 focus:border-[#D9684C] text-[#312C29] transition-all"
           />
-
           <button
             onClick={() => handleSend()}
-            disabled={!inputQuestion.trim() || loading}
-            className="w-11 h-11 rounded-2xl bg-[#312C29] hover:bg-[#1C1816] text-white flex items-center justify-center shadow-xs transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
-            aria-label="Send message"
+            disabled={loading || !inputQuestion.trim()}
+            className="px-4 py-2.5 bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white rounded-xl font-semibold text-xs transition-all flex items-center gap-2 shadow-xs active:scale-95"
           >
-            <Send className="w-4 h-4 text-[#D9684C]" />
+            <span>Ask</span>
+            <Send className="w-4 h-4" />
           </button>
         </div>
       </div>

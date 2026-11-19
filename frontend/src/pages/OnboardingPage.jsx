@@ -636,98 +636,46 @@ const OnboardingPage = () => {
       {/* ── TAB 1: GUIDED PROFILE STUDIO (STEP-BY-STEP FLOW) ─────────────────── */}
       {/* ──────────────────────────────────────────────────────────────────────── */}
       {activeTab === 'studio' && (
-        <div className="space-y-4">
-          {/* Horizontal Progress Timeline Bar */}
-          <div className="bg-white rounded-3xl border border-[#DED1C9] p-3 shadow-xs overflow-x-auto">
-            <div className="flex items-center justify-between min-w-[720px] gap-2 px-2">
-              {[
-                { num: 1, label: 'Identity & Role' },
-                { num: 2, label: 'Skills & Tech' },
-                { num: 3, label: 'Work History' },
-                { num: 4, label: 'Education & Certs' },
-                { num: 5, label: 'Scope & Goals' },
-                { num: 6, label: '30-60-90 Roadmap' }
-              ].map((step, idx) => {
-                const isDone = currentStep > step.num;
-                const isActive = currentStep === step.num;
-                return (
-                  <button
-                    key={step.num}
-                    onClick={() => setCurrentStep(step.num)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-2xl text-xs font-bold transition-all ${
-                      isActive
-                        ? 'bg-[#312C29] text-white shadow-xs'
-                        : isDone
-                        ? 'bg-[#E8F5E9] text-[#2E7D32] border border-[#A5D6A7]'
-                        : 'text-[#7A736E] hover:text-[#312C29] hover:bg-[#FAF6F2]'
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Stepper Navigation Sidebar */}
+          <div className="space-y-2">
+            {[
+              { num: 1, title: 'Personal & Role Baseline', desc: 'Identity, contacts & department', icon: User },
+              { num: 2, title: 'Skills & Competency Matrix', desc: 'Proficiency & years experience', icon: Award },
+              { num: 3, title: 'Work History & Projects', desc: 'Past experience & portfolio', icon: FolderGit2 },
+              { num: 4, title: 'Education & Certifications', desc: 'Degrees & verified credentials', icon: GraduationCap },
+              { num: 5, title: 'Responsibilities & Goals', desc: 'Scope, expertise & preferences', icon: Target },
+              { num: 6, title: 'AI Ramp-Up & Policy Perks', desc: 'Gap analysis & 30-60-90 roadmap', icon: Sparkles }
+            ].map((step) => {
+              const Icon = step.icon;
+              const isActive = currentStep === step.num;
+              return (
+                <button
+                  key={step.num}
+                  onClick={() => setCurrentStep(step.num)}
+                  className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 ${
+                    isActive
+                      ? 'bg-white border-[#D9684C] shadow-sm ring-2 ring-brand-500/10'
+                      : 'bg-white/60 border-[#DED1C9] hover:bg-white text-[#5D5753]'
+                  }`}
+                >
+                  <div
+                    className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
+                      isActive ? 'bg-[#312C29] text-white shadow-xs' : 'bg-[#F5E9DF] text-[#7A736E]'
                     }`}
                   >
-                    <span
-                      className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold ${
-                        isActive
-                          ? 'bg-[#D9684C] text-white'
-                          : isDone
-                          ? 'bg-[#2E7D32] text-white'
-                          : 'bg-[#DED1C9] text-[#5D5753]'
-                      }`}
-                    >
-                      {isDone ? '✓' : step.num}
-                    </span>
-                    <span>{step.label}</span>
-                    {idx < 5 && <span className="text-[#DED1C9] ml-1">→</span>}
-                  </button>
-                );
-              })}
-            </div>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="truncate">
+                    <div className={`text-xs font-bold truncate ${isActive ? 'text-[#312C29]' : 'text-[#5D5753]'}`}>
+                      {step.title}
+                    </div>
+                    <div className="text-[11px] text-[#7A736E] truncate">{step.desc}</div>
+                  </div>
+                </button>
+              );
+            })}
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Stepper Navigation Sidebar */}
-            <div className="space-y-2">
-              {[
-                { num: 1, title: 'Personal & Role Baseline', desc: 'Identity, contacts & department', icon: User },
-                { num: 2, title: 'Skills & Competency Matrix', desc: 'Proficiency & years experience', icon: Award },
-                { num: 3, title: 'Work History & Projects', desc: 'Past experience & portfolio', icon: FolderGit2 },
-                { num: 4, title: 'Education & Certifications', desc: 'Degrees & verified credentials', icon: GraduationCap },
-                { num: 5, title: 'Responsibilities & Goals', desc: 'Scope, expertise & preferences', icon: Target },
-                { num: 6, title: 'AI Ramp-Up & Policy Perks', desc: 'Gap analysis & 30-60-90 roadmap', icon: Sparkles }
-              ].map((step) => {
-                const Icon = step.icon;
-                const isActive = currentStep === step.num;
-                const isCompleted = currentStep > step.num;
-                return (
-                  <button
-                    key={step.num}
-                    onClick={() => setCurrentStep(step.num)}
-                    className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 ${
-                      isActive
-                        ? 'bg-white border-[#D9684C] shadow-sm ring-2 ring-[#D9684C]/20'
-                        : isCompleted
-                        ? 'bg-white border-[#A5D6A7] text-[#312C29]'
-                        : 'bg-white/60 border-[#DED1C9] hover:bg-white text-[#5D5753]'
-                    }`}
-                  >
-                    <div
-                      className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
-                        isActive
-                          ? 'bg-[#312C29] text-white shadow-xs'
-                          : isCompleted
-                          ? 'bg-[#E8F5E9] text-[#2E7D32]'
-                          : 'bg-[#F5E9DF] text-[#7A736E]'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <div className="truncate">
-                      <div className={`text-xs font-bold truncate ${isActive ? 'text-[#312C29]' : 'text-[#5D5753]'}`}>
-                        {step.title}
-                      </div>
-                      <div className="text-[11px] text-[#7A736E] truncate">{step.desc}</div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
 
           {/* Form Step Workspace (3 Cols) */}
           <div className="lg:col-span-3 space-y-6">
@@ -1397,31 +1345,31 @@ const OnboardingPage = () => {
                       Personalized ramp-up trajectory evaluated against official company policies and role expectations.
                     </p>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#A5D6A7]">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                     Readiness Score: {analysis?.readiness_score || 95}%
                   </span>
                 </div>
 
                 {/* Core Strengths & Growth Areas */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-2xl bg-[#E8F5E9]/50 border border-[#A5D6A7] space-y-2">
-                    <span className="text-xs font-bold text-[#2E7D32] uppercase tracking-wider flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
+                  <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-2">
+                    <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>Identified Strengths</span>
                     </span>
-                    <ul className="text-xs text-[#312C29] space-y-1.5 list-disc list-inside">
+                    <ul className="text-xs text-emerald-950 space-y-1.5 list-disc list-inside">
                       {analysis?.strengths?.map((s, i) => (
                         <li key={i}>{s}</li>
                       )) || <li>Strong foundation in primary technical disciplines</li>}
                     </ul>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#FDEAE5]/50 border border-[#D9684C]/40 space-y-2">
-                    <span className="text-xs font-bold text-[#B2553E] uppercase tracking-wider flex items-center gap-1.5">
-                      <Target className="w-4 h-4 text-[#D9684C]" />
+                  <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-2">
+                    <span className="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                      <Target className="w-4 h-4 text-amber-600" />
                       <span>Target Growth Opportunities</span>
                     </span>
-                    <ul className="text-xs text-[#312C29] space-y-1.5 list-disc list-inside">
+                    <ul className="text-xs text-amber-950 space-y-1.5 list-disc list-inside">
                       {analysis?.opportunities?.map((o, i) => (
                         <li key={i}>{o}</li>
                       )) || <li>Utilize annual L&D budget for cloud architecture leveling</li>}
@@ -1437,7 +1385,7 @@ const OnboardingPage = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     {analysis?.roadmap?.map((phase, idx) => (
-                      <div key={idx} className="p-4 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] space-y-2 shadow-2xs hover:shadow-xs transition-shadow">
+                      <div key={idx} className="p-4 rounded-2xl bg-[#FAF6F2] border border-[#DED1C9] space-y-2">
                         <div className="text-[11px] font-bold uppercase tracking-wider text-[#D9684C]">
                           {phase.phase}
                         </div>
@@ -1445,7 +1393,7 @@ const OnboardingPage = () => {
                         <ul className="text-[11px] text-[#5D5753] space-y-1.5 pt-2 border-t border-[#DED1C9]">
                           {phase.milestones.map((m, mi) => (
                             <li key={mi} className="flex items-start gap-1.5">
-                              <span className="text-[#D9684C] font-bold">•</span>
+                              <span className="text-brand-500 font-bold">•</span>
                               <span>{m}</span>
                             </li>
                           ))}
@@ -1458,7 +1406,7 @@ const OnboardingPage = () => {
                 {/* Policy Benefits Entitlements */}
                 <div className="space-y-3 pt-4 border-t border-[#EFE7E1]">
                   <span className="text-xs font-bold uppercase tracking-wider text-[#5D5753] flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     <span>Verified Policy Entitlements & Compliance</span>
                   </span>
 
@@ -1467,7 +1415,7 @@ const OnboardingPage = () => {
                       <div key={idx} className="p-3.5 rounded-2xl border border-[#DED1C9] bg-white shadow-2xs">
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-xs text-[#312C29]">{benefit.title}</span>
-                          <span className="font-mono text-xs font-bold text-[#2E7D32] bg-[#E8F5E9] px-2 py-0.5 rounded border border-[#A5D6A7]">
+                          <span className="font-mono text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
                             {benefit.value}
                           </span>
                         </div>
@@ -1482,24 +1430,23 @@ const OnboardingPage = () => {
                 <div className="pt-6 border-t border-[#EFE7E1] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <button
                     onClick={() => setCurrentStep(5)}
-                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl transition-colors"
+                    className="px-4 py-2 text-xs font-semibold text-[#5D5753] hover:bg-[#F5E9DF] rounded-xl"
                   >
                     Back to Goals
                   </button>
                   <button
                     onClick={handleFinalRegistration}
                     disabled={submittingToDB || completeness < 40}
-                    className="px-6 py-3 rounded-2xl bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white font-bold text-sm shadow-md transition-all active:scale-95 flex items-center gap-2"
+                    className="px-6 py-3 rounded-2xl bg-[#312C29] hover:bg-[#1C1816] disabled:opacity-50 text-white font-bold text-sm shadow-md shadow-brand-500/25 active:scale-95 flex items-center gap-2"
                   >
                     <span>{submittingToDB ? 'Writing to PostgreSQL Database...' : 'Register Candidate in Workforce DB'}</span>
-                    <ArrowRight className="w-4 h-4 text-[#D9684C]" />
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             )}
           </div>
         </div>
-      </div>
       )}
 
       {/* ──────────────────────────────────────────────────────────────────────── */}
