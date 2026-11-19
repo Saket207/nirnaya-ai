@@ -21,10 +21,15 @@ import ErrorMessage from '../components/ErrorMessage';
 const DEPARTMENTS = [
   'All Departments',
   'Engineering',
-  'Sales',
+  'Data & AI',
   'Product',
-  'Human Resources',
-  'Marketing'
+  'Design & UX',
+  'Cybersecurity & IT',
+  'Customer Success',
+  'Sales',
+  'Marketing',
+  'Finance & Operations',
+  'Human Resources'
 ];
 
 const DashboardPage = () => {

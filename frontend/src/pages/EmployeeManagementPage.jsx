@@ -23,10 +23,15 @@ import { useToast } from '../context/ToastContext';
 
 const DEPARTMENTS = [
   'Engineering',
-  'Sales',
+  'Data & AI',
   'Product',
-  'Human Resources',
-  'Marketing'
+  'Design & UX',
+  'Cybersecurity & IT',
+  'Customer Success',
+  'Sales',
+  'Marketing',
+  'Finance & Operations',
+  'Human Resources'
 ];
 
 const INITIAL_FORM_STATE = {

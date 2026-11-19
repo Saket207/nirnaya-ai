@@ -18,7 +18,7 @@ def seed_database():
     db.commit()
 
     demo_employees = [
-        # Engineering Department
+        # ── 1. Engineering Department ─────────────────────────────────────────
         {
             "id": "emp-eng-001",
             "name": "Aarav Sharma",
@@ -31,7 +31,7 @@ def seed_database():
             "JobLevel": 2,
             "WorkLifeBalance": 1,
             "skills": ["Python", "FastAPI", "React", "PostgreSQL", "System Design"],
-            "recommendedAction": "Offer expedited promotion evaluation to Tech Lead and enforce 40-hour weekly cap."
+            "recommendedAction": "Offer expedited promotion evaluation to Tech Lead and enforce 40-hour weekly cap under POL-HR-COC-2026-V4."
         },
         {
             "id": "emp-eng-002",
@@ -45,7 +45,7 @@ def seed_database():
             "JobLevel": 1,
             "WorkLifeBalance": 2,
             "skills": ["TypeScript", "Node.js", "Docker", "GraphQL"],
-            "recommendedAction": "Assign a senior mentor and adjust weekly sprint commitments."
+            "recommendedAction": "Assign senior technical mentor and rebalance weekly sprint story points."
         },
         {
             "id": "emp-eng-003",
@@ -59,7 +59,7 @@ def seed_database():
             "JobLevel": 3,
             "WorkLifeBalance": 3,
             "skills": ["Kubernetes", "AWS", "Terraform", "CI/CD"],
-            "recommendedAction": "Maintain current development plan and involve in quarterly architecture reviews."
+            "recommendedAction": "Maintain current technical leadership roadmap and involve in multi-region infrastructure expansion."
         },
         {
             "id": "emp-eng-004",
@@ -73,10 +73,24 @@ def seed_database():
             "JobLevel": 1,
             "WorkLifeBalance": 1,
             "skills": ["Python", "Django", "Redis", "Microservices"],
-            "recommendedAction": "Conduct immediate 1-on-1 career check-in and rebalance workload distribution."
+            "recommendedAction": "Conduct immediate 1-on-1 check-in, redistribute sprint bug debt, and enforce right to disconnect (POL-OPS-002)."
+        },
+        {
+            "id": "emp-eng-005",
+            "name": "Ishaan Saxena",
+            "role": "Site Reliability Engineer",
+            "department": "Engineering",
+            "tenure_months": 5,
+            "engagement_score": 1.1,
+            "time_since_promotion_months": 5,
+            "overtime_hours": 22.0,
+            "JobLevel": 1,
+            "WorkLifeBalance": 1,
+            "skills": ["Linux", "Prometheus", "Grafana", "Go", "Incident Response"],
+            "recommendedAction": "Reconfigure on-call rotation schedule and assign secondary escalation backup."
         },
 
-        # Sales Department
+        # ── 2. Sales Department ───────────────────────────────────────────────
         {
             "id": "emp-sales-001",
             "name": "Vikram Singh",
@@ -89,7 +103,7 @@ def seed_database():
             "JobLevel": 2,
             "WorkLifeBalance": 1,
             "skills": ["B2B Sales", "Negotiation", "CRM", "Pipeline Management"],
-            "recommendedAction": "Re-evaluate commission tiers and career progression roadmap."
+            "recommendedAction": "Re-evaluate commission tiers and initiate leveling calibration under POL-HR-COC-2026-V4."
         },
         {
             "id": "emp-sales-002",
@@ -103,7 +117,7 @@ def seed_database():
             "JobLevel": 1,
             "WorkLifeBalance": 3,
             "skills": ["Cold Outreach", "Lead Generation", "Salesforce"],
-            "recommendedAction": "Provide SDR-to-AE promotion milestone training."
+            "recommendedAction": "Provide SDR-to-AE promotion milestone track and fast-track training."
         },
         {
             "id": "emp-sales-003",
@@ -117,7 +131,7 @@ def seed_database():
             "JobLevel": 4,
             "WorkLifeBalance": 3,
             "skills": ["Strategic Sales", "Team Leadership", "Key Account Management"],
-            "recommendedAction": "Support expansion initiatives into new regional territories."
+            "recommendedAction": "Support enterprise expansion initiatives into international corporate sectors."
         },
         {
             "id": "emp-sales-004",
@@ -131,10 +145,10 @@ def seed_database():
             "JobLevel": 2,
             "WorkLifeBalance": 2,
             "skills": ["Client Upselling", "Renewals", "Customer Retention"],
-            "recommendedAction": "Review workload targets and schedule mid-year compensation review."
+            "recommendedAction": "Schedule mid-year compensation review and explore 15% Project-Swap exploratory rotation."
         },
 
-        # Product Department
+        # ── 3. Product Department ─────────────────────────────────────────────
         {
             "id": "emp-prod-001",
             "name": "Siddharth Rao",
@@ -147,24 +161,10 @@ def seed_database():
             "JobLevel": 3,
             "WorkLifeBalance": 2,
             "skills": ["Product Strategy", "User Research", "Agile", "Roadmapping"],
-            "recommendedAction": "Define clear Principal Product Manager path and delegate roadmap execution."
+            "recommendedAction": "Define Principal Product Manager advancement milestones and delegate execution scope."
         },
         {
             "id": "emp-prod-002",
-            "name": "Meera Joshi",
-            "role": "UI/UX Designer",
-            "department": "Product",
-            "tenure_months": 18,
-            "engagement_score": 3.7,
-            "time_since_promotion_months": 8,
-            "overtime_hours": 3.0,
-            "JobLevel": 2,
-            "WorkLifeBalance": 4,
-            "skills": ["Figma", "User Testing", "Prototyping", "Design Systems"],
-            "recommendedAction": "Encourage lead design workshop facilitation."
-        },
-        {
-            "id": "emp-prod-003",
             "name": "Aditya Nair",
             "role": "Product Analyst",
             "department": "Product",
@@ -175,10 +175,202 @@ def seed_database():
             "JobLevel": 1,
             "WorkLifeBalance": 2,
             "skills": ["Mixpanel", "SQL", "Data Analytics", "A/B Testing"],
-            "recommendedAction": "Enroll in advanced product strategy learning program."
+            "recommendedAction": "Enroll in advanced product strategy learning program using $1,200 L&D budget (POL-FIN-EXP-2026-V1)."
+        },
+        {
+            "id": "emp-prod-003",
+            "name": "Shreya Bannerjee",
+            "role": "Group Product Manager",
+            "department": "Product",
+            "tenure_months": 38,
+            "engagement_score": 3.7,
+            "time_since_promotion_months": 8,
+            "overtime_hours": 5.0,
+            "JobLevel": 3,
+            "WorkLifeBalance": 3,
+            "skills": ["Product Vision", "Team Leadership", "Cross-Functional Ops", "P&L"],
+            "recommendedAction": "Facilitate executive strategy workshops for next fiscal year product goals."
         },
 
-        # Human Resources Department
+        # ── 4. Data & AI Department ───────────────────────────────────────────
+        {
+            "id": "emp-data-001",
+            "name": "Arjun Sundaram",
+            "role": "Lead Data Scientist",
+            "department": "Data & AI",
+            "tenure_months": 32,
+            "engagement_score": 1.6,
+            "time_since_promotion_months": 26,
+            "overtime_hours": 19.0,
+            "JobLevel": 3,
+            "WorkLifeBalance": 1,
+            "skills": ["PyTorch", "LLMs", "Vector DBs", "MLOps", "Transformers"],
+            "recommendedAction": "Initiate leveling calibration under POL-HR-COC-2026-V4 and assign secondary research fellow."
+        },
+        {
+            "id": "emp-data-002",
+            "name": "Kavya Menon",
+            "role": "Machine Learning Engineer",
+            "department": "Data & AI",
+            "tenure_months": 16,
+            "engagement_score": 2.4,
+            "time_since_promotion_months": 16,
+            "overtime_hours": 13.0,
+            "JobLevel": 2,
+            "WorkLifeBalance": 2,
+            "skills": ["Python", "TensorFlow", "Kubeflow", "Feature Store", "Docker"],
+            "recommendedAction": "Provide access to GPU infrastructure scaling and cloud MLOps budget."
+        },
+        {
+            "id": "emp-data-003",
+            "name": "Devansh Bhatia",
+            "role": "Data Engineer",
+            "department": "Data & AI",
+            "tenure_months": 24,
+            "engagement_score": 3.6,
+            "time_since_promotion_months": 6,
+            "overtime_hours": 3.0,
+            "JobLevel": 2,
+            "WorkLifeBalance": 4,
+            "skills": ["Apache Spark", "Airflow", "Snowflake", "dbt", "PostgreSQL"],
+            "recommendedAction": "Empower data architecture pipeline modernization initiatives."
+        },
+
+        # ── 5. Customer Success & Support ─────────────────────────────────────
+        {
+            "id": "emp-cs-001",
+            "name": "Manish Tiwari",
+            "role": "Director of Customer Success",
+            "department": "Customer Success",
+            "tenure_months": 44,
+            "engagement_score": 3.8,
+            "time_since_promotion_months": 10,
+            "overtime_hours": 6.0,
+            "JobLevel": 4,
+            "WorkLifeBalance": 3,
+            "skills": ["Executive Relationship Management", "NPS Growth", "Churn Prevention", "Support Ops"],
+            "recommendedAction": "Expand global client onboarding strategy and tier 1 escalation frameworks."
+        },
+        {
+            "id": "emp-cs-002",
+            "name": "Pooja Hegde",
+            "role": "Technical Account Manager",
+            "department": "Customer Success",
+            "tenure_months": 26,
+            "engagement_score": 1.4,
+            "time_since_promotion_months": 24,
+            "overtime_hours": 21.0,
+            "JobLevel": 2,
+            "WorkLifeBalance": 1,
+            "skills": ["Client Escalations", "Enterprise SLA", "Zendesk", "Customer Advocacy"],
+            "recommendedAction": "Rebalance enterprise tier workload and trigger stagnation leveling calibration."
+        },
+        {
+            "id": "emp-cs-003",
+            "name": "Akash Chawla",
+            "role": "Tier 2 Support Specialist",
+            "department": "Customer Success",
+            "tenure_months": 11,
+            "engagement_score": 3.4,
+            "time_since_promotion_months": 11,
+            "overtime_hours": 4.0,
+            "JobLevel": 1,
+            "WorkLifeBalance": 3,
+            "skills": ["Troubleshooting", "API Debugging", "Log Analysis", "Jira Service Desk"],
+            "recommendedAction": "Enroll in TAM career progression mentorship program."
+        },
+
+        # ── 6. Finance & Operations ───────────────────────────────────────────
+        {
+            "id": "emp-fin-001",
+            "name": "Rajesh Nambiar",
+            "role": "Head of Financial Planning (FP&A)",
+            "department": "Finance & Operations",
+            "tenure_months": 36,
+            "engagement_score": 3.7,
+            "time_since_promotion_months": 12,
+            "overtime_hours": 6.0,
+            "JobLevel": 3,
+            "WorkLifeBalance": 3,
+            "skills": ["Corporate Finance", "Fiscal Forecasting", "Budget Allocation", "Compliance"],
+            "recommendedAction": "Oversee enterprise financial automation and audit governance."
+        },
+        {
+            "id": "emp-fin-002",
+            "name": "Tanvi Joshi",
+            "role": "Operations & Procurement Specialist",
+            "department": "Finance & Operations",
+            "tenure_months": 18,
+            "engagement_score": 1.7,
+            "time_since_promotion_months": 18,
+            "overtime_hours": 16.0,
+            "JobLevel": 1,
+            "WorkLifeBalance": 2,
+            "skills": ["Vendor Management", "Contract Governance", "SAP ERP", "Cost Optimization"],
+            "recommendedAction": "Automate routine invoice approvals and approve remote flexibility."
+        },
+
+        # ── 7. Cybersecurity & IT Infrastructure ──────────────────────────────
+        {
+            "id": "emp-sec-001",
+            "name": "Karthik Venkatesh",
+            "role": "Principal Security Architect",
+            "department": "Cybersecurity & IT",
+            "tenure_months": 40,
+            "engagement_score": 3.9,
+            "time_since_promotion_months": 8,
+            "overtime_hours": 5.0,
+            "JobLevel": 4,
+            "WorkLifeBalance": 3,
+            "skills": ["Zero Trust", "Cloud Security", "SOC2 Compliance", "Threat Modeling"],
+            "recommendedAction": "Lead upcoming SOC2 Type II certification and executive vulnerability assessments."
+        },
+        {
+            "id": "emp-sec-002",
+            "name": "Simran Kaur",
+            "role": "SOC Analyst & Incident Responder",
+            "department": "Cybersecurity & IT",
+            "tenure_months": 14,
+            "engagement_score": 1.3,
+            "time_since_promotion_months": 14,
+            "overtime_hours": 23.0,
+            "JobLevel": 1,
+            "WorkLifeBalance": 1,
+            "skills": ["SIEM", "Splunk", "Penetration Testing", "Network Forensics"],
+            "recommendedAction": "Institute relief shift scheduling to reduce high alert-fatigue burnout."
+        },
+
+        # ── 8. Design & User Experience ───────────────────────────────────────
+        {
+            "id": "emp-des-001",
+            "name": "Meera Joshi",
+            "role": "Lead Design Systems Architect",
+            "department": "Design & UX",
+            "tenure_months": 30,
+            "engagement_score": 3.8,
+            "time_since_promotion_months": 6,
+            "overtime_hours": 3.0,
+            "JobLevel": 3,
+            "WorkLifeBalance": 4,
+            "skills": ["Figma", "Design Tokens", "Accessibility (a11y)", "Design Systems"],
+            "recommendedAction": "Encourage design workshop facilitation and cross-company token adoption."
+        },
+        {
+            "id": "emp-des-002",
+            "name": "Varun Tandon",
+            "role": "Senior UI/UX Researcher",
+            "department": "Design & UX",
+            "tenure_months": 25,
+            "engagement_score": 1.9,
+            "time_since_promotion_months": 25,
+            "overtime_hours": 15.0,
+            "JobLevel": 2,
+            "WorkLifeBalance": 2,
+            "skills": ["Usability Testing", "Wireframing", "User Personas", "Prototyping"],
+            "recommendedAction": "Conduct leveling review for Principal Track and authorize 15% Project-Swap rotation."
+        },
+
+        # ── 9. Human Resources ────────────────────────────────────────────────
         {
             "id": "emp-hr-001",
             "name": "Kavita Deshmukh",
@@ -191,7 +383,7 @@ def seed_database():
             "JobLevel": 3,
             "WorkLifeBalance": 3,
             "skills": ["Employee Relations", "Talent Management", "Conflict Resolution"],
-            "recommendedAction": "Lead upcoming company-wide retention strategy program."
+            "recommendedAction": "Lead upcoming company-wide retention strategy and onboarding revamp."
         },
         {
             "id": "emp-hr-002",
@@ -208,7 +400,7 @@ def seed_database():
             "recommendedAction": "Outsource high-volume screening tasks to relieve hiring burden."
         },
 
-        # Marketing Department
+        # ── 10. Marketing Department ──────────────────────────────────────────
         {
             "id": "emp-mkt-001",
             "name": "Diya Sen",
@@ -236,26 +428,11 @@ def seed_database():
             "WorkLifeBalance": 4,
             "skills": ["Copywriting", "Brand Strategy", "Social Media", "PR"],
             "recommendedAction": "Continue empowering content creation for international marketing campaigns."
-        },
-        {
-            "id": "emp-eng-005",
-            "name": "Ishaan Saxena",
-            "role": "Data Engineer",
-            "department": "Engineering",
-            "tenure_months": 5,
-            "engagement_score": 1.1,
-            "time_since_promotion_months": 5,
-            "overtime_hours": 22.0,
-            "JobLevel": 1,
-            "WorkLifeBalance": 1,
-            "skills": ["PySpark", "Snowflake", "Airflow", "ETL"],
-            "recommendedAction": "Conduct immediate 1-on-1 to address onboarding bottlenecks and high overtime."
         }
     ]
 
     count = 0
     for emp_data in demo_employees:
-        # Prepare ML feature dictionary
         feature_dict = {
             "tenure_months": emp_data["tenure_months"],
             "engagement_score": emp_data["engagement_score"],
@@ -291,7 +468,7 @@ def seed_database():
         count += 1
 
     db.commit()
-    print(f"Successfully seeded database with {count} realistic demo employees.")
+    print(f"Successfully seeded database with {count} realistic demo employees across 10 specialized departments.")
     db.close()
 
 if __name__ == "__main__":
